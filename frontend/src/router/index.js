@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Singup from '../views/Singup.vue'
 import Profile from '../views/Profile.vue'
+import Navbar from '../views/Navbar.vue'
 
 const routes = [
   {
@@ -33,6 +34,11 @@ const routes = [
     name: 'Profile',
     component: Profile
   },
+  {
+    path: '/navbar',
+    name : Navbar,
+    component : Navbar
+  }
 ]
 
 const router = createRouter({
