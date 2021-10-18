@@ -4,11 +4,13 @@ import Main from '../views/Main.vue'
 import Login from '../views/Login.vue'
 import Singup from '../views/Singup.vue'
 import Profile from '../views/Profile.vue'
+import Category from '../views/Category.vue'
+
 
 const routes = [
   {
     path: '/',
-    name : Main,
+    name : "Main",
     component : Main,
 
   },
@@ -26,6 +28,13 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile
+  },  
+  {
+    path: '/category',
+    name: 'Category',
+    component: Category,
+    props : {category : ""},
+    // params : {category : ""},
   },
 
 ]
