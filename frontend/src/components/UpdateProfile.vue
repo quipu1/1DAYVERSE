@@ -1,0 +1,184 @@
+<template>
+  <div>
+    <div id="my-modal" class="container">
+      <form action="#" class="modal">
+        <input type="file" name="image" id="image" ref="files" required @change="setThumbnail" class="image-input"/>
+        <img v-if="image_url" :src="image_url" alt="" class="user-image">
+        <div class="form-element">
+          <input type="username" name="username" v-model="username" id="username" required />
+          <label class="floating-label" for="username">Enter Your user username</label>
+          <div v-if="username === ''" class="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+              <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+              <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+            </svg>
+            <span>
+              username을 입력해주세요.
+            </span>
+          </div>
+        </div>
+        <div class="form-element">
+          <input type="birth" name="birth" v-model="birth" id="birth" required />
+          <label class="floating-label" for="birth">Enter Your user birth</label>
+          <div v-if="birth === ''" class="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+              <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+              <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+            </svg>
+            <span>
+              birth를 입력해주세요.
+            </span>
+          </div>
+        </div>
+        <div class="form-element">
+          <input type="phone" name="phone" v-model="phone" id="phone" required />
+          <label class="floating-label" for="phone">Enter Your user phone</label>
+          <div v-if="phone === ''" class="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+              <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+              <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+            </svg>
+            <span>
+              비밀번호를 입력해주세요.
+            </span>
+          </div>
+        </div>
+        <button class="btn cancle activate" @click="close">cancle</button>
+        <button v-if="image && username && birth && phone" class="btn update activate">Update</button>
+        <button v-else class="btn nonactive" @click="update">Update</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      image: '',
+      image_url: '',
+      username: 'asdfj',
+      birth: '120938',
+      phone: '01023',
+    }
+  },
+  methods: {
+    setThumbnail() { 
+      this.image = this.$refs.files.files[0]
+      this.image_url = URL.createObjectURL(this.image)
+    },
+    close() {
+      // modal close emit
+    },
+  }
+}
+</script>
+
+<style scoped>
+.container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: auto;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.modal {
+  margin: 10% auto;
+  width: 40%;
+  min-width: 400px;
+  max-width: 600px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  animation-name: modalopen;
+  animation-duration: var(--modal-duration);
+  padding: 10px 20px;
+  background: #ceb3ce;
+  border-radius: 10px;
+}
+
+
+.container .form-element {
+  position: relative;
+  padding-bottom: 16px;
+}
+.form-element input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px 20px 0 20px;
+  height: 50px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #F6F6F6;
+  color: #000000;
+}
+.floating-label {
+  box-sizing: border-box;
+  position: absolute;
+  top: 25%;
+  left: 20px;
+  font-size: 14px;
+  cursor: text;
+  color: #8c8c8c;
+  transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease;
+  transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease,
+    -webkit-transform 0.1s ease, -moz-transform 0.1s ease,
+    -o-transform 0.1s ease;
+}
+input:focus ~ .floating-label,
+input:valid ~ .floating-label {
+  font-size: 11px;
+  top: 7px;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+.alert {
+  position: absolute;
+  top: 20%;
+  right: 0%;
+  color: rgba(255, 97, 97, 0.822);
+  text-align: start;
+  font-size: 0.8rem;
+  padding: 0 1rem;
+  vertical-align: top;
+  display: flex;
+  align-content: center;
+  margin-top: 0.3rem;
+}
+
+.image-input{
+  width: 100%;
+  margin: 16px 0;
+}
+.user-image {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.btn {
+  width: 20%;
+  height: 30px;
+  margin: 0 12px;
+  margin-bottom: 16px;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+  color: #ffffff;
+}
+.active {
+  cursor: pointer;
+}
+.nonactive {
+  background-color: gray;
+}
+.cancle {
+  background-color: red;
+}
+.update {
+  background-color: rgb(75, 145, 75);
+}
+</style>
