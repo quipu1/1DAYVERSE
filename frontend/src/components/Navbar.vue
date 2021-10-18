@@ -5,10 +5,10 @@
       <div style="display:flex; justify-content:center;" id="dropdown">
         <button @click="showMenu" class='dropdown-btn'>전체 카테고리 <i class="fas fa-caret-down" style="background-color:none; color:#EEAEF9;"></i></button>
         <div class='dropdown-list-container'>
-          <a href="#">운동</a>
-          <a href="#">취미</a>
-          <a href="#">언어</a>
-          <a href="#">기타</a>
+          <a href="#" @click="goToHealthCategory">운동</a>
+          <a href="#" @click="goToHobbyCategory">취미</a>
+          <a href="#" @click="goToLanguageCategory">언어</a>
+          <a href="#" @click="goToETCCategory">기타</a>
         </div>
       </div>
       <div class="btn" @click="makeClass"><span v-show="isTeacher">강의 생성</span></div>
@@ -43,16 +43,16 @@ export default {
   methods : {
     showMenu(){
       const dropdownBtn = document.querySelector("dropdown-btn");
-      const arrow = document.querySelector("fa-caret-down")
+      // const arrow = document.querySelector("fa-caret-down")
       const dropdownListContainer = document.querySelector(".dropdown-list-container");
       if (dropdownListContainer.style.display=="none"){
         dropdownListContainer.style.display="block";
         dropdownBtn.style.backgroundColor="#DBBFFF"
-        arrow.style.transform='rotate('+90+'deg);'
+        // arrow.style.transform='rotate('+90+'deg);'
       }else{
         dropdownListContainer.style.display="none"
         dropdownBtn.style.backgroundColor="transparent"
-        arrow.style.transform='rotate('+90+'deg);'
+        // arrow.style.transform='rotate('+90+'deg);'
 
       }
     },
@@ -66,20 +66,26 @@ export default {
       alert('내 정보 페이지로 이동')
     },
     goToSignupPage(){
-      alert('회원가입 페이지로 이동')
+      this.$router.push({name : "Singup"})
     },
     logout(){
       if(confirm('로그아웃 하시겠습니까?')){
         alert('로그아웃')
+        this.$router.push({name : "Login"})
       }else{
         alert('취소 되었습니다.')
       }
     },
     login(){
-      alert('로그인 페이지로 이동')
+      this.$router.push({name : "Login"})
+
     },
     goToMainPage(){
-      alert('메인 페이지로 이동')
+      this.$router.push({name : "Main"})
+
+    },
+    goToHealthCategory(){
+      this.$router.push({name : "Category", params: "health"})
     }
   }
 
@@ -95,6 +101,7 @@ nav{
   width: 100%;
   background-color: #FFEEF7;
   height: 10%;
+  /* margin-bottom: 5%; */
 }
 #logoImage{
   width: 30%;
@@ -131,6 +138,7 @@ nav{
   margin-top:2rem;
   transition: all .25s linear;
   border-radius: 5px;
+  z-index: 10;
 }
 .dropdown-list-container a {
   font-size: 1.1rem;
