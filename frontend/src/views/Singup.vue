@@ -2,6 +2,19 @@
   <div>
     <h1>Sign Up</h1>
     <form action="#" class="container">
+      <div>
+        <p class="radio-text">Select Your Job</p>
+        <div class="radio">
+          <div class="radio-input">
+            <input type="radio" id="student" v-model="job" name="job" value="student" checked>
+            <label for="student">student</label>
+          </div>
+          <div class="radio-input">
+            <input type="radio" id="professor" v-model="job" name="job" value="professor">
+            <label for="professor">professor</label>
+          </div>
+        </div>
+      </div>
       <div class="form-element">
         <input type="text" name="userid" v-model="userId" id="userid" required/>
         <label class="floating-label" for="username">Enter Your User ID
@@ -56,6 +69,7 @@
   export default {
     data() {
       return {
+        job: 'student',
         userId: '',
         email: '',
         password: '',
@@ -160,5 +174,17 @@ input:-webkit-autofill:focus {
   display: flex;
   align-content: center;
   margin-top: 0.3rem;
+}
+.radio {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 1rem;
+}
+.radio-text {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.radio-input {
+  margin: 0 1rem;
 }
 </style>

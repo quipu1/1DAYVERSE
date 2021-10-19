@@ -1,52 +1,72 @@
 <template>
   <div>
     <div id="my-modal" class="container">
-      <form action="#" class="modal">
-        <input type="file" name="image" id="image" ref="files" required @change="setThumbnail" class="image-input"/>
-        <img v-if="image_url" :src="image_url" alt="" class="user-image">
-        <div class="form-element">
-          <input type="username" name="username" v-model="username" id="username" required />
-          <label class="floating-label" for="username">Enter Your user username</label>
-          <div v-if="username === ''" class="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
-              <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
-              <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
-            </svg>
-            <span>
-              username을 입력해주세요.
-            </span>
+      <div class="modal" v-if="!delete_modal">
+        <form action="#">
+          <div class="profile-text">Profile Image</div>
+          <input type="file" name="image" id="image" ref="files" required @change="setThumbnail" class="image-input"/>
+          <img v-if="image_url" :src="image_url" alt="" class="user-image">
+          <div class="form-element">
+            <input type="username" name="username" v-model="username" id="username" required />
+            <label class="floating-label" for="username">Enter Your user username</label>
+            <div v-if="username === ''" class="alert">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+              </svg>
+              <span>
+                username을 입력해주세요.
+              </span>
+            </div>
           </div>
-        </div>
-        <div class="form-element">
-          <input type="birth" name="birth" v-model="birth" id="birth" required />
-          <label class="floating-label" for="birth">Enter Your user birth</label>
-          <div v-if="birth === ''" class="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
-              <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
-              <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
-            </svg>
-            <span>
-              birth를 입력해주세요.
-            </span>
+          <div class="form-element">
+            <input type="birth" name="birth" v-model="birth" id="birth" required />
+            <label class="floating-label" for="birth">Enter Your user birth</label>
+            <div v-if="birth === ''" class="alert">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+              </svg>
+              <span>
+                birth를 입력해주세요.
+              </span>
+            </div>
           </div>
-        </div>
-        <div class="form-element">
-          <input type="phone" name="phone" v-model="phone" id="phone" required />
-          <label class="floating-label" for="phone">Enter Your user phone</label>
-          <div v-if="phone === ''" class="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
-              <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
-              <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
-            </svg>
-            <span>
-              비밀번호를 입력해주세요.
-            </span>
+          <div class="form-element">
+            <input type="phone" name="phone" v-model="phone" id="phone" required />
+            <label class="floating-label" for="phone">Enter Your user phone</label>
+            <div v-if="phone === ''" class="alert">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+              </svg>
+              <span>
+                비밀번호를 입력해주세요.
+              </span>
+            </div>
           </div>
-        </div>
-        <button class="btn cancle activate" @click="close">cancle</button>
-        <button v-if="image && username && birth && phone" class="btn update activate">Update</button>
-        <button v-else class="btn nonactive" @click="update">Update</button>
-      </form>
+          <button class="btn cancle activate" @click="$emit('close')">cancle</button>
+          <button v-if="image && username && birth && phone" class="btn update activate">Update</button>
+          <button v-else class="btn nonactive" @click="update">Update</button>
+        </form>
+        <button class="delete" @click="changeDelete">회원탈퇴하기</button>
+      </div>
+      <div class="modal" v-else>
+        <form action="">
+          <p class="radio-text">정말로 삭제하시겠습니까?</p>
+          <div class="radio">
+            <div class="radio-input">
+              <input type="radio" id="student" v-model="delete_user" value="" checked>
+              <label for="student">No</label>
+            </div>
+            <div class="radio-input">
+              <input type="radio" id="professor" v-model="delete_user" value="delete">
+              <label for="professor">Yes</label>
+            </div>
+          </div>
+          <button class="btn delete-btn" @click="submitDelete">Sunmit</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +80,8 @@ export default {
       username: 'asdfj',
       birth: '120938',
       phone: '01023',
+      delete_modal: false,
+      delete_user: false,
     }
   },
   methods: {
@@ -67,9 +89,18 @@ export default {
       this.image = this.$refs.files.files[0]
       this.image_url = URL.createObjectURL(this.image)
     },
-    close() {
-      // modal close emit
+    changeDelete() {
+      this.delete_modal = !this.delete_modal
     },
+    submitDelete() {
+      if (this.delete_user != "delete") {
+        this.delete_modal = !this.delete_modal
+      }
+      else {
+        alert('삭제되었습니다.')
+        // this.$swal('Hello Vue world!!!')
+      }
+    }
   }
 }
 </script>
@@ -149,16 +180,18 @@ input:-webkit-autofill:focus {
   align-content: center;
   margin-top: 0.3rem;
 }
-
 .image-input{
   width: 100%;
-  margin: 16px 0;
+  margin: 8px 0 16px 0;
 }
 .user-image {
-  width: 100%;
+  width: 30vw;
+  height: 30vw;
+  max-width: 300px;
+  max-height: 300px;
   margin-bottom: 16px;
+  border-radius: 100%;
 }
-
 .btn {
   width: 20%;
   height: 30px;
@@ -180,5 +213,32 @@ input:-webkit-autofill:focus {
 }
 .update {
   background-color: rgb(75, 145, 75);
+}
+.profile-text {
+  margin-top: 16px;
+  text-align: left;
+  font-weight: bold;
+}
+.delete {
+  font-size: 0.7rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.radio {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 1rem;
+}
+.radio-text {
+  font-weight: bold;
+  font-size: 1rem;
+}
+.radio-input {
+  margin: 0 1rem;
+}
+.delete-btn {
+  background-color: gray;
+  cursor: pointer;
 }
 </style>
