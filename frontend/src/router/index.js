@@ -5,7 +5,7 @@ import Login from '../views/Login.vue'
 import Singup from '../views/Singup.vue'
 import Profile from '../views/Profile.vue'
 import Category from '../views/Category.vue'
-
+import ClassDetail from '../views/ClassDetail.vue'
 
 const routes = [
   {
@@ -36,7 +36,12 @@ const routes = [
     props : {category : ""},
     // params : {category : ""},
   },
-
+  {
+    path : '/classdetail',
+    name : 'ClassDetail',
+    component : ClassDetail,
+    
+  }
 ]
 
 const router = createRouter({
