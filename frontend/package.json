@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "proxy": "https://kapi.kakao.com",
   "version": "0.1.0",
   "private": true,
   "scripts": {

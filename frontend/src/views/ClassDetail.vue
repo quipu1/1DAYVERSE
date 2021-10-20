@@ -52,28 +52,48 @@ export default {
   },
   methods : {
     pay(){
+      // const Form = new URLSearchParams();
+      // Form.append("cid", "TC0ONETIME")
+      // Form.append("partner_order_id", "1001")
+      // Form.append("partner_user_id", "jira")
+      // Form.append("item_name", "name")
+      // Form.append("quantity", "1")
+      // Form.append("total_amount", "10000")
+      // Form.append("tax_free_amount" , "100")
+      // Form.append("approval_url" , "https://developers.kakao.com/success")
+      // Form.append("cancle_url" , "https://developers.kakao.com/fail")
+      // Form.append("fail_url", "https://developers.kakao.com/cancel/")
+
       const Form = {
         "cid" : "TC0ONETIME",
-        "partner_order_id" : "",
-        "partner_user_id" : "",
-        "item_name" : this.cls.name,
+        "partner_order_id" : "1001",
+        "partner_user_id" : "jira",
+        "item_name" : "이름",
         "quantity" : 1,
-        "total_amount" : this.cls.price,
+        "total_amount" : 10000,
         "tax_free_amount" : 100,
-        "approval_url" : "http://localhost:8080/classdetail",
-        "cancel_url" : "http://localhost:8080/classdetail",
-        "fail_url" : "http://localhost:8080/classdetail",
-
-
+        "approval_url" : "https://developers.kakao.com/success",
+        "cancel_url" : "https://developers.kakao.com/fail",
+        "fail_url" : "https://developers.kakao.com/cancel",
       }
+
       const APP_ADMIN_KEY = "	0eb5333f6c1ef20cd388e6e954902b51"
       const Headers = {
-        'Authorization': `KakaoAK ${APP_ADMIN_KEY}`,  
-        'Content-type': "application/x-www-form-urlencoded;charset=utf-8"
+        Authorization: `KakaoAK ${APP_ADMIN_KEY}`, 
+        // 'Access-Control-Allow-Origin': '*', 
+        'Content-type': "application/x-www-form-urlencoded;charset=utf-8",
+        // "Accept" : " MediaType.APPLICATION_JSON_UTF8_VALUE",
       }
-      axios.post('https://kapi.kakao.com/v1/payment/ready', Form, {Headers})
+
+      axios.post('https://kapi.kakao.com/v1/payment/ready',null, {
+        headers : Headers,
+        params : Form,
+      })
       .then((res)=>{
         console.log(res)
+      })
+      .catch((err)=>{
+        console.log(err)
       })
       
     }
