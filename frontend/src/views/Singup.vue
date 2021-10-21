@@ -15,9 +15,9 @@
           </div>
         </div>
       </div>
-      <div class="form-element">
+      <div class="form-element username-form">
         <input type="text" name="userid" v-model="userId" id="userid" required/>
-        <label class="floating-label" for="username">Enter Your User ID
+        <label class="floating-label" for="username">User ID
         </label>
         <div v-if="userId === ''" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
@@ -31,7 +31,7 @@
       </div>
       <div class="form-element">
         <input type="text" name="email" v-model="email" id="email" required />
-        <label class="floating-label" for="email">Enter Your Email</label>
+        <label class="floating-label" for="email">Email Address</label>
         <div v-if="email === '' || email_error" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
             <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
@@ -44,11 +44,11 @@
       </div>
       <div class="form-element">
         <input type="password" name="password" v-model="password" id="password" required />
-        <label class="floating-label" for="password">Enter Your user Password</label>
+        <label class="floating-label" for="password">Password</label>
       </div>
       <div class="form-element">
         <input type="password" name="password_confirm" v-model="password_confirm" id="password_confirm" required />
-        <label class="floating-label" for="password_confirm">Confirm Your User Password</label>
+        <label class="floating-label" for="password_confirm">Password Confirm</label>
         <div v-if="password === '' || password != password_confirm" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
             <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
@@ -59,7 +59,33 @@
           </span>
         </div>
       </div>
-      <button class="btn active" v-if="userId && email && !email_error && password_confirm && password === password_confirm">Sign Up</button>
+      <div class="form-element">
+        <input type="text" name="birth" v-model="birth" id="birth" required />
+        <label class="floating-label" for="birth">Birth ex) 2000.01.01</label>
+        <div v-if="birth==='' || birth_error" class="alert">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+          </svg>
+          <span>
+            생일을 입력해주세요.
+          </span>
+        </div>
+      </div>
+      <div class="form-element">
+        <input type="text" name="phone" v-model="phone" id="phone" required />
+        <label class="floating-label" for="phone">Phone Number ex) 01012345678</label>
+        <div v-if="phone === '' || phone_error" class="alert">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+          </svg>
+          <span>
+            핸드폰 번호를 확인해주세요.
+          </span>
+        </div>
+      </div>
+      <button class="btn active" v-if="!singup_error">Sign Up</button>
       <button class="btn nonactive" v-else>Sign Up</button>
     </form>
   </div>
@@ -74,22 +100,73 @@
         email: '',
         password: '',
         password_confirm: '',
+        birth: '',
+        phone: '',
       }
     },
     computed: {
       email_error() {
+        var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+        console.log(regExp)
         if (this.email != '') {
-          var lst = this.email.split("@")
-          if (lst.length != 2) {
-            return true
+          console.log(this.email.match(regExp))
+          if (this.email.match(regExp) != null) {
+            return false
           }
-          var pattern = lst[1].split(".")
-          if (pattern.length != 2) {
-            return true
-          }
-          return false
-          }
+        }
         return true
+      },
+      phone_error() {
+        var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
+        console.log(regExp)
+        if (this.phone != '') {
+          console.log(this.phone.match(regExp))
+          if (this.phone.match(regExp) != null) {
+            return false
+          }
+        }
+        return true
+      },
+      birth_error() {
+        var regExp = /^(19[0-9][0-9]|20\d{2}).(0[0-9]|1[0-2]).(0[1-9]|[1-2][0-9]|3[0-1])$/
+        console.log(regExp)
+        if (this.birth != '') {
+          console.log(this.birth.match(regExp))
+          if (this.birth.match(regExp) != null) {
+            return false
+          }
+        }
+        return true
+      },
+      singup_error() {
+        if (this.userId ==='') {
+          return true
+        }
+        else if (this.email ==='') {
+          return true
+        }
+        else if (this.email_error) {
+          return true
+        }
+        else if (this.password ==='') {
+          return true
+        }
+        else if (this.password != this.password_confirm) {
+          return true
+        }
+        else if (this.birth === '') {
+          return true
+        }
+        else if (this.birth_error) {
+          return true
+        }
+        else if (this.phone === '') {
+          return true
+        }
+        else if (this.phone_error) {
+          return true
+        }
+        return false
       }
     },
     methods: {
