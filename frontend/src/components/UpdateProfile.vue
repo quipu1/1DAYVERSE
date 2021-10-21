@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div id="my-modal" class="container">
+    <div v-if="modal" id="my-modal" class="container">
       <div class="modal" v-if="!delete_modal">
         <form action="#">
           <div class="profile-text">Profile Image</div>
-          <input type="file" name="image" id="image" ref="files" required @change="setThumbnail" class="image-input"/>
+          <!-- <input type="file" name="image" id="image" ref="files" required @change="setThumbnail" class="image-input"/> -->
           <img v-if="image_url" :src="image_url" alt="" class="user-image">
           <div class="form-element">
             <input type="username" name="username" v-model="username" id="username" required />
@@ -52,20 +52,26 @@
         <button class="delete" @click="changeDelete">회원탈퇴하기</button>
       </div>
       <div class="modal" v-else>
-        <form action="">
-          <p class="radio-text">정말로 삭제하시겠습니까?</p>
-          <div class="radio">
-            <div class="radio-input">
-              <input type="radio" id="student" v-model="delete_user" value="" checked>
-              <label for="student">No</label>
+        <div v-if="!deleted">
+          <form action="">
+            <p class="radio-text">정말로 삭제하시겠습니까?</p>
+            <div class="radio">
+              <div class="radio-input">
+                <input type="radio" id="student" v-model="delete_user" value="" checked>
+                <label for="student">No</label>
+              </div>
+              <div class="radio-input">
+                <input type="radio" id="professor" v-model="delete_user" value="delete">
+                <label for="professor">Yes</label>
+              </div>
             </div>
-            <div class="radio-input">
-              <input type="radio" id="professor" v-model="delete_user" value="delete">
-              <label for="professor">Yes</label>
-            </div>
-          </div>
-          <button class="btn delete-btn" @click="submitDelete">Sunmit</button>
-        </form>
+            <button class="btn delete-btn" @click="submitDelete">Sunmit</button>
+          </form>
+        </div>
+        <div v-else>
+          <h3 class="profile-text">탈퇴되셨습니다.</h3>
+          <button class="btn delete-btn">To Main</button>
+        </div>
       </div>
     </div>
   </div>
@@ -80,8 +86,18 @@ export default {
       username: 'asdfj',
       birth: '120938',
       phone: '01023',
+      // 유저 삭제 모달 변수
       delete_modal: false,
+      // 유저 삭제 변수
       delete_user: false,
+      // 삭제 결과 변수
+      deleted: false,
+    }
+  },
+  props: {
+    // 전체 모달 변수
+    modal: {
+      type: Boolean
     }
   },
   methods: {
@@ -93,13 +109,7 @@ export default {
       this.delete_modal = !this.delete_modal
     },
     submitDelete() {
-      if (this.delete_user != "delete") {
-        this.delete_modal = !this.delete_modal
-      }
-      else {
-        alert('삭제되었습니다.')
-        // this.$swal('Hello Vue world!!!')
-      }
+      this.deleted = !this.deleted
     }
   }
 }
@@ -215,9 +225,10 @@ input:-webkit-autofill:focus {
   background-color: rgb(75, 145, 75);
 }
 .profile-text {
-  margin-top: 16px;
-  text-align: left;
+  margin-top: 1rem;
+  text-align: center;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 .delete {
   font-size: 0.7rem;
@@ -233,6 +244,7 @@ input:-webkit-autofill:focus {
 .radio-text {
   font-weight: bold;
   font-size: 1rem;
+  margin: 1rem 1rem;
 }
 .radio-input {
   margin: 0 1rem;
