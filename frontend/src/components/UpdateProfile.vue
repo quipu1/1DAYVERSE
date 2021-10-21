@@ -3,7 +3,7 @@
     <div v-if="modal" id="my-modal" class="container">
       <div class="modal" v-if="!delete_modal">
         <form action="#">
-          <div class="profile-text">Profile Image</div>
+          <div class="profile-text">Update Profile</div>
           <!-- <input type="file" name="image" id="image" ref="files" required @change="setThumbnail" class="image-input"/> -->
           <img v-if="image_url" :src="image_url" alt="" class="user-image">
           <div class="form-element">
@@ -22,31 +22,31 @@
           <div class="form-element">
             <input type="birth" name="birth" v-model="birth" id="birth" required />
             <label class="floating-label" for="birth">Enter Your user birth</label>
-            <div v-if="birth === ''" class="alert">
+            <div v-if="birth === '' || birth_error" class="alert">
               <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
                 <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
                 <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
               </svg>
               <span>
-                birth를 입력해주세요.
+                생일을 입력해주세요.
               </span>
             </div>
           </div>
           <div class="form-element">
             <input type="phone" name="phone" v-model="phone" id="phone" required />
             <label class="floating-label" for="phone">Enter Your user phone</label>
-            <div v-if="phone === ''" class="alert">
+            <div v-if="phone === '' || phone_error" class="alert">
               <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
                 <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
                 <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
               </svg>
               <span>
-                비밀번호를 입력해주세요.
+                핸드폰 번호를 입력해주세요.
               </span>
             </div>
           </div>
           <button class="btn cancle activate" @click="$emit('close')">cancle</button>
-          <button v-if="image && username && birth && phone" class="btn update activate">Update</button>
+          <button v-if="!update_error" class="btn update activate">Update</button>
           <button v-else class="btn nonactive" @click="update">Update</button>
         </form>
         <button class="delete" @click="changeDelete">회원탈퇴하기</button>
@@ -65,12 +65,12 @@
                 <label for="professor">Yes</label>
               </div>
             </div>
-            <button class="btn delete-btn" @click="submitDelete">Sunmit</button>
+            <button class="btn delete-btn" @click="submitDelete">Submit</button>
           </form>
         </div>
         <div v-else>
           <h3 class="profile-text">탈퇴되셨습니다.</h3>
-          <button class="btn delete-btn">To Main</button>
+          <button class="btn delete-btn" @click="toMain">To Main</button>
         </div>
       </div>
     </div>
@@ -79,6 +79,7 @@
 
 <script>
 export default {
+  name: "UpateProfile",
   data() {
     return {
       image: '',
@@ -88,7 +89,7 @@ export default {
       phone: '01023',
       // 유저 삭제 모달 변수
       delete_modal: false,
-      // 유저 삭제 변수
+      // 유저 삭제
       delete_user: false,
       // 삭제 결과 변수
       deleted: false,
@@ -100,6 +101,35 @@ export default {
       type: Boolean
     }
   },
+  computed: {
+    phone_error() {
+        var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
+        if (this.phone != '') {
+          if (this.phone.match(regExp) != null) {
+            return false
+          }
+        }
+        return true
+      },
+      birth_error() {
+        var regExp = /^(19[0-9][0-9]|20\d{2}).(0[0-9]|1[0-2]).(0[1-9]|[1-2][0-9]|3[0-1])$/
+        if (this.birth != '') {
+          if (this.birth.match(regExp) != null) {
+            return false
+          }
+        }
+        return true
+      },
+      update_error() {
+        if (this.userId ==='' || this.birth === '' || this.phone === '') {
+          return true
+        }
+        else if (this.birth_error || this.phone_error) {
+          return true
+        }
+        return false
+      }
+  },
   methods: {
     setThumbnail() { 
       this.image = this.$refs.files.files[0]
@@ -110,6 +140,9 @@ export default {
     },
     submitDelete() {
       this.deleted = !this.deleted
+    },
+    toMain() {
+      this.$router.push({ name: 'Main'})
     }
   }
 }

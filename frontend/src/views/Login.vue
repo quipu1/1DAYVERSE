@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Login</h1>
+    <h1 class="title">Login</h1>
     <form action="#" class="container">
       <div class="form-element">
         <input type="text" name="userid" v-model="userId" id="userid" required />
@@ -28,7 +28,7 @@
           </span>
         </div>
       </div>
-      <button class="btn active" v-if="userId && password">Sign In</button>
+      <button class="btn active main-pink" v-if="userId && password">Sign In</button>
       <button class="btn nonactive" v-else>Sign In</button>
     </form>
   </div>
@@ -36,6 +36,7 @@
 
 <script>
   export default {
+    name: "Login",
     data() {
       return {
         userId: '',
@@ -50,11 +51,20 @@ body {
   font-size: 16px;
   text-align: start;
 }
+.title
+{
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 3rem;
+}
 .container {
   display: block;
-  width: 450px;
+  width: 600px;
   margin: 50px auto;
   border-radius: 4px;
+  padding: 50px;
+  border-radius: 8px;
+  background: rgb(255, 234, 237);
 }
 .container .form-element {
   position: relative;
@@ -93,11 +103,9 @@ body {
   border-radius: 30px;
   border: none;
   color: #ffffff;
-  background-color: #F4C7F5;
 }
 .active {
   cursor: pointer;
-  background-color: #F4C7F5;
 }
 .nonactive {
   background-color: gray;
