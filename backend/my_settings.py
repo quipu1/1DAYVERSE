@@ -1,7 +1,7 @@
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'oneday',
+        'NAME': 'onedaydb',
         'USER': 'oneclass',
         'PASSWORD': '1day',
         'HOST': 'k5c202.p.ssafy.io',
