@@ -27,19 +27,45 @@
         </div>
       </section>
     </main>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name : "Main",
   components : {
     Navbar,
+    Footer,
   }
 }
 </script>
+
+<style>
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'GmarketSansMedium';
+}
+.main-pink{
+  background-color: #C86B98;
+}
+.main-purple{
+  background-color: #8D3DA5;
+}
+.main-blue{
+  background-color: #202D91;
+}
+
+</style>
 
 <style scoped>
 *, *:before, *:after {

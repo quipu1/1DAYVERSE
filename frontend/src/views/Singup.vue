@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Sign Up</h1>
+    <h1 class="title">Sign Up</h1>
     <form action="#" class="container">
       <div>
         <p class="radio-text">Select Your Job</p>
@@ -61,7 +61,7 @@
       </div>
       <div class="form-element">
         <input type="text" name="birth" v-model="birth" id="birth" required />
-        <label class="floating-label" for="birth">Birth ex) 2000.01.01</label>
+        <label class="floating-label" for="birth">Birth ex)2000.01.01</label>
         <div v-if="birth==='' || birth_error" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
             <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
@@ -74,7 +74,7 @@
       </div>
       <div class="form-element">
         <input type="text" name="phone" v-model="phone" id="phone" required />
-        <label class="floating-label" for="phone">Phone Number ex) 01012345678</label>
+        <label class="floating-label" for="phone">Phone Number ex)01012345678</label>
         <div v-if="phone === '' || phone_error" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
             <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
@@ -85,7 +85,7 @@
           </span>
         </div>
       </div>
-      <button class="btn active" v-if="!singup_error">Sign Up</button>
+      <button class="btn active main-pink" v-if="!singup_error">Sign Up</button>
       <button class="btn nonactive" v-else>Sign Up</button>
     </form>
   </div>
@@ -93,6 +93,7 @@
 
 <script>
   export default {
+    name: "Signup",
     data() {
       return {
         job: 'student',
@@ -107,9 +108,7 @@
     computed: {
       email_error() {
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
-        console.log(regExp)
         if (this.email != '') {
-          console.log(this.email.match(regExp))
           if (this.email.match(regExp) != null) {
             return false
           }
@@ -118,9 +117,7 @@
       },
       phone_error() {
         var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
-        console.log(regExp)
         if (this.phone != '') {
-          console.log(this.phone.match(regExp))
           if (this.phone.match(regExp) != null) {
             return false
           }
@@ -129,9 +126,7 @@
       },
       birth_error() {
         var regExp = /^(19[0-9][0-9]|20\d{2}).(0[0-9]|1[0-2]).(0[1-9]|[1-2][0-9]|3[0-1])$/
-        console.log(regExp)
         if (this.birth != '') {
-          console.log(this.birth.match(regExp))
           if (this.birth.match(regExp) != null) {
             return false
           }
@@ -139,35 +134,17 @@
         return true
       },
       singup_error() {
-        if (this.userId ==='') {
+        if (this.userId ==='' || this.email ==='' || this.password ==='' || this.birth === '' || this.phone === '') {
           return true
         }
-        else if (this.email ==='') {
-          return true
-        }
-        else if (this.email_error) {
-          return true
-        }
-        else if (this.password ==='') {
+        else if (this.email_error || this.birth_error || this.phone_error) {
           return true
         }
         else if (this.password != this.password_confirm) {
           return true
         }
-        else if (this.birth === '') {
-          return true
-        }
-        else if (this.birth_error) {
-          return true
-        }
-        else if (this.phone === '') {
-          return true
-        }
-        else if (this.phone_error) {
-          return true
-        }
         return false
-      }
+      },
     },
     methods: {
     }
@@ -178,11 +155,19 @@
 body {
   font-size: 16px;
 }
+.title
+{
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 3rem;
+}
 .container {
   display: block;
-  width: 450px;
+  width: 600px;
   margin: 50px auto;
-  border-radius: 4px;
+  padding: 50px;
+  border-radius: 8px;
+  background: rgb(255, 234, 237);
 }
 .container .form-element {
   position: relative;
@@ -221,11 +206,9 @@ body {
   border-radius: 30px;
   border: none;
   color: #ffffff;
-  background-color: #F4C7F5;
 }
 .active {
   cursor: pointer;
-  background-color: #F4C7F5;
 }
 .nonactive {
   background-color: gray;
@@ -255,6 +238,7 @@ input:-webkit-autofill:focus {
 .radio {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 1rem 1rem;
 }
 .radio-text {
@@ -262,6 +246,6 @@ input:-webkit-autofill:focus {
   font-size: 1.5rem;
 }
 .radio-input {
-  margin: 0 1rem;
+  margin: auto 1rem;
 }
 </style>
