@@ -1,11 +1,11 @@
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '1dayverse',
-        'USER': 'root',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'NAME': 'oneday',
+        'USER': 'oneclass',
+        'PASSWORD': '1day',
+        'HOST': 'k5c202.p.ssafy.io',
+        'PORT': '52000'
     }
 }
 
