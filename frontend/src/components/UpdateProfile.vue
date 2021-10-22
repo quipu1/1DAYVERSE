@@ -65,12 +65,12 @@
                 <label for="professor">Yes</label>
               </div>
             </div>
-            <button class="btn delete-btn" @click="submitDelete">Submit</button>
+            <button class="btn delete-btn main-purple" @click="submitDelete">Submit</button>
           </form>
         </div>
         <div v-else>
           <h3 class="profile-text">탈퇴되셨습니다.</h3>
-          <button class="btn delete-btn" @click="toMain">To Main</button>
+          <button class="btn delete-btn main-purple" @click="toMain">To Main</button>
         </div>
       </div>
     </div>
@@ -103,32 +103,32 @@ export default {
   },
   computed: {
     phone_error() {
-        var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
-        if (this.phone != '') {
-          if (this.phone.match(regExp) != null) {
-            return false
-          }
+      var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
+      if (this.phone != '') {
+        if (this.phone.match(regExp) != null) {
+          return false
         }
-        return true
-      },
-      birth_error() {
-        var regExp = /^(19[0-9][0-9]|20\d{2}).(0[0-9]|1[0-2]).(0[1-9]|[1-2][0-9]|3[0-1])$/
-        if (this.birth != '') {
-          if (this.birth.match(regExp) != null) {
-            return false
-          }
-        }
-        return true
-      },
-      update_error() {
-        if (this.userId ==='' || this.birth === '' || this.phone === '') {
-          return true
-        }
-        else if (this.birth_error || this.phone_error) {
-          return true
-        }
-        return false
       }
+      return true
+    },
+    birth_error() {
+      var regExp = /^(19[0-9][0-9]|20\d{2}).(0[0-9]|1[0-2]).(0[1-9]|[1-2][0-9]|3[0-1])$/
+      if (this.birth != '') {
+        if (this.birth.match(regExp) != null) {
+          return false
+        }
+      }
+      return true
+    },
+    update_error() {
+      if (this.userId ==='' || this.birth === '' || this.phone === '') {
+        return true
+      }
+      else if (this.birth_error || this.phone_error) {
+        return true
+      }
+      return false
+    }
   },
   methods: {
     setThumbnail() { 
@@ -139,7 +139,12 @@ export default {
       this.delete_modal = !this.delete_modal
     },
     submitDelete() {
-      this.deleted = !this.deleted
+      if (this.delete_user) {
+        this.deleted = !this.deleted
+      }
+      else {
+        this.delete_modal = !this.delete_modal
+      }
     },
     toMain() {
       this.$router.push({ name: 'Main'})
@@ -160,7 +165,7 @@ export default {
 }
 
 .modal {
-  margin: 10% auto;
+  margin: 0 auto;
   width: 40%;
   min-width: 400px;
   max-width: 600px;
@@ -172,7 +177,12 @@ export default {
   border-radius: 10px;
 }
 
-
+.container
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .container .form-element {
   position: relative;
   padding-bottom: 16px;
@@ -283,7 +293,6 @@ input:-webkit-autofill:focus {
   margin: 0 1rem;
 }
 .delete-btn {
-  background-color: gray;
   cursor: pointer;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box">
     <div class="id-card">
       <div class="job">
         <h3 v-if="userjob === 'tutee'" class="job-text">TUTEE ID</h3>
@@ -72,13 +72,19 @@ export default {
 </script>
 
 <style scoped>
+.box
+{
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
 .id-card {
   height: 70vh;
   position: relative;
   background-color: white;
   width: 70%;
   max-width: 1500px;
-  margin: 20px auto;
+  margin: 0 auto;
   box-shadow: 1px 1px 20px 2px rgba(0,0,0,.3);
   border-radius: 20px;
   display: flex;
