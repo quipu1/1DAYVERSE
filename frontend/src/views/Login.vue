@@ -2,6 +2,19 @@
   <div>
     <h1 class="title">Login</h1>
     <form action="#" class="container">
+      <div>
+        <p class="radio-text">Select Your Job</p>
+        <div class="radio">
+          <div class="radio-input">
+            <input type="radio" id="Tutee" v-model="job" name="job" value="Tutee" checked>
+            <label for="Tutee">Tutee(학생)</label>
+          </div>
+          <div class="radio-input">
+            <input type="radio" id="Tutor" v-model="job" name="job" value="Tutor">
+            <label for="Tutor">Tutor(강사)</label>
+          </div>
+        </div>
+      </div>
       <div class="form-element">
         <input type="text" name="userid" v-model="userId" id="userid" required />
         <label class="floating-label" for="username">Enter Your user ID</label>
@@ -31,6 +44,9 @@
       <button class="btn active main-pink" v-if="userId && password">Sign In</button>
       <button class="btn nonactive" v-else>Sign In</button>
     </form>
+    <div class="ease_in_out">
+      <img :src="require('@/assets/bus.png')" class="bus" alt="">
+    </div>
   </div>
 </template>
 
@@ -41,6 +57,7 @@
       return {
         userId: '',
         password: '',
+        job: 'Tutee',
       }
     },
   }
@@ -131,5 +148,40 @@ input:-webkit-autofill:focus {
   display: flex;
   align-content: center;
   margin-top: 0.3rem;
+}
+.radio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 1rem;
+}
+.radio-text {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.radio-input {
+  /* display: flex; */
+  margin: auto 1rem;
+}
+.bus
+{
+  height: 10vw;
+  position: relative;
+  bottom: 2vh;
+  animation: move 8s infinite alternate;
+  overflow: hidden;
+}
+.ease_in_out{
+  top:100px;
+  animation-timing-function:ease-in-out;
+  overflow: hidden;
+}
+@-webkit-keyframes move{
+  from{
+    left: 20vw;
+  }
+  to{
+    left: 70vw;
+  }
 }
 </style>
