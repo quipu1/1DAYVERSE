@@ -4,24 +4,24 @@
     <main>
       <div id="ClassCreateForm">
         <div id="selectTable">
-          <div class="select-component" @click="onClickBtn">강의 제목</div>
-          <div class="select-component" @click="onClickBtn">카테고리</div>
-          <div class="select-component" @click="onClickBtn">강사명</div>
-          <div class="select-component" @click="onClickBtn">강의 내용</div>
-          <div class="select-component" @click="onClickBtn">강의 시간</div>
-          <div class="select-component" @click="onClickBtn">강의 비용</div>
-          <div class="select-component" @click="onClickBtn">강의 크기</div>
-          <div class="select-component" @click="onClickBtn">강의 비밀번호</div>
+          <div class="select-component" @click="onClickBtn('title')" get>강의 제목</div>
+          <div class="select-component" @click="onClickBtn('category')">카테고리</div>
+          <div class="select-component" @click="onClickBtn('tutor')">강사명</div>
+          <div class="select-component" @click="onClickBtn('description')">강의 내용</div>
+          <div class="select-component" @click="onClickBtn('time')">강의 시간</div>
+          <div class="select-component" @click="onClickBtn('cost')">강의 비용</div>
+          <div class="select-component" @click="onClickBtn('size')">강의 크기</div>
+          <div class="select-component" @click="onClickBtn('password')">강의 비밀번호</div>
         </div>
         <div id="selectedArea">
-          <div v-if="idx==1">1</div>
-          <div v-if="idx==2">2</div>
-          <div v-if="idx==3">3</div>
-          <div v-if="idx==3">4</div>
-          <div v-if="idx==5">5</div>
-          <div v-if="idx==6">6</div>
-          <div v-if="idx==7">7</div>
-          <div v-if="idx==8">8</div>
+          <div v-if="idx=='title'">1</div>
+          <div v-if="idx=='category'">2</div>
+          <div v-if="idx=='tutor'">3</div>
+          <div v-if="idx=='description'">4</div>
+          <div v-if="idx=='time'">5</div>
+          <div v-if="idx=='cost'">6</div>
+          <div v-if="idx=='size'">7</div>
+          <div v-if="idx=='password'">8</div>
         </div>
       </div>
     </main>
@@ -38,13 +38,14 @@ export default {
   },
   data(){
     return {
-      idx : 1,
+      idx : 'title',
     }
   },
   methods : {
-    onClickBtn(){
+    onClickBtn(content){
       // const list = document.querySelectorAll('.select')
-      this.idx 
+      console.log(this.idx)
+      this.idx =content
     },
   }
 
@@ -97,10 +98,11 @@ export default {
     align-items: center;
     border-right: 10px solid white;
   }
-   .select-component:nth-child(1){
+   /* .select-component:nth-child(1){
     border-right: 10px solid #FFEEF7;
 
-   }
+   } */
+   
   #selectedArea{
     width: 80%;
     background-color: #FFEEF7;
