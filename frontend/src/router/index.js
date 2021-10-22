@@ -6,6 +6,8 @@ import Singup from '../views/Singup.vue'
 import Profile from '../views/Profile.vue'
 import Category from '../views/Category.vue'
 import ClassDetail from '../views/ClassDetail.vue'
+import ClassCreate from '../views/ClassCreate.vue'
+
 
 const routes = [
   {
@@ -41,7 +43,13 @@ const routes = [
     name : 'ClassDetail',
     component : ClassDetail,
     
-  }
+  },
+  {
+    path : '/classcreate',
+    name : 'ClassCreate',
+    component : ClassCreate,
+    
+  },
 ]
 
 const router = createRouter({

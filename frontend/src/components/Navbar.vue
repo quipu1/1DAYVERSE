@@ -60,7 +60,8 @@ export default {
       alert(`${this.keyword}`)
     },
     makeClass(){
-      alert('강의 생성 페이지로 이동')
+      // alert('강의 생성 페이지로 이동')
+      this.$router.push({name : "ClassCreate"})
     },
     goToMyPage(){
       alert('내 정보 페이지로 이동')
