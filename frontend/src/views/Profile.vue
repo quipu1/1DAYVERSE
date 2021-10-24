@@ -1,5 +1,6 @@
 <template>
-  <div class="box">
+  <div>
+    <Navbar/>
     <div class="id-card">
       <div class="job">
         <h3 v-if="userjob === 'tutee'" class="job-text">TUTEE ID</h3>
@@ -38,6 +39,7 @@
 </template>
 
 <script>
+import Navbar from '@/components/Navbar.vue'
 import UpdateProfile from '@/components/UpdateProfile'
 
 export default {
@@ -61,7 +63,8 @@ export default {
     }
   },
   components: {
-    UpdateProfile
+    Navbar,
+    UpdateProfile,
   },
   methods: {
     changemodal() {
@@ -84,7 +87,7 @@ export default {
   background-color: white;
   width: 70%;
   max-width: 1500px;
-  margin: 0 auto;
+  margin: 3rem auto;
   box-shadow: 1px 1px 20px 2px rgba(0,0,0,.3);
   border-radius: 20px;
   display: flex;
@@ -115,7 +118,7 @@ export default {
 }
 .profile {
   margin: 0 3rem;
-  height: 53vh;
+  height: 51vh;
   font-weight: bold;
   font-size: 1.2rem;
 }
@@ -134,7 +137,7 @@ export default {
   background-color: #d6c3db;
   padding: 1rem;
   border-radius: 10px;
-  height: 53vh;
+  height: 50vh;
   overflow: scroll;
 }
 .lecture {
