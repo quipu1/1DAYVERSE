@@ -88,7 +88,7 @@
       <button class="btn active main-pink" v-if="!singup_error" @click="createUser()">Sign Up</button>
       <button class="btn nonactive" v-else>Sign Up</button>
     </form>
-    <div class="ease_in_out">
+    <div class="ease_in_out under">
       <img :src="require('@/assets/bus.png')" class="bus" alt="">
     </div>
   </div>
@@ -184,7 +184,8 @@ body {
 {
   font-size: 2rem;
   font-weight: bold;
-  margin: 3rem;
+  margin: 0 auto;
+  margin-top: 3rem;
 }
 .container {
   display: block;
@@ -277,23 +278,30 @@ input:-webkit-autofill:focus {
 
 .bus
 {
-  height: 10vw;
-  position: relative;
-  bottom: 2vh;
+  z-index: -2;
+  width: 30vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   animation: move 8s infinite alternate;
   overflow: hidden;
 }
-.ease_in_out{
-  top:100px;
-  animation-timing-function:ease-in-out;
-  overflow: hidden;
+.under {
+  z-index: -3;
+  position: fixed;
+  bottom: 0;
+  background-image: url("./../assets/background.png");
+  height: 40vh;
+  width: 100vw;
+  background-size: cover; 
+  background-repeat: no-repeat;
 }
 @-webkit-keyframes move{
-  from{
-    left: 20vw;
+  from {
+    margin-left: 20vw;
   }
   to{
-    left: 70vw;
+    margin-left: 60vw;
   }
 }
 </style>
