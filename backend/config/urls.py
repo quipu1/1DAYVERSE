@@ -19,10 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('onedays/', include('onedays.urls')),
-    path('payments/', include('payments.urls')),
+    path('od/admin/', admin.site.urls),
+    path('od/accounts/', include('accounts.urls')),
+    path('od/onedays/', include('onedays.urls')),
+    path('od/payments/', include('payments.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
