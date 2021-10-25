@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title">Sign Up</h1>
-    <form action="#" class="container">
+    <div class="container">
       <div>
         <p class="radio-text">Select Your Job</p>
         <div class="radio">
@@ -85,9 +85,9 @@
           </span>
         </div>
       </div>
-      <button class="btn active main-pink" v-if="!singup_error" @click="createUser()">Sign Up</button>
+      <button class="btn active main-pink" v-if="!singup_error" @click="createUser">Sign Up</button>
       <button class="btn nonactive" v-else>Sign Up</button>
-    </form>
+    </div>
     <div class="ease_in_out under">
       <img :src="require('@/assets/bus.png')" class="bus" alt="">
     </div>
@@ -152,13 +152,15 @@
     methods: {
       createUser() {
 
+        console.log('loglog')
         if (this.singup_error) {
           return false
         }
         const form = new FormData()
 
         form.append('username', this.username)
-        // form.append('profile_image', ) // 프로필 이미지
+        // form.append('profile_image', 기본 프로필 이미지 주소) // 프로필 이미지
+        // form.append('Character', '기본캐릭터')
         form.append('email', this.email)
         form.append('password', this.password)
         form.append('birth_day', this.birth)
@@ -167,6 +169,13 @@
 
         if (this.job === 'Tutee') {
           this.$store.dispatch('userStore/CREATE_TUTEE', form)
+            .then(() => {
+              this.$router.push({ name: 'Main'})
+            })
+            .catch((err) => {
+              console.log(err)
+              alert('다시 시도해주세요.')
+            })
         }
         else if (this.job === 'Tutor') {
           this.$store.dispatch('userStore/CREATE_TUTOR', form)
@@ -298,10 +307,10 @@ input:-webkit-autofill:focus {
 }
 @-webkit-keyframes move{
   from {
-    margin-left: 20vw;
+    margin-left: 10vw;
   }
   to{
-    margin-left: 60vw;
+    margin-left: 80vw;
   }
 }
 </style>
