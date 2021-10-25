@@ -3,7 +3,7 @@
     <Navbar/>
     <div class="id-card">
       <div class="job">
-        <h3 v-if="userjob === 'tutee'" class="job-text">TUTEE ID</h3>
+        <h3 v-if="userjob === 'Tutee'" class="job-text">TUTEE ID</h3>
         <h3 v-else class="job-text">TUTOR ID</h3>
       </div>
       <div class="container grid grid-cols-1 md:grid-cols-6">
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="class-info">
-          <h2 v-if="userjob === 'student'">수강내역</h2>
+          <h2 v-if="userjob === 'Tutee'">수강내역</h2>
           <h2 v-else>강의정보</h2>
           <div v-for="lecture, idx in lectures" :key="idx" class="lecture">
             {{ lecture }}
@@ -46,8 +46,9 @@ export default {
   name: "Profile",
   data() {
     return {
-      userjob: 'stud',
+      // userjob: 'stud',
       username: 'amy',
+      // username: this.$route.params.username,
       birth: '1990.01.01',
       phone: '1234567890',
       lectures: [
@@ -65,6 +66,19 @@ export default {
   components: {
     Navbar,
     UpdateProfile,
+  },
+  created() {
+    if (this.userjob === 'Tutee') {
+      this.$store.dispatch('userStore/FETCH_TUTEE', this.username)
+    }
+    else if (this.userjob === 'Tutor') {
+      this.$store.dispatch('userStore/FETCH_TUTOR', this.username)
+    }
+  },
+  computed: {
+    userjob() {
+      return this.$store.getters['userStore/getUserJob']
+    },
   },
   methods: {
     changemodal() {

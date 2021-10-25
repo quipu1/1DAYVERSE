@@ -2,7 +2,7 @@
   <div>
     <div v-if="modal" id="my-modal" class="container">
       <div class="modal" v-if="!delete_modal">
-        <form action="#">
+        <div>
           <div class="profile-text">Update Profile</div>
           <!-- <input type="file" name="image" id="image" ref="files" required @change="setThumbnail" class="image-input"/> -->
           <img v-if="image_url" :src="image_url" alt="" class="user-image">
@@ -46,18 +46,19 @@
             </div>
           </div>
           <button class="btn cancle activate" @click="$emit('close')">cancle</button>
-          <button v-if="!update_error" class="btn update activate">Update</button>
-          <button v-else class="btn nonactive" @click="update">Update</button>
-        </form>
+          <button v-if="!update_error" class="btn update active" @click="update">Update</button>
+          <button v-else class="btn nonactive">Update</button>
+        </div>
         <button class="delete" @click="changeDelete">회원탈퇴하기</button>
       </div>
       <div class="modal" v-else>
         <div v-if="!deleted">
-          <form action="">
+          <div>
+            {{ delete_user }}
             <p class="radio-text">정말로 삭제하시겠습니까?</p>
             <div class="radio">
               <div class="radio-input">
-                <input type="radio" id="student" v-model="delete_user" value="" checked>
+                <input type="radio" id="student" v-model="delete_user" value="false" checked>
                 <label for="student">No</label>
               </div>
               <div class="radio-input">
@@ -66,7 +67,7 @@
               </div>
             </div>
             <button class="btn delete-btn main-purple" @click="submitDelete">Submit</button>
-          </form>
+          </div>
         </div>
         <div v-else>
           <h3 class="profile-text">탈퇴되셨습니다.</h3>
@@ -121,7 +122,7 @@ export default {
       return true
     },
     update_error() {
-      if (this.userId ==='' || this.birth === '' || this.phone === '') {
+      if (this.username ==='' || this.birth === '' || this.phone === '') {
         return true
       }
       else if (this.birth_error || this.phone_error) {
@@ -135,11 +136,21 @@ export default {
       this.image = this.$refs.files.files[0]
       this.image_url = URL.createObjectURL(this.image)
     },
+    update() {
+      const form = new FormData()
+
+      form.append('username', this.username)
+      form.append('birth', this.birth)
+      form.append('phone', this.phone)
+
+      this.$store.dispatch('userStore/UPDATE_PROFILE', form)
+    },
     changeDelete() {
       this.delete_modal = !this.delete_modal
     },
     submitDelete() {
       if (this.delete_user) {
+        this.$store.dispatch('userStore/DELETE_USER')
         this.deleted = !this.deleted
       }
       else {
@@ -148,7 +159,7 @@ export default {
     },
     toMain() {
       this.$router.push({ name: 'Main'})
-    }
+    },
   }
 }
 </script>
