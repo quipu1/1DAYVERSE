@@ -55,10 +55,17 @@ def login(request):
         getUser = User.objects.get(username=username)
         if getUser.teachable == int(teachable):
             if getUser.password == password:
-                return Response({"status: login"}, status=status.HTTP_200_OK)
+                request.session['user'] = getUser.id
+                return Response(request.session, status=status.HTTP_200_OK)
             else:
                 return Response({'error': '비밀번호가 틀렸습니다.'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': '강사/학생 체크를 확인해주세요.'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': '존재하지 않는 id 입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def logout(request):
+    request.session.pop('user')
+    return Response({"status: logout"}, status=status.HTTP_200_OK)
