@@ -7,6 +7,10 @@ import Profile from '../views/Profile.vue'
 import Category from '../views/Category.vue'
 import ClassDetail from '../views/ClassDetail.vue'
 import ClassCreate from '../views/ClassCreate.vue'
+import BuyDone from '../views/BuyDone.vue'
+import BuyCancel from '../views/BuyCancel.vue'
+import BuyFail from '../views/BuyFail.vue'
+
 
 
 const routes = [
@@ -48,9 +52,24 @@ const routes = [
     path : '/classcreate',
     name : 'ClassCreate',
     component : ClassCreate,
-    
+  },
+  {
+    path : '/buy/done',
+    name : 'BuyDone',
+    component : BuyDone,
+  },
+  {
+    path : '/buy/cancel',
+    name : 'BuyCancel',
+    component : BuyCancel,
+  },  
+  {
+    path : '/buy/fail',
+    name : 'BuyFail',
+    component : BuyFail,
   },
 ]
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
