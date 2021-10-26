@@ -43,6 +43,8 @@ def signup(request):
         # password는 직렬화 과정에는 포함 되지만 → 표현(response)할 때는 나타나지 않는다.
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+# 로그인 세션값 추가
 # @csrf_exempt
 @api_view(['POST'])
 def login(request):
@@ -65,7 +67,16 @@ def login(request):
         return Response({'error': '존재하지 않는 id 입니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+# 로그아웃 - 세션값 삭제
 @api_view(['POST'])
 def logout(request):
     request.session.pop('user')
-    return Response({"status: logout"}, status=status.HTTP_200_OK)
+    return Response({"status: 로그아웃"}, status=status.HTTP_200_OK)
+
+
+# 탈퇴
+@api_view(['DELETE'])
+def withdraw(request, username):
+    user = get_object_or_404(User, username=username)
+    user.delete()
+    return Response({"status":"회원탈퇴"}, status=status.HTTP_204_NO_CONTENT)
