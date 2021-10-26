@@ -16,20 +16,20 @@
         <div id="selectedArea">
           <section v-if="idx=='title'" class="section-content" id="classTitle" >
             <h1 class="section-header">
-              <div></div> 
-              강의의 클래스 이름 정하기 
-              <button  @click="onClickBtn('category')">다음</button>
+              <div style="width:10%;"></div> 
+              <span style="width:60%;">강의 이름 정하기 </span>
+              <button style="width:10%;" @click="onClickBtn('category')">다음</button>
             </h1>
             <div class="section-container">
               <label>강의 이름</label>
-              <input type="text" class="input-form" placeholder="10글자 미만으로 정해주세요" maxlength="10">
+              <input type="text" class="input-form" placeholder="10글자 미만으로 정해주세요" maxlength="10" v-model="title">
             </div>
           </section>
           <section v-if="idx=='category'" class="section-content">
             <h1 class="section-header">
-              <div></div> 
-              강의의 카테고리 정하기 
-              <button  @click="onClickBtn('tutor')">다음</button>
+              <div style="width:10%;"></div> 
+              <span style="width:60%;">강의의 카테고리 정하기</span>
+              <button style="width:10%;" @click="onClickBtn('tutor')">다음</button>
             </h1>
             <div class="section-container"> 
               <div class="category-card" id="excerciseCard" @click="selectCategory('excerciseCard')">
@@ -45,9 +45,9 @@
           </section>
           <section v-if="idx=='tutor'" class="section-content">
             <h1 class="section-header">
-              <div></div> 
-              강사 이름 확인
-              <button  @click="onClickBtn('description')">다음</button>
+              <div style="width:10%;" ></div> 
+              <span style="width:60%;">강사 확인</span>
+              <button style="width:10%;" @click="onClickBtn('description')">다음</button>
             </h1>
             <div class="section-container" id="tutorContent">
               <div class="profile-image">
@@ -60,9 +60,9 @@
           </section>
           <section v-if="idx=='description'" class="section-content">
             <h1 class="section-header">
-              <div></div> 
-              강의의 설명 입력 정하기 
-              <button  @click="onClickBtn('time')">다음</button>
+              <div style="width:10%;"></div> 
+              <span style="width:60%;">강의의 설명 입력 정하기 </span>
+              <button style="width:10%;" @click="onClickBtn('time')">다음</button>
             </h1>
             <div class="section-container" id="lectureContent">
               <div class="content-row">
@@ -71,27 +71,36 @@
               </div>
               <div class="content-row" style="height: 100%;">
                 <label for="">강의 내용</label>
-                <textarea type="text" class="input-form"></textarea>
+                <textarea type="text" class="input-form" v-model="description"></textarea>
               </div>
             </div>
           </section>
           <section v-if="idx=='time'" class="section-content">
             <h1 class="section-header">
-              <div></div> 
-              강의의 시간 정하기 
-              <button @click="onClickBtn('cost')">다음</button>
+              <div style="width:10%;"></div> 
+              <span style="width:60%;"> 강의의 시간 정하기 </span>
+              <button style="width:10%;" @click="onClickBtn('cost')">다음</button>
             </h1>
-            <div class="section-container">
-              <label>강의 시간</label>
-              <input type="datetime-local" class="input-form" value="2021-10-15T10:20"> ~
-              <input type="datetime-local" class="input-form" value="2021-10-22T10:20">
+            <div class="section-container" id="timeSection">
+              <div>
+                <label>강의 시간</label>
+                <input type="date" class="input-form">
+              </div>
+              <div>
+                <label for="">Start</label>
+                <input type="time" class="input-form">
+              </div>
+              <div>
+                <label for="">End</label>
+                <input type="time" class="input-form">
+              </div>
             </div>
           </section>
           <section v-if="idx=='cost'" class="section-content">
             <h1 class="section-header">
-              <div></div> 
-              강의의 금액 정하기 
-              <button  @click="onClickBtn('size')">다음</button>
+              <div style="width:10%;"></div> 
+              <span style="width:60%;">강의의 금액 정하기</span>
+              <button style="width:10%;" @click="onClickBtn('size')">다음</button>
             </h1>
             <div class="section-container">
               <label>강의 금액</label>
@@ -100,9 +109,9 @@
           </section>
           <section v-if="idx=='size'" class="section-content">
             <h1 class="section-header">
-              <div></div> 
-              강의의 클래스 이름 정하기 
-              <button  @click="onClickBtn('category')">다음</button>
+              <div style="width:10%;"></div> 
+              <span style="width:60%;">강의의 클래스 이름 정하기</span> 
+              <button style="width:10%;" @click="onClickBtn('password')">다음</button>
             </h1>
             <div class="section-container">
               <div class="class-card" id="smallCard" @click="selectSize('smallCard')">
@@ -118,13 +127,13 @@
           </section>
           <section v-if="idx=='password'" class="section-content">
             <h1 class="section-header">
-              <div></div> 
-              강의의 비밀번호 정하기 
-              <button  @click="onSubmit">제출</button>
+              <div style="width:10%;"></div> 
+              <span style="width:60%;">강의의 비밀번호 정하기</span>
+              <button style="width:10%;" @click="onSubmit">제출</button>
             </h1>
             <div class="section-container">
               <label>강의 비밀번호</label>
-              <input type="text" class="input-form" placeholder="8글자 이하로 적어주세요" maxlength="8" >
+              <input type="text" v-model="password" class="input-form" placeholder="8글자 이하로 적어주세요" maxlength="8" >
             </div>
           </section>
         </div>
@@ -146,50 +155,50 @@ export default {
       idx : 'title',
       // cost : '',
 
-
+      title : "",
+      category : "",
+      tutor : "",
+      description : "",
+      time : "",
+      size : "",
+      cost : "",
+      password :"",
     }
   },
   methods : {
     onClickBtn(content){
       const comps = document.getElementsByClassName("select-component")
-    // border-right: ;
-      
       for(let i = 0 ; i < comps.length;i++){
         comps[i].style.borderRight="10px solid white";  
         comps[i].style.backgroundColor=" #FFEEF7";
         comps[i].style.color="black"
       }
-      document.getElementById(content).style.borderRight="10px solid white"
-      
+      document.getElementById(content).style.borderRight="10px solid white" 
       document.getElementById(content).style.backgroundColor="#202D91"
       document.getElementById(content).style.color="white"
-
-
-
       this.idx =content
     },
     selectCategory(name){
       const cards = document.getElementsByClassName("category-card")
-      for (let i  = 0; i< cards.length;i ++){cards[i].style.opacity = "1";}
+      for (let i  = 0; i< cards.length;i ++){cards[i].style.opacity = "1"; cards[i].style.transform="scale(1)";} 
       document.getElementById(name).style.opacity="0.5";
+      // document.getElementById(name).style.transform="scale(0.9);"
+      this.category=name;
     },
     commaCost(){
       return 'W 1000'
     },
-    selectSize(name){
+    selectSize(onsize){
       const cards = document.getElementsByClassName("class-card")
       for (let i  = 0; i< cards.length;i ++){cards[i].style.opacity = "1";}
-      document.getElementById(name).style.opacity="0.5";
-
+      document.getElementById(onsize).style.opacity="0.5";
+      // document.getElementById(size).style.transform="scale(0.9);"
+      this.size = onsize;
     },
     onSubmit(){
-      alert('제출 되었습니다.')
-      this.$router.go(0)
-      
+      alert('제출 되었습니다.');this.$router.go(0)
     },
-
   }
-
 }
 </script>
 
@@ -237,9 +246,6 @@ export default {
     border-right: 10px solid white;
     transition: 0.25s;
   }
-   .select-component:hover{
-    transform: scale(0.9);
-   }
   #selectedArea{
     width: 75%;
     background-color: #FFEEF7;
@@ -264,11 +270,9 @@ export default {
     height: 15%;
     font:bolder;
     border-radius: 15px;
-
     display: flex;
     justify-content: space-around;
     align-items: center;
-    
   }
   .section-container{
     display: flex;
@@ -331,8 +335,8 @@ export default {
     justify-content: space-around;
     align-items: center;
     /* height: 100%; */
-
   }
+
   .profile-image{
     background-color: azure;
     border-radius: 50%;
@@ -355,6 +359,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
   }
+
   .content-row{
     width: 100%;
     display: flex;
@@ -370,7 +375,11 @@ export default {
   .content-row > textarea{
     height: 50%;
   }
-  
+  #timeSection{
+    display: flex;
+    flex-direction: column;
+    
+  }
   .class-card{
     background-color: lightgray;
     width: 30%;
