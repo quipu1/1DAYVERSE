@@ -12,7 +12,7 @@ const classStore = {
 
   },
   actions: {
-
+    
   }
 }
 

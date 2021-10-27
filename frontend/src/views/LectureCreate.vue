@@ -1,7 +1,7 @@
 <template>
   <div class="warp">
     <Navbar/>
-    <main>
+    <main @click="shutDown">
       <div id="ClassCreateForm">
         <div id="selectTable">
           <div class="select-component" @click="onClickBtn('title')" id="title" style="background-color:#202D91; color:white;">강의 제목</div>
@@ -166,6 +166,12 @@ export default {
     }
   },
   methods : {
+    shutDown(){
+      const dropdownBtn = document.querySelector(".dropdown-btn");
+      const dropdownListContainer = document.querySelector(".dropdown-list-container");
+      dropdownListContainer.style.display="none"
+      dropdownBtn.style.backgroundColor="transparent"
+    },
     onClickBtn(content){
       const comps = document.getElementsByClassName("select-component")
       for(let i = 0 ; i < comps.length;i++){

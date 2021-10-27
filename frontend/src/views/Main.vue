@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar/>
-    <main>
+    <main @click="shutDown">
       <section>
         <div class="content-text">
           배움이 있는 메타버스의 세계
