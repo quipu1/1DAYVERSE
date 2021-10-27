@@ -44,18 +44,28 @@
       </div>
       <div class="form-element">
         <input type="password" name="password" v-model="password" id="password" required />
-        <label class="floating-label" for="password">Password</label>
-      </div>
-      <div class="form-element">
-        <input type="password" name="password_confirm" v-model="password_confirm" id="password_confirm" required />
-        <label class="floating-label" for="password_confirm">Password Confirm</label>
-        <div v-if="password === '' || password != password_confirm" class="alert">
+        <label class="floating-label password-label" for="password">Password</label>
+        <div v-if="password === '' || password_error" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
             <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
             <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
           </svg>
           <span>
             비밀번호를 확인해주세요.
+          </span>
+        </div>
+      </div>
+      <div class="explain">*비밀번호는 최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자가 포함되어야 합니다.</div>
+      <div class="form-element">
+        <input type="password" name="password_confirm" v-model="password_confirm" id="password_confirm" required />
+        <label class="floating-label" for="password_confirm">Password Confirm</label>
+        <div v-if="password != password_confirm" class="alert">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
+            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+          </svg>
+          <span>
+            비밀번호가 다릅니다.
           </span>
         </div>
       </div>
@@ -118,6 +128,15 @@
         }
         return true
       },
+      password_error() {
+        var regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+        if (this.password != '') {
+          if (this.password.match(regExp) != null) {
+            return false
+          }
+        }
+        return true
+      },
       phone_error() {
         var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
         if (this.phone != '') {
@@ -140,7 +159,7 @@
         if (this.username ==='' || this.email ==='' || this.password ==='' || this.birth === '' || this.phone === '') {
           return true
         }
-        else if (this.email_error || this.birth_error || this.phone_error) {
+        else if (this.email_error || this.birth_error || this.phone_error || this.password_error) {
           return true
         }
         else if (this.password != this.password_confirm) {
@@ -159,27 +178,28 @@
         const form = new FormData()
 
         form.append('username', this.username)
-        // form.append('profile_image', 기본 프로필 이미지 주소) // 프로필 이미지
-        // form.append('Character', '기본캐릭터')
         form.append('email', this.email)
         form.append('password', this.password)
+        form.append('passwordConfirmation', this.password)
+        form.append('character', '')
+        form.append('profile_image', '') // 프로필 이미지
         form.append('birth_day', this.birth)
         form.append('phone_number', this.phone)
-      
-
         if (this.job === 'Tutee') {
-          this.$store.dispatch('userStore/CREATE_TUTEE', form)
-            .then(() => {
-              this.$router.push({ name: 'Main'})
-            })
-            .catch((err) => {
-              console.log(err)
-              alert('다시 시도해주세요.')
-            })
+          form.append('teachable', 0)
         }
         else if (this.job === 'Tutor') {
-          this.$store.dispatch('userStore/CREATE_TUTOR', form)
+          form.append('teachable', 1)
         }
+
+        this.$store.dispatch('userStore/CREATE_USER', form)
+          .then(() => {
+            this.$router.push({ name: 'Main'})
+          })
+          .catch((err) => {
+            console.log(err)
+            alert('다시 시도해주세요.')
+          })
       }
     }
   }
@@ -206,7 +226,7 @@ body {
 }
 .container .form-element {
   position: relative;
-  padding-bottom: 16px;
+  padding-top: 16px;
 }
 .form-element input {
   box-sizing: border-box;
@@ -222,7 +242,7 @@ body {
 .floating-label {
   box-sizing: border-box;
   position: absolute;
-  top: 25%;
+  top: 45%;
   left: 20px;
   font-size: 14px;
   cursor: text;
@@ -231,6 +251,16 @@ body {
   transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease,
     -webkit-transform 0.1s ease, -moz-transform 0.1s ease,
     -o-transform 0.1s ease;
+}
+.password-label
+{
+  top: 53%;
+}
+.explain
+{
+  text-align: start;
+  font-size: 0.7rem;
+  margin: 0.1rem 0 0 0.3rem;
 }
 .btn {
   width: 100%;
@@ -251,7 +281,7 @@ body {
 input:focus ~ .floating-label,
 input:valid ~ .floating-label {
   font-size: 11px;
-  top: 7px;
+  top: 1.3rem;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -259,7 +289,7 @@ input:-webkit-autofill:focus {
 }
 .alert {
   position: absolute;
-  top: 20%;
+  top: 40%;
   right: 0%;
   color: rgba(255, 97, 97, 0.822);
   text-align: start;
