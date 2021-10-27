@@ -10,6 +10,8 @@ import LectureCreate from '../views/LectureCreate.vue'
 import BuyDone from '../views/BuyDone.vue'
 import BuyCancel from '../views/BuyCancel.vue'
 import BuyFail from '../views/BuyFail.vue'
+import Unity from '../views/Unity.vue'
+import Live from '../views/LiveLecture.vue'
 
 const routes = [
   {
@@ -66,6 +68,16 @@ const routes = [
     path : '/buy/fail',
     name : 'BuyFail',
     component : BuyFail,
+  },
+  {
+    path: '/unity',
+    name: 'Unity',
+    component: Unity
+  },
+  {
+    path: '/Live',
+    name: 'Live',
+    component: Live
   },
 ]
 
