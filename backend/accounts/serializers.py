@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     def validate_username(self, value):
-        regex = re.compile('^[\w\d_]{6,20}')
+        regex = re.compile('^[\w\d_]{2,20}')
         if not regex.match(value):
             raise ValidationError('유효한 아이디 형식이 아닙니다.')
             
@@ -33,14 +33,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class TuteeSerializer(serializers.ModelSerializer):
-    
-#     class Meta:
-#         model = Tutee
-#         fields = '__all__'
+class ProfileSerializer(serializers.ModelSerializer):
 
-# class TutorSerializer(serializers.ModelSerializer):
-    
-#     class Meta:
-#         model = Tutor
-#         fields = '__all__'
+    class Meta:
+        model = User
+        fields = ('username', 'birth_day', 'phone_number', 'character')

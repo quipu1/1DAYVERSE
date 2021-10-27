@@ -5,8 +5,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
 from .models import Tutee, Tutor, User
-from .serializers import UserSerializer
+from .serializers import ProfileSerializer, UserSerializer
 
 
 @api_view(['POST'])
@@ -80,3 +81,20 @@ def withdraw(request, username):
     user = get_object_or_404(User, username=username)
     user.delete()
     return Response({"status":"회원탈퇴"}, status=status.HTTP_204_NO_CONTENT)
+
+
+# 프로필
+@api_view(['GET'])
+def profile(request, username):
+
+    # 유저 정보
+    user = get_object_or_404(User, username=username)
+    serializer = ProfileSerializer(user)
+
+    # 유저 수강 목록
+    lectures = request.user.tutee.all()
+    l_serializer = LectureListSerializer(lectures, many=True, context={'userId': request.user})
+
+    data = {
+        'profile': serializer.data
+    }

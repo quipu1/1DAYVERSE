@@ -1,5 +1,6 @@
 from django.db import models
-from accounts.models import Tutor, Tutee
+from datetime import datetime
+from accounts.models import Tutor, Tutee, User
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
@@ -9,12 +10,14 @@ class Category(models.Model):
 
 class Lecture(models.Model):
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
-    tutee = models.ManyToManyField(Tutee, through='Registration')
+    tutees = models.ManyToManyField(Tutee, through='Registration')
     name = models.CharField(max_length=15)
     main_image = models.ImageField(upload_to='images/', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     password = models.CharField(max_length=30)
-    time = models.CharField(max_length=150)
+    start = models.DateTimeField(default=datetime.now, blank=True, null=True)
+    end = models.DateTimeField(default=datetime.now, blank=True, null=True)
+    date = models.DateField(default=datetime.now, blank=True, null=True)
     description = models.TextField()
     room_size = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(3)])
     price = models.PositiveIntegerField()
