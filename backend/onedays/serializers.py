@@ -8,7 +8,13 @@ import re
 from .models import Lecture
 
 class LectureSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Lecture
         fields = '__all__'
+
+
+class LectureListSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Lecture
+        fields = ('id', 'name', 'description', 'main_image')
