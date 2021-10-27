@@ -54,7 +54,6 @@
       <div class="modal" v-else>
         <div v-if="!deleted">
           <div>
-            {{ delete_user }}
             <p class="radio-text">정말로 삭제하시겠습니까?</p>
             <div class="radio">
               <div class="radio-input">
@@ -85,7 +84,7 @@ export default {
     return {
       image: '',
       image_url: '',
-      username: 'asdfj',
+      // username: 'asdfj',
       birth: '120938',
       phone: '01023',
       // 유저 삭제 모달 변수
@@ -103,6 +102,9 @@ export default {
     }
   },
   computed: {
+    username() {
+      return this.$store.getters['userStore/getUsername'] 
+    },
     phone_error() {
       var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
       if (this.phone != '') {
@@ -150,7 +152,7 @@ export default {
     },
     submitDelete() {
       if (this.delete_user) {
-        this.$store.dispatch('userStore/DELETE_USER')
+        this.$store.dispatch('userStore/DELETE_USER', this.username)
         this.deleted = !this.deleted
       }
       else {

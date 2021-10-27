@@ -2,23 +2,23 @@
   <div class="box">
     <footer>
       <div>
-        <ul class="footer">
-          <li class="site">
+        <div class="footer">
+          <div class="site">
             <img :src="require('@/assets/1DAYVERSE.png')" class="image" alt="">
-          </li>
-          <li class="team">
+          </div>
+          <div class="team">
             <div>
               Team
             </div>
-            <ul class="member">
-              <li>Park Jun Su<img :src="require('@/assets/github_logo.png')" alt=""></li>
-              <li>Ryu Ji Woo<img :src="require('@/assets/github_logo.png')" alt=""></li>
-              <li>Sung Ru Bi<img :src="require('@/assets/github_logo.png')" alt=""></li>
-              <li>Yoon So Young<img :src="require('@/assets/github_logo.png')" alt=""></li>
-              <li>Lee Hye Eun<img :src="require('@/assets/github_logo.png')" alt=""></li>
-            </ul>
-          </li>
-        </ul>
+            <div class="member">
+              <div>Park Jun Su<img :src="require('@/assets/github_logo.png')" alt=""></div>
+              <div>Ryu Ji Woo<img :src="require('@/assets/github_logo.png')" alt=""></div>
+              <div>Sung Ru Bi<img :src="require('@/assets/github_logo.png')" alt=""></div>
+              <div>Yoon So Young<img :src="require('@/assets/github_logo.png')" alt=""></div>
+              <div>Lee Hye Eun<img :src="require('@/assets/github_logo.png')" alt=""></div>
+            </div>
+          </div>
+        </div>
         <p class="rights">© 1Dayverse | All Rights Reserved</p>
       </div>
     </footer>
@@ -41,10 +41,11 @@ export default {
 {
   display: flex;
   width: 100%;
-  padding: 0.3rem 0;
+  padding: 0.3rem 0 0.3rem 0;
+  margin: 0 0;
   justify-content: space-between;
 }
-.footer > li
+.footer > div
 {
   margin: 0 1rem;
 }
@@ -73,12 +74,12 @@ export default {
   font-weight: normal;
   display: flex;
 }
-.member > li 
+.member > div 
 {
   margin: 0 0 0 1rem;
   display: flex;
 }
-li > img
+div > img
 {
   height: 3vh;
   margin: 0 0 0 0.2rem;

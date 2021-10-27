@@ -1,36 +1,45 @@
 import axios from "axios"
+const ACCOUNT_URL = 'http://localhost:8000/od/accounts/'
 
 const userStore = {
   namespaced: true,
   state: {
-    job: null,
-    email: null,
     username: null,
+    teachable: null,
+    email: null,
     birth: null,
     phone: null,
     lectures: null,
   },
   getters: {
-    // job 정보 가져오기
-    getUserJob(state) {
-      return state.job
-    }
+    getUsername(state) {
+      return state.username
+    },
   },
   mutations: {
     FETCH_JOB(state, job) {
       state.job = job
     },
+    SET_USER(state, username) {
+      state.username = username
+    },
+    RESET_STATE(state) {
+      state.username= null
+      state.teachable= null
+      state.email= null
+      state.birth= null
+      state.phone= null
+      state.lectures= null
+    }
   },
   actions: {
     CREATE_USER({ commit }, userinfo) {
-      console.log(userinfo)
       console.log(commit)
       return new Promise((resolve, reject) => {
-        const CREATE_USER_URL = 'http://localhost:8000/od/accounts/signup/'
+        const CREATE_USER_URL = ACCOUNT_URL + 'signup/'
         axios.post(CREATE_USER_URL, userinfo)
           .then(() => {
-            // commit('SIGNUP_EMAIL', userinfo.email)
-            console.log('회원가입 완료')
+            console.log(commit)
             resolve()
           })
           .catch((err) => { 
@@ -39,18 +48,21 @@ const userStore = {
           })
       })
     },
-    AUTH_TUTEE({ commit }, userinfo) {
-      console.log(userinfo)
-      console.log(userinfo)
-      console.log(commit)
-      // 로그인시 job 정보 저장
-      commit('FETCH_JOB', 'Tutee')
-    },
-    AUTH_TUTOR({ commit }, userinfo) {
-      console.log(userinfo)
-      console.log(commit)
-      // 로그인시 job 정보 저장
-      commit('FETCH_JOB', 'Tutor')
+    async AUTH_USER({ commit }, info) {
+      const userinfo = info[0]
+      const username = info[1]
+      return new Promise((resolve, reject) => {
+        const AUTH_USER_URL =  ACCOUNT_URL + 'login/'
+        axios.post(AUTH_USER_URL, userinfo)
+          .then(() => {
+            commit('SET_USER', username)
+            resolve()
+          })
+          .catch((err) => {
+            console.log(err)
+            reject()
+          })
+      })
     },
     FETCH_TUTEE({ commit }, username) {
       console.log(username)
@@ -67,10 +79,19 @@ const userStore = {
       console.log('update 프로필')
       console.log(commit)
     },
-    DELETE_USER({ commit }) {
-      console.log(commit)
-    }
+    DELETE_USER({ commit }, username) {
+      const DELETE_USER_URL =  ACCOUNT_URL + `withdraw/${username}` 
+        axios.delete(DELETE_USER_URL, username)
+          .then((res) => {
+            console.log(res)
+            commit('RESET_STATE')
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    },
   }
 }
+
 
 export default userStore

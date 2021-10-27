@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar/>
-    <div class="id-card">
+    <div class="id-card" v-if="profilename == username">
       <div class="job">
         <h3 v-if="userjob === 'Tutee'" class="job-text">TUTEE ID</h3>
         <h3 v-else class="job-text">TUTOR ID</h3>
@@ -31,10 +31,13 @@
       </div>
     </div>
     <UpdateProfile
-      v-if="modal"
+      v-if="modal && profilename == username"
       :modal="modal"
       @close="changemodal"
     />
+    <div v-if="profilename != username">
+      권한이 없습니다.
+    </div>
   </div>
 </template>
 
@@ -47,8 +50,8 @@ export default {
   data() {
     return {
       // userjob: 'stud',
-      username: 'amy',
-      // username: this.$route.params.username,
+      // username: 'amy',
+      profilename: this.$route.params.username,
       birth: '1990.01.01',
       phone: '1234567890',
       lectures: [
@@ -78,6 +81,9 @@ export default {
   computed: {
     userjob() {
       return this.$store.getters['userStore/getUserJob']
+    },
+    username() {
+      return this.$store.getters['userStore/getUsername'] 
     },
   },
   methods: {
