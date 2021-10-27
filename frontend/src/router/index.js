@@ -5,13 +5,11 @@ import Login from '../views/Login.vue'
 import Singup from '../views/Singup.vue'
 import Profile from '../views/Profile.vue'
 import Category from '../views/Category.vue'
-import ClassDetail from '../views/ClassDetail.vue'
-import ClassCreate from '../views/ClassCreate.vue'
+import LectureDetail from '../views/LectureDetail.vue'
+import LectureCreate from '../views/LectureCreate.vue'
 import BuyDone from '../views/BuyDone.vue'
 import BuyCancel from '../views/BuyCancel.vue'
 import BuyFail from '../views/BuyFail.vue'
-
-
 
 const routes = [
   {
@@ -36,22 +34,23 @@ const routes = [
     component: Profile
   },  
   {
-    path: '/category',
+    path: '/category/:group',
     name: 'Category',
     component: Category,
-    props : {category : ""},
+    props : true,
     // params : {category : ""},
   },
   {
-    path : '/classdetail',
-    name : 'ClassDetail',
-    component : ClassDetail,
+    path : '/lecture/detail/:lecture_id',
+    name : 'LectureDetail',
+    component : LectureDetail,
+    props : true,
     
   },
   {
-    path : '/classcreate',
-    name : 'ClassCreate',
-    component : ClassCreate,
+    path : '/lecture/create',
+    name : 'LectureCreate',
+    component : LectureCreate,
   },
   {
     path : '/buy/done',

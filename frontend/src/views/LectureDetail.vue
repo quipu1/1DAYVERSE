@@ -5,19 +5,19 @@
       <div class="left">
         <div class="image-container">
           <i class></i>
-          <img :src="cls.main_image" alt="" id="classImage">
+          <img :src="lecture.main_image" alt="" id="classImage">
         </div>
         <div>
-          <p>{{cls.description}}</p>
+          <p>{{lecture.description}}</p>
         </div>
       </div>
       <div class="right">
         <div class="class-info">
           <span>취미</span>
-          <span><b>{{cls.name}}</b></span>
-          <span>강사 : {{cls.teacher}}</span>
-          <span>모집 인원 : {{cls.size}}명</span>
-          <span>가격 : {{cls.price.toLocaleString('ko-KR')}}원</span>
+          <span><b>{{lecture.name}}</b></span>
+          <span>강사 : {{lecture.teacher}}</span>
+          <span>모집 인원 : {{lecture.size}}명</span>
+          <span>가격 : {{lecture.price.toLocaleString('ko-KR')}}원</span>
         </div>
         <button @click="Pay" id="payBtn">
           <img :src="PayImage" alt="">
@@ -35,13 +35,14 @@ import PayImage from '@/assets/payment_icon_yellow_medium.png'
 
 export default {
   name : "ClassDetail",
+  props : ["lecture_id"],
   components : {
     Navbar,
   },
   data(){
     return {
       PayImage : PayImage,
-      cls : {
+      lecture : {
         "main_image" : image,
         "name" : "윤소영의 그림 클래스",
         "teacher" : "윤소영",
@@ -51,17 +52,15 @@ export default {
        }
     }
   },
+  created(){
+    console.log(this.lecture_id)
+  },
   methods : {
     Pay(){
       axios.post("http://127.0.0.1:8000/payments/ready/")
       .then((res)=>{
-        // location.replace(res.data.next_url)
         localStorage.setItem("tid", res.data.tid)
         location.href = res.data.next_url
-        // console.log(document.location.href)
-        // const form = new FormData();
-        // form.append("tid", res.data.tid)
-        // axios.post("http://127.0.0.1:8000/payments/approval/", form)
       })
 
     }

@@ -1,31 +1,35 @@
 <template>
-  <div class="cls-container" @click="goToClassDetail"> 
+  <div class="lecture-container" @click="goToLectureDetail"> 
     <div class="image-container">
       <img :src="require('@/assets/class1.jpeg')" class="image" alt="">
     </div>
     <div class="flex">
-      <b>{{cls.teacher}}</b>
+      <b>{{lecture.teacher}}</b>
     </div>
     <div class="flex">
-      {{cls.name}}
+      {{lecture.name}}
     </div>
   </div>
 </template>
 <script>
 export default {
   name : "Class",
-  props : ["cls"],
+  props : ["lecture"],
+  data(){
+    return  {
+      // lecture : lecture,
+    }
+  },
   methods : {
-    goToClassDetail(){
-      alert(`${this.cls.name}로 이동`)
+    goToLectureDetail(){
+      this.$router.push({name :"LectureDetail", params : {"lecture_id" : this.lecture.id} })
     },
   },
-
 }
 </script>
 
 <style scoped>
-.cls-container{
+.lecture-container{
   display: flex;
   flex-direction: column;
   justify-content: center;

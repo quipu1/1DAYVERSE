@@ -1,11 +1,11 @@
 <template>
-  <div class="warp">
+  <div class="warp" >
     <Navbar/>
-    <main>
-      <Class
-        v-for="(cls,idx) in classes"
+    <main @click="shutDown">
+      <Lecture
+        v-for="(lecture,idx) in lectures"
         :key="idx"
-        :cls="cls"
+        :lecture="lecture"
       />
     </main>
   </div>
@@ -13,29 +13,37 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import Class from '@/components/Class.vue'
+import Lecture from '@/components/Lecture.vue'
 
 export default {
   name : "Category",
   props : ["category"],
   components : {
     Navbar,
-    Class,
+    Lecture,
   },
   data(){
     return {
-      classes : [
-        {name : "1번강의", teacher : "티모"},
-        {name : "2번강의", teacher : "가렌"},
-        {name : "3번강의", teacher : "샤코"},
-        {name : "엄청나게 긴 강 오버플로우", teacher : "오리아나"},
-        {name : "5번강의", teacher : "오리아나"},
+      lectures : [
+        {name : "1번강의", teacher : "1번", id: 1,},
+        {name : "2번강의", teacher : "2번강", id : 2,},
+        {name : "3번강의", teacher : "3번강사", id : 3},
+        {name : "엄청나게 긴 강 오버플로우", teacher : "4번강사당", id : 4,},
+        {name : "5번강의", teacher : "5번강사입니다", id : 5},
       ]
     }
   },
   created(){
-    console.log(this.params)
+    console.log(this.category)
   },
+  methods : {
+    shutDown(){
+      const dropdownBtn = document.querySelector(".dropdown-btn");
+      const dropdownListContainer = document.querySelector(".dropdown-list-container");
+      dropdownListContainer.style.display="none"
+      dropdownBtn.style.backgroundColor="transparent"
+    }
+  }
 
 }
 </script>

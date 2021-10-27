@@ -4,11 +4,11 @@
       <img :src="logo" alt="" id="logoImage" @click="goToMainPage">
       <div style="display:flex; justify-content:center;" id="dropdown">
         <button @click="showMenu" class='dropdown-btn'>전체 카테고리 <i class="fas fa-caret-down" style="background-color:none; color:#EEAEF9;"></i></button>
-        <div class='dropdown-list-container'>
+        <div class='dropdown-list-container' style="display:none;">
           <a href="#" @click="goToHealthCategory">운동</a>
           <a href="#" @click="goToHobbyCategory">취미</a>
           <a href="#" @click="goToLanguageCategory">언어</a>
-          <a href="#" @click="goToETCCategory">기타</a>
+          <!-- <a href="#" @click="goToETCCategory">기타</a> -->
         </div>
       </div>
       <div class="btn" @click="makeClass"><span v-show="isTeacher">강의 생성</span></div>
@@ -41,27 +41,28 @@ export default {
     }
   },
   methods : {
+    shutDown(){
+      const dropdownBtn = document.querySelector(".dropdown-btn");
+      const dropdownListContainer = document.querySelector(".dropdown-list-container");
+      dropdownListContainer.style.display="none"
+      dropdownBtn.style.backgroundColor="transparent"
+    },
     showMenu(){
-      const dropdownBtn = document.querySelector("dropdown-btn");
-      // const arrow = document.querySelector("fa-caret-down")
+      const dropdownBtn = document.querySelector(".dropdown-btn");
       const dropdownListContainer = document.querySelector(".dropdown-list-container");
       if (dropdownListContainer.style.display=="none"){
         dropdownListContainer.style.display="block";
         dropdownBtn.style.backgroundColor="#DBBFFF"
-        // arrow.style.transform='rotate('+90+'deg);'
       }else{
         dropdownListContainer.style.display="none"
         dropdownBtn.style.backgroundColor="transparent"
-        // arrow.style.transform='rotate('+90+'deg);'
-
       }
     },
     search(){
       alert(`${this.keyword}`)
     },
     makeClass(){
-      // alert('강의 생성 페이지로 이동')
-      this.$router.push({name : "ClassCreate"})
+      this.$router.push({name : "LectureCreate"})
     },
     goToMyPage(){
       alert('내 정보 페이지로 이동')
@@ -86,7 +87,18 @@ export default {
 
     },
     goToHealthCategory(){
-      this.$router.push({name : "Category", params: "health"})
+      this.$router.push({name : "Category", params: {group : "health"}})
+      this.shutDown();
+    },
+    goToHobbyCategory(){
+      this.$router.push({name : "Category", params: {group : "hobby"}})
+      this.shutDown();
+
+    },
+    goToLanguageCategory(){
+      this.$router.push({name : "Category", params: {group : "lang"}})
+      this.shutDown();
+
     }
   }
 
