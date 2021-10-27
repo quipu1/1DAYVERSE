@@ -29,8 +29,8 @@
         </div>
       </div>
       <div class="form-element">
-        <input type="password" name="password" v-model="password" id="password" required />
-        <label class="floating-label" for="password">Enter Your user Password</label>
+        <input type="password" name="password" v-model="password" id="password" required @keyup.enter="Login"/>
+        <label class="floating-label" for="password" >Enter Your user Password</label>
         <div v-if="password === ''" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
             <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+
   export default {
     name: "Login",
     data() {
@@ -70,17 +71,36 @@
       },
     },
     methods: {
-      Login() {
-        console.log('here')
+      async Login() {
+        
+        if (this.login_error) {
+          return false
+        }
+
         const form = new FormData()
-        form.append('email', this.email)
+        form.append('username', this.username)
         form.append('password', this.password)
         if (this.job === 'Tutee') {
-          this.$store.dispatch('userStore/AUTH_TUTEE', form)
+          form.append('teachable', 0)
         }
         else if (this.job === 'Tutor') {
-          this.$store.dispatch('userStore/AUTH_TUTOR', form)
+          form.append('teachable', 1)
         }
+        const info = [form, this.username]
+        this.$store.dispatch('userStore/AUTH_USER', info)
+          .then(() => {
+            this.$router.push({ name: 'Main'})
+          })
+          .catch(() => {
+            const Swal = require('sweetalert2')
+
+            Swal.fire({
+              text: '직업 혹은 username 혹은 비밀번호를 확인해주세요.',
+              icon: 'error',
+              confirmButtonText: 'Back',
+              confirmButtonColor: '#8D3DA5',
+            })
+          })
       },
     }
   }
@@ -207,6 +227,10 @@ input:-webkit-autofill:focus {
   width: 100vw;
   background-size: cover; 
   background-repeat: no-repeat;
+}
+.active:hover
+{
+  background-color: #b9638d;
 }
 .ease_in_out{
   animation-timing-function:ease-in-out;

@@ -31,10 +31,10 @@ const routes = [
     component: Singup
   },
   {
-    path: '/profile',
+    path: '/:username',
     name: 'Profile',
-    component: Profile
-  },  
+    component: Profile,
+  },
   {
     path: '/category/:group',
     name: 'Category',

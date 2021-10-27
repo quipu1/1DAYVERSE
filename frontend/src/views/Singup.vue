@@ -83,7 +83,7 @@
         </div>
       </div>
       <div class="form-element">
-        <input type="text" name="phone" v-model="phone" id="phone" required />
+        <input type="text" name="phone" v-model="phone" id="phone" required @keyup.enter="createUser"/>
         <label class="floating-label" for="phone">Phone Number ex)01012345678</label>
         <div v-if="phone === '' || phone_error" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
@@ -171,10 +171,10 @@
     methods: {
       createUser() {
 
-        console.log('loglog')
         if (this.singup_error) {
           return false
         }
+
         const form = new FormData()
 
         form.append('username', this.username)
@@ -196,9 +196,15 @@
           .then(() => {
             this.$router.push({ name: 'Main'})
           })
-          .catch((err) => {
-            console.log(err)
-            alert('다시 시도해주세요.')
+          .catch(() => {
+            const Swal = require('sweetalert2')
+
+            Swal.fire({
+              text: '이미 가입된 username 혹은 email입니다.',
+              icon: 'error',
+              confirmButtonText: 'Back',
+              confirmButtonColor: '#8D3DA5',
+            })
           })
       }
     }
@@ -277,6 +283,10 @@ body {
 }
 .nonactive {
   background-color: gray;
+}
+.active:hover
+{
+  background-color: #b9638d;
 }
 input:focus ~ .floating-label,
 input:valid ~ .floating-label {
