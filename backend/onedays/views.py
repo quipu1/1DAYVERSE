@@ -2,11 +2,11 @@ from decimal import Context
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import serializers, status
 
 from accounts.models import Tutor
 from .models import Lecture
-from .serializers import LectureListSerializer, LectureSerializer
+from .serializers import LectureListSerializer, LectureSerializer, LectureDetailSerializer
 
 # 강의 등록
 @api_view(['POST'])
@@ -37,4 +37,12 @@ def register(request):
 def category(request, c_num):
     lectures = get_list_or_404(Lecture.objects.filter(category=c_num))
     serializer = LectureListSerializer(lectures, many=True)
+    return Response(serializer.data)
+
+
+# 강의 세부정보
+@api_view(['GET'])
+def detail(request, l_num):
+    lecture = get_object_or_404(Lecture.objects.filter(pk=l_num))
+    serializer = LectureDetailSerializer(lecture)
     return Response(serializer.data)
