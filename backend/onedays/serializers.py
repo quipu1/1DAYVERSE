@@ -18,3 +18,10 @@ class LectureListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lecture
         fields = ('id', 'name', 'description', 'main_image')
+
+
+class LectureDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Lecture
+        exclude = ('password',)
