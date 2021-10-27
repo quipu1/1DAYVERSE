@@ -1,5 +1,5 @@
 <template>
-  <div class="warp" >
+  <div class="warp">
     <Navbar/>
     <main @click="shutDown">
       <Lecture

@@ -57,7 +57,7 @@ export default {
   },
   methods : {
     Pay(){
-      axios.post("http://127.0.0.1:8000/payments/ready/")
+      axios.post("http://127.0.0.1:8000/od/payments/ready/")
       .then((res)=>{
         localStorage.setItem("tid", res.data.tid)
         location.href = res.data.next_url

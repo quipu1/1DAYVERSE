@@ -1,8 +1,24 @@
 <template>
   <div class="warp">
     <Navbar/>
-    <main>
-      <h1>구매가 완료되었습니다.</h1>
+    <main @click="shutDown">
+      <div id="buyCompleteForm">
+        <h1 style="margin: 0;">결제가 완료되었습니다.</h1>
+        <div class="lecture-buy-form">
+          <span class="lecture-title-buy-form">{{lecture.name}}</span>
+          <div class="lecture-image-container"><img :src="require('@/assets/class1.jpeg')" alt=""></div>
+          <span>{{lecture.tutor}}</span>
+          <div>
+            <span>{{lecture.date}} {{lecture.start}}</span>
+          </div>
+          <div>
+            <button @click="goToMyPage">비밀번호 확인하러 가기</button>
+          </div>
+          <div>
+            <button @click="goToMainPage">메인 화면 으로 가기</button>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 </template>
@@ -11,6 +27,7 @@
 import Navbar from '@/components/Navbar.vue'
 // import axios from 'axios'
 
+
 export default {
   name : "BuyDone",
   components : {
@@ -18,18 +35,60 @@ export default {
   },
   data(){
     return {
-
+      lecture : {
+        "name"  : "1강의",
+        "tutor" : "강사",
+        "password" : "12345",
+        "date" : "2021.10.27",
+        "start" : "06:15",
+      }
     }
   },
-  mounted(){
-    // const link = document.location.href
-    // var str = link.split('?')
-    // var URLSearhParams =  new URLSearchParams(link.search);
-    // console.log(str)
+  mounted(){  
   },
+  methods : {
+    shutDown(){
+      const dropdownBtn = document.querySelector(".dropdown-btn");
+      const dropdownListContainer = document.querySelector(".dropdown-list-container");
+      dropdownListContainer.style.display="none"
+      dropdownBtn.style.backgroundColor="transparent"
+    },
+    goToMyPage(){
+      this.$router.push({name : "Profile"})
+    },
+    goToMainPage(){
+      this.$router.push({name : "Main"})
+    },
+  }
 }
 </script>
 
 <style scoped>
+  .warp{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  main {
+    padding: 0 5%;
+    height: 100%;
+  }
+  #buyCompleteForm{
+    display: block;
+    background-color: blue;
+    width: 100%;
+    height: 50%;
+    /* margin:  0; */
+    padding: 5% 0;
+  }
 
+  .lecture-buy-form{
+    margin: 2% 0;
+    background-color: goldenrod;
+
+  }
+  .lecture-title-buy-form{
+    font-size: 2rem;
+  }
+  
 </style>
