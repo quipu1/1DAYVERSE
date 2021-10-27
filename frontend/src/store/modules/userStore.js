@@ -1,4 +1,4 @@
-// import axios from "axios"
+import axios from "axios"
 
 const userStore = {
   namespaced: true,
@@ -22,39 +22,22 @@ const userStore = {
     },
   },
   actions: {
-    CREATE_TUTEE({ commit }, userinfo) {
+    CREATE_USER({ commit }, userinfo) {
       console.log(userinfo)
       console.log(commit)
-      // return new Promise((resolve, reject) => {
-      //   const CREATE_TUTEE_URL = '/user/signup'
-      //   axios.post(CREATE_TUTEE_URL, userinfo)
-      //     .then(() => {
-      //       commit('SIGNUP_EMAIL', userinfo.email)
-      //       resolve()
-      //     })
-      //     .catch((err) => {
-      //       const signupError = err.response.data.data
-      //       commit('SIGNUP_ERROR', signupError)
-      //       reject()
-      //     })
-      // })
-    },
-    CREATE_TUTOR({ commit }, userinfo) {
-      console.log(userinfo)
-      console.log(commit)
-      // return new Promise((resolve, reject) => {
-      //   const CREATE_TUTOR_URL = '/user/signup'
-      //   axios.post(CREATE_TUTOR_URL, userinfo)
-      //     .then(() => {
-      //       commit('SIGNUP_EMAIL', userinfo.email)
-      //       resolve()
-      //     })
-      //     .catch((err) => {
-      //       const signupError = err.response.data.data
-      //       commit('SIGNUP_ERROR', signupError)
-      //       reject()
-      //     })
-      // })
+      return new Promise((resolve, reject) => {
+        const CREATE_USER_URL = 'http://localhost:8000/od/accounts/signup/'
+        axios.post(CREATE_USER_URL, userinfo)
+          .then(() => {
+            // commit('SIGNUP_EMAIL', userinfo.email)
+            console.log('회원가입 완료')
+            resolve()
+          })
+          .catch((err) => { 
+            console.log(err)
+            reject()
+          })
+      })
     },
     AUTH_TUTEE({ commit }, userinfo) {
       console.log(userinfo)
