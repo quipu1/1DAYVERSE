@@ -12,7 +12,7 @@
             <span>{{lecture.date}} {{lecture.start}}</span>
           </div>
           <div>
-            <button @click="goToMyPage">비밀번호 확인하러 가기</button>
+            <button @click="goToMyPage">입장 비밀번호 확인하러 가기</button>
           </div>
           <div>
             <button @click="goToMainPage">메인 화면 으로 가기</button>
@@ -20,18 +20,21 @@
         </div>
       </div>
     </main>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
 // import axios from 'axios'
+import Footer from '@/components/Footer.vue'
 
 
 export default {
   name : "BuyDone",
   components : {
     Navbar,
+    Footer,
   },
   data(){
     return {
