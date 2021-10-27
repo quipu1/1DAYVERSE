@@ -273,6 +273,7 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    opacity: 75%;
   }
   .section-container{
     display: flex;
@@ -283,7 +284,8 @@ export default {
     align-items: center;
     background-color: lightgray;
     border-radius: 15px;
-
+    opacity: 75%;
+    color: black;
   }
   .section-container > label {
     width: 20%;
@@ -378,7 +380,6 @@ export default {
   #timeSection{
     display: flex;
     flex-direction: column;
-    
   }
   .class-card{
     background-color: lightgray;

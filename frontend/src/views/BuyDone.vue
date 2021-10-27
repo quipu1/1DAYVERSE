@@ -26,7 +26,6 @@ export default {
     // var str = link.split('?')
     // var URLSearhParams =  new URLSearchParams(link.search);
     // console.log(str)
-
   },
 }
 </script>
