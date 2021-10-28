@@ -32,7 +32,7 @@ import Footer from '@/components/Footer.vue'
 
 export default {
   name : "Category",
-  props : ["group"],
+  props : ["keyword"],
   components : {
     Navbar,
     Lecture,
@@ -42,39 +42,24 @@ export default {
     return {
       lectures : "",
       loading  : false,
+      q : "",
     }
   },
   watch : {
-    group : function() {
-      return this.groupChange();
-    }
+    keyword : function() {
+      return this.search();
+    },
   },
-  
-  mounted(){
+  created(){
+    console.log(this.keyword)
     this.loading = true;
-    switch(this.group){
-      case "health":
-        axios.get("http://127.0.0.1:8000/od/onedays/category/1")
-        .then((res)=>{
-          this.lectures = res.data
-          this.loading = false;
-        })
-        break
-      case "hobby":
-        axios.get("http://127.0.0.1:8000/od/onedays/category/2")
-        .then((res)=>{
-          this.lectures = res.data; 
-          this.loading = false;
-        })
-        break
-      case "lang":
-        axios.get("http://127.0.0.1:8000/od/onedays/category/3")
-        .then((res)=>{
-          this.lectures = res.data;
-          this.loading = false; 
-        })
-        break
-    }
+    const Form = new FormData();
+    Form.append("q", this.keyword)
+    axios.post(`http://127.0.0.1:8000/od/onedays/search/`, Form)
+    .then((res)=>{
+      this.lectures = res.data
+      this.loading = false;
+    })
   },
   methods : {
     shutDown(){
@@ -83,36 +68,18 @@ export default {
       dropdownListContainer.style.display="none"
       dropdownBtn.style.backgroundColor="transparent"
     },
-    groupChange(){
-      switch(this.group){
-        case "health":
-          axios.get("http://127.0.0.1:8000/od/onedays/category/1")
-          .then((res)=>{
-            this.lectures = res.data; 
-            console.log(res.data)
-          this.loading = false;
-
-          })
-          break
-        case "hobby":
-          axios.get("http://127.0.0.1:8000/od/onedays/category/2")
-          .then((res)=>{
-            this.lectures = res.data; 
-            console.log(res.data)
-          this.loading = false;
-
-          })
-          break
-        case "lang":
-          axios.get("http://127.0.0.1:8000/od/onedays/category/3")
-          .then((res)=>{ this.lectures = res.data; 
-          this.loading = false;
-          console.log(res.data); })
-          break
-      }
+    search(){
+      this.loading = true;
+      const Form = new FormData();
+      Form.append("q", this.keyword)
+      axios.post(`http://127.0.0.1:8000/od/onedays/search/`, Form)
+      .then((res)=>{
+        this.lectures = res.data
+        console.log(res)
+        this.loading = false;
+      })
     },
-
-  }
+   },
 
 }
 </script>

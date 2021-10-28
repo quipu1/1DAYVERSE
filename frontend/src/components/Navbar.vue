@@ -14,7 +14,7 @@
       <div class="btn" @click="makeClass"><span v-show="isTeacher">강의 생성</span></div>
     </div>
    <div style="display:flex; align-items:center; width:50%; justify-content:space-around; padding:0 2.5%;">
-      <input id="inputTag" type="text" v-model="keyword" placeholder="검색어 입력"  @keyup.enter="search">
+      <input id="inputTag" type="text" v-model="keyword" placeholder="강의 이름으로 검색"  @keyup.enter="search">
       <div class="btn"> 
         <span v-if="isLogin" @click="goToMyPage">내 정보</span>
         <span v-else @click="goToSignupPage">회원가입</span>
@@ -85,7 +85,13 @@ export default {
       }
     },
     search(){
-      alert(`${this.keyword}`)
+      if(this.keyword !==""){
+      this.$router.push({name : "Search", params: {"keyword" : this.keyword}})
+      }
+      else{
+        alert('검색어를 입력해주세요')
+        this.$router.go(0)
+      }
     },
     makeClass(){
       this.$router.push({name : "LectureCreate"})

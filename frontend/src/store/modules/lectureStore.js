@@ -19,6 +19,7 @@ const lectureStore = {
   actions: {
     GET_LECTURE({commit}, Form){
       commit("SET_LECTURE", Form)
+      console.log(Form)
     }
   }
 }

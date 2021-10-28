@@ -75,7 +75,7 @@ export default {
   }
   #buyCompleteForm{
     display: block;
-    background-color: blue;
+    background-color: #FFEEF7;
     width: 100%;
     height: 50%;
     /* margin:  0; */
@@ -84,7 +84,7 @@ export default {
 
   .lecture-buy-form{
     margin: 2% 0;
-    background-color: goldenrod;
+    background-color: white;
 
   }
   .lecture-title-buy-form{
