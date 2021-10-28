@@ -30,6 +30,8 @@
 <script>
 
 import logo from '@/assets/1DAYVERSE.png'
+// import {mapGetters} from 'vuex';
+// 
 export default {
   name : "Navbar",
   data (){
@@ -40,6 +42,17 @@ export default {
       keyword : "",
     }
   },
+  created(){
+    const l = this.$store.getters["userStore/getUserJob"]
+    console.log(l)
+    if(l!==null){
+      this.isLogin = true
+    }
+  },
+  // mounted(){
+  //   const l = this.$store.getters["userStore/getUserJob"]
+  //   console.log(l)  
+  // },
   methods : {
     shutDown(){
       const dropdownBtn = document.querySelector(".dropdown-btn");
@@ -66,6 +79,7 @@ export default {
     },
     goToMyPage(){
       alert('내 정보 페이지로 이동')
+      this.$router.push({name:"Profile"})
     },
     goToSignupPage(){
       this.$router.push({name : "Singup"})
@@ -73,7 +87,8 @@ export default {
     logout(){
       if(confirm('로그아웃 하시겠습니까?')){
         alert('로그아웃')
-        this.$router.push({name : "Login"})
+        localStorage.removeItem("vuex")
+        this.$router.push({name : "Main"})
       }else{
         alert('취소 되었습니다.')
       }
