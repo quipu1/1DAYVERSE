@@ -85,7 +85,13 @@ export default {
       }
     },
     search(){
+      if(this.keyword !==""){
       this.$router.push({name : "Search", params: {"keyword" : this.keyword}})
+      }
+      else{
+        alert('검색어를 입력해주세요')
+        this.$router.go(0)
+      }
     },
     makeClass(){
       this.$router.push({name : "LectureCreate"})

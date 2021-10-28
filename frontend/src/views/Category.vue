@@ -58,14 +58,12 @@ export default {
         .then((res)=>{
           this.lectures = res.data
           this.loading = false;
-          console.log(res.data)
         })
         break
       case "hobby":
         axios.get("http://127.0.0.1:8000/od/onedays/category/2")
         .then((res)=>{
           this.lectures = res.data; 
-          console.log(res.data)
           this.loading = false;
         })
         break
@@ -74,7 +72,6 @@ export default {
         .then((res)=>{
           this.lectures = res.data;
           this.loading = false; 
-          console.log(res.data)
         })
         break
     }

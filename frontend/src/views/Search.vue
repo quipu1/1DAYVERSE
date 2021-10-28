@@ -42,15 +42,23 @@ export default {
     return {
       lectures : "",
       loading  : false,
+      q : "",
     }
   },
-  
+  watch : {
+    keyword : function() {
+      return this.search();
+    },
+  },
   created(){
+    console.log(this.keyword)
+    this.loading = true;
     const Form = new FormData();
     Form.append("q", this.keyword)
     axios.post(`http://127.0.0.1:8000/od/onedays/search/`, Form)
     .then((res)=>{
       this.lectures = res.data
+      this.loading = false;
     })
   },
   methods : {
@@ -60,7 +68,17 @@ export default {
       dropdownListContainer.style.display="none"
       dropdownBtn.style.backgroundColor="transparent"
     },
-
+    search(){
+      this.loading = true;
+      const Form = new FormData();
+      Form.append("q", this.keyword)
+      axios.post(`http://127.0.0.1:8000/od/onedays/search/`, Form)
+      .then((res)=>{
+        this.lectures = res.data
+        console.log(res)
+        this.loading = false;
+      })
+    },
    },
 
 }
