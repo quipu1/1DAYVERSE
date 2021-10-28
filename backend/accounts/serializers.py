@@ -14,12 +14,12 @@ class UserSerializer(serializers.ModelSerializer):
     # write_only : 시리얼라이징은 하지만 응답에는 포함시키지 않음
     password = serializers.CharField(write_only=True)
 
-    def validate_username(self, value):
-        regex = re.compile('^[\w\d_]{2,20}')
-        if not regex.match(value):
-            raise ValidationError('유효한 아이디 형식이 아닙니다.')
+    # def validate_username(self, value):
+    #     regex = re.compile('^[\w\d_]{2,20}')
+    #     if not regex.match(value):
+    #         raise ValidationError('유효한 아이디 형식이 아닙니다.')
             
-        return value
+    #     return value
     
     def validate_password(self, value):
         regex = re.compile('^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{3,20}$')
