@@ -12,6 +12,8 @@ import BuyCancel from '../views/BuyCancel.vue'
 import BuyFail from '../views/BuyFail.vue'
 import Unity from '../views/Unity.vue'
 import Live from '../views/LiveLecture.vue'
+import Search from '../views/Search.vue'
+
 
 const routes = [
   {
@@ -78,6 +80,11 @@ const routes = [
     path: '/live',
     name: 'Live',
     component: Live
+  },
+  {
+    path: '/search/:keyword',
+    name: 'Search',
+    component: Search
   },
 ]
 

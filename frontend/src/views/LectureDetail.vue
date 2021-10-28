@@ -48,22 +48,22 @@ export default {
     return {
       PayImage : PayImage,
       lecture : "",
+      // cost : "",
       image : image
     }
   },
   created(){
-    
     axios.get(`http://127.0.0.1:8000/od/onedays/lecture/detail/${this.lecture_id}`)
     .then((res)=>{
       this.lecture = res.data
-      this.$store.dispatch['lectureStore/GET_LECTURE', res.data]
+      console.log(res.data)
+      this.$store.dispatch['lectureStore/GET_LECTURE', this.lecture]
     })
-
   },
   computed : {
     cost() {
       return this.lecture.price.toLocaleString('ko-KR')
-      }
+    }
   },
 
   methods : {
@@ -123,12 +123,15 @@ main{
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
+  font-size: 1.3rem;
   margin-bottom: 5%;
 }
 #payBtn{
-  width: 100%;
+  /* width: 100%; */
   /* height: 5%; */
   background-color: transparent;
+  display: flex;
+  justify-content: flex-start;
   border: none;
   cursor: pointer;
 }
