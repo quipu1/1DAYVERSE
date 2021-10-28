@@ -5,7 +5,7 @@
       <div class="left">
         <div class="image-container">
           <i class></i>
-          <img :src="lecture.main_image" alt="" id="classImage">
+          <img :src="image" alt="" id="classImage">
         </div>
         <div>
           <p>{{lecture.description}}</p>
@@ -13,11 +13,13 @@
       </div>
       <div class="right">
         <div class="class-info">
-          <span>취미</span>
+          <span v-if="lecture.category===1">운동</span>
+          <span v-else-if="lecture.category===2">취미</span>
+          <span v-else-if="lecture.category===3">언어</span>
           <span><b>{{lecture.name}}</b></span>
-          <span>강사 : {{lecture.teacher}}</span>
-          <span>모집 인원 : {{lecture.size}}명</span>
-          <span>가격 : {{lecture.price.toLocaleString('ko-KR')}}원</span>
+          <span>강사 : {{lecture.tutor}}</span>
+          <span>모집 인원 : {{lecture.room_size}}명</span>
+          <span>가격 : {{this.cost}}원</span>
         </div>
         <button @click="Pay" id="payBtn">
           <img :src="PayImage" alt="">
@@ -45,27 +47,28 @@ export default {
   data(){
     return {
       PayImage : PayImage,
-      lecture : {
-        "main_image" : image,
-        "name" : "윤소영의 그림 클래스",
-        "teacher" : "윤소영",
-        "description" : "그림 그리는 거 가르치는 강좌입니다. dddddddddddddddddddddddddddddddddddddㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁdddddddddddddddddddddd",
-        "price" : 1000000,
-        "size" : 20,
-       }
+      lecture : "",
+      image : image
     }
   },
   created(){
-    console.log(this.lecture_id)
+    axios.get(`http://127.0.0.1:8000/od/onedays/lecture/detail/${this.lecture_id}`)
+    .then((res)=>{
+      this.lecture = res.data
+    })
   },
+  computed : {
+    cost() {
+      return this.lecture.price.toLocaleString('ko-KR')
+    }
+  },
+
   methods : {
     Pay(){
       axios.post("http://127.0.0.1:8000/od/payments/ready/")
       .then((res)=>{
-        localStorage.setItem("tid", res.data.tid)
         location.href = res.data.next_url
       })
-
     }
   }
 }

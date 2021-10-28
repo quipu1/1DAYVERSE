@@ -67,7 +67,7 @@
             <div class="section-container" id="lectureContent">
               <div class="content-row">
                 <label>강의 사진</label>
-                <input type="file" multiple>
+                <input type="file" multiple @change="uploadImage">
               </div>
               <div class="content-row" style="height: 100%;">
                 <label for="">강의 내용</label>
@@ -207,6 +207,10 @@ export default {
           break
       }
     },
+    uploadImage(event){
+      this.image = event.files
+      console.log(this.image)
+    },
     commaCost(){
       console.log(this.cost)
       return 'W 1000'
@@ -233,8 +237,7 @@ export default {
       var Form = new FormData();
       Form.append('name', this.title);
       Form.append('tutor', '28');
-      
-      Form.append('main_image', '');
+      Form.append('main_image', "");
       Form.append('category', this.category);
       Form.append('start', this.start);
       Form.append('end', this.end);
@@ -247,9 +250,8 @@ export default {
       Form.append('password', this.password);
       axios.post("http://127.0.0.1:8000/od/onedays/register/", Form)
       .then((res)=>{
-        console.log(res)
+        console.log(res.data)
       })
-      // alert('제출 되었습니다.');this.$router.go(0)
     },
   }
 }
