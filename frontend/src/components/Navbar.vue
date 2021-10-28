@@ -38,23 +38,34 @@ export default {
     return {
       logo : logo,
       isTeacher : true,
-      isLogin : false,
+      // isLogin : false,
       keyword : "",
     }
   },
-  mounted(){
-    const l = this.$store.getters["userStore/getUserJob"]
-    console.log(l)
-    if(l !== undefined){
-      this.isLogin = true
-    }else{
-      this.isLogin = true
-    }
+  created() {
+    const teacherable = this.$store.getters["userStore/getUserTeachable"]
+      if (teacherable == '1') {
+        this.isTeacher = true
+      }
+      else {
+        this.isTeacher = false
+      }
   },
-  // mounted(){
-  //   const l = this.$store.getters["userStore/getUserJob"]
-  //   console.log(l)  
-  // },
+  computed: {
+    username() {
+      return this.$store.getters["userStore/getUsername"]
+    },
+    
+    isLogin() {
+      const tmp = this.$store.getters["userStore/getUsername"]
+      if (tmp) {
+        return true
+      }
+      else {
+        return false
+      }
+    },
+  },
   methods : {
     shutDown(){
       const dropdownBtn = document.querySelector(".dropdown-btn");
@@ -81,7 +92,9 @@ export default {
     },
     goToMyPage(){
       alert('내 정보 페이지로 이동')
-      this.$router.push({name:"Profile"})
+      if (this.username) {
+        this.$router.push({name:"Profile", params: {username : this.username}})
+      }
     },
     goToSignupPage(){
       this.$router.push({name : "Singup"})
@@ -89,8 +102,9 @@ export default {
     logout(){
       if(confirm('로그아웃 하시겠습니까?')){
         alert('로그아웃')
-        localStorage.removeItem("vuex")
-        this.$router.push({name : "Main"})
+        this.$store.dispatch('userStore/LOGOUT')
+        // localStorage.removeItem("vuex")
+        // this.$router.push({name : "Main"})
       }else{
         alert('취소 되었습니다.')
       }

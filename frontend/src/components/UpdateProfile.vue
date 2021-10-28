@@ -52,7 +52,7 @@
         <button class="delete" @click="changeDelete">회원탈퇴하기</button>
       </div>
       <div class="modal" v-else>
-        <div v-if="!deleted">
+        <div>
           <div>
             <p class="radio-text">정말로 삭제하시겠습니까?</p>
             <div class="radio">
@@ -67,10 +67,6 @@
             </div>
             <button class="btn delete-btn main-purple" @click="submitDelete">Submit</button>
           </div>
-        </div>
-        <div v-else>
-          <h3 class="profile-text">탈퇴되셨습니다.</h3>
-          <button class="btn delete-btn main-purple" @click="toMain">To Main</button>
         </div>
       </div>
     </div>
@@ -91,8 +87,6 @@ export default {
       delete_modal: false,
       // 유저 삭제
       delete_user: false,
-      // 삭제 결과 변수
-      deleted: false,
     }
   },
   props: {
@@ -153,7 +147,21 @@ export default {
     submitDelete() {
       if (this.delete_user) {
         this.$store.dispatch('userStore/DELETE_USER', this.username)
-        this.deleted = !this.deleted
+          .then(() => {
+            const Swal = require('sweetalert2')
+
+            Swal.fire({
+              title: '삭제되셨습니다.',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            }).then(() => {
+              this.$router.push({ name: 'Main'})
+            })
+          })
       }
       else {
         this.delete_modal = !this.delete_modal

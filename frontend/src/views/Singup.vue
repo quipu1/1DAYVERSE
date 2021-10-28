@@ -194,7 +194,16 @@
 
         this.$store.dispatch('userStore/CREATE_USER', form)
           .then(() => {
-            this.$router.push({ name: 'Main'})
+            const Swal = require('sweetalert2')
+
+            Swal.fire({
+              text: '회원가입이 완료되셨습니다.',
+              icon: 'success',
+              confirmButtonText: 'To Login',
+              confirmButtonColor: '#8D3DA5',
+            }).then(() => {
+              this.$router.push({ name: 'Login'})
+            })
           })
           .catch(() => {
             const Swal = require('sweetalert2')
