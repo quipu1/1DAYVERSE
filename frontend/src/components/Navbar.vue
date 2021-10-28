@@ -42,10 +42,12 @@ export default {
       keyword : "",
     }
   },
-  created(){
+  mounted(){
     const l = this.$store.getters["userStore/getUserJob"]
     console.log(l)
-    if(l!==null){
+    if(l !== undefined){
+      this.isLogin = true
+    }else{
       this.isLogin = true
     }
   },
