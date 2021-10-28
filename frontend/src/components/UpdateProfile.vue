@@ -4,8 +4,6 @@
       <div class="modal" v-if="!delete_modal">
         <div>
           <div class="profile-text">Update Profile</div>
-          <!-- <input type="file" name="image" id="image" ref="files" required @change="setThumbnail" class="image-input"/> -->
-          <img v-if="image_url" :src="image_url" alt="" class="user-image">
           <div class="form-element">
             <input type="username" name="username" v-model="username" id="username" required />
             <label class="floating-label" for="username">Enter Your user username</label>
@@ -45,7 +43,7 @@
               </span>
             </div>
           </div>
-          <button class="btn cancle activate" @click="$emit('close')">cancle</button>
+          <button class="btn cancle active" @click="$emit('close')">cancle</button>
           <button v-if="!update_error" class="btn update active" @click="update">Update</button>
           <button v-else class="btn nonactive">Update</button>
         </div>
@@ -78,11 +76,6 @@ export default {
   name: "UpateProfile",
   data() {
     return {
-      image: '',
-      image_url: '',
-      // username: 'asdfj',
-      birth: '120938',
-      phone: '01023',
       // 유저 삭제 모달 변수
       delete_modal: false,
       // 유저 삭제
@@ -93,11 +86,18 @@ export default {
     // 전체 모달 변수
     modal: {
       type: Boolean
-    }
+    },
   },
+
   computed: {
     username() {
       return this.$store.getters['userStore/getUsername'] 
+    },
+    birth() {
+      return  this.$store.getters['userStore/getUserBirth'] 
+    },
+    phone() {
+      return this.$store.getters['userStore/getUserPhone'] 
     },
     phone_error() {
       var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/

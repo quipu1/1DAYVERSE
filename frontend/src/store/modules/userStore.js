@@ -4,6 +4,7 @@ const ACCOUNT_URL = 'http://localhost:8000/od/accounts/'
 const userStore = {
   namespaced: true,
   state: {
+    userid: null,
     username: null,
     teachable: null,
     email: null,
@@ -17,7 +18,19 @@ const userStore = {
     },
     getUserTeachable(state) {
       return state.teachable
-    }
+    },
+    getUserBirth(state) {
+      return state.birth
+    },
+    getUserPhone(state) {
+      return state.phone
+    },
+    getUserLectures(state) {
+      return state.lectures
+    },
+    getUserId(state) {
+      return state.userid
+    },
   },
   mutations: {
     SET_USER(state, usersetting) {
@@ -31,6 +44,16 @@ const userStore = {
       state.birth= null
       state.phone= null
       state.lectures= null
+    },
+    FETCH_PROFILE(state, userinfo) {
+      // state.email= userinfo.email
+      state.birth= userinfo.birth_day
+      state.phone= userinfo.phone_number
+      state.userid = userinfo.id
+      // state.lectures= userinfo.lectures
+    },
+    FETCH_LECTURES(state, lectures) {
+      state.lectures = lectures
     }
   },
   actions: {
@@ -76,6 +99,18 @@ const userStore = {
         // .catch((err) => {
         //   console.log(err)
         // })
+    },
+    FETCH_PROFILE({ commit }, username) {
+      const FETCH_PROFILE_URL = ACCOUNT_URL + `profile/${username}`
+      axios.get(FETCH_PROFILE_URL)
+        .then((res) => {
+          console.log(res)
+          commit('FETCH_PROFILE', res.data.profile)
+          commit('FETCH_LECTURES', res.data.lectures)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     UPDATE_PROFILE({ commit }, userinfo) {
       console.log(userinfo)
