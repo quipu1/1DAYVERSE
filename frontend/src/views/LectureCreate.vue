@@ -157,7 +157,6 @@ export default {
   data(){
     return {
       idx : 'title',
-      // cost : '',
 
       title : "",
       category : "",
@@ -196,6 +195,17 @@ export default {
       document.getElementById(name).style.opacity="0.5";
       // document.getElementById(name).style.transform="scale(0.9);"
       this.category=name;
+      switch(name){
+        case "excerciseCard":
+          this.category = "1"
+          break
+        case "hobbyCard":
+          this.category = "2"
+          break
+        case "langCard":
+          this.category = "3"
+          break
+      }
     },
     commaCost(){
       console.log(this.cost)
@@ -208,47 +218,34 @@ export default {
       // document.getElementById(size).style.transform="scale(0.9);"
       switch(onsize){
         case "smallCard":
-          this.size = 1
+          this.size = "1"
           break
         case "mediumCard":
-          this.size = 2
+          this.size = "2"
           break
         case "largeCard":
-          this.size = 3
+          this.size = "3"
           break
       }
     },
     onSubmit(){
-      // const Form = new FormData();
-      // Form.append("tutor", 28)
-      // Form.append("name", "123")
-      // Form.append("category", 1)
-      // Form.append("description", "123")
-      // Form.append("date", "")
-      // Form.append("start", "")
-      // Form.append("end","")
-      // Form.append("room_size", 1)
-      // Form.append("price", 123)
-      // Form.append("lecture_cnt", 1)
-      // Form.append("password", "123")
-      // Form.append("validation", "")
 
-      var data = new FormData();
-      console.log(this.start, this.end, this.date)
-      data.append('name', '박준수');
-      data.append('tutor', '28');
-      data.append('password', 'qwe34q!');
-      data.append('main_image', '');
-      data.append('category', '1');
-      data.append('start', this.start);
-      data.append('end', this.end);
-      data.append('date', this.date);
-      data.append('description', '강의입니다.');
-      data.append('room_size', '1');
-      data.append('price', '5000');
-      data.append('lecture_cnt', '1');
-      data.append('validation', '');
-      axios.post("http://127.0.0.1:8000/od/onedays/register/", data)
+      var Form = new FormData();
+      Form.append('name', this.title);
+      Form.append('tutor', '28');
+      
+      Form.append('main_image', '');
+      Form.append('category', this.category);
+      Form.append('start', this.start);
+      Form.append('end', this.end);
+      Form.append('date', this.date);
+      Form.append('description', this.description);
+      Form.append('room_size', this.size);
+      Form.append('price', String(this.cost));
+      Form.append('lecture_cnt', '1');
+      Form.append('validation', '');
+      Form.append('password', this.password);
+      axios.post("http://127.0.0.1:8000/od/onedays/register/", Form)
       .then((res)=>{
         console.log(res)
       })
