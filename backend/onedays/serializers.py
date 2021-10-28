@@ -17,7 +17,7 @@ class LectureListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Lecture
-        fields = ('id', 'name', 'description', 'main_image')
+        fields = ('id', 'title', 'name', 'description', 'main_image')
 
 
 class LectureDetailSerializer(serializers.ModelSerializer):
@@ -31,7 +31,7 @@ class ProfileLectureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lecture
-        fields = ('id', 'name', 'description', 'password')
+        fields = ('id', 'name', 'title', 'description', 'password')
 
 
 class RegistrationSeralizer(serializers.ModelSerializer):

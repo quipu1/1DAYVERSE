@@ -46,3 +46,8 @@ def detail(request, l_num):
     lecture = get_object_or_404(Lecture.objects.filter(pk=l_num))
     serializer = LectureDetailSerializer(lecture)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def search(request):
+    return Response('hi')
