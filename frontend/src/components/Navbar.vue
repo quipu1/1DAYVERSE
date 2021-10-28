@@ -86,7 +86,6 @@ export default {
     },
     search(){
       this.$router.push({name : "Search", params: {"keyword" : this.keyword}})
-      alert(`${this.keyword}`)
     },
     makeClass(){
       this.$router.push({name : "LectureCreate"})

@@ -46,10 +46,11 @@ export default {
   },
   
   created(){
-    
-    axios.get(`http://127.0.0.1:8000/od/onedays/searchq=${this.keyword}`)
+    const Form = new FormData();
+    Form.append("q", this.keyword)
+    axios.post(`http://127.0.0.1:8000/od/onedays/search/`, Form)
     .then((res)=>{
-      console.log(res)
+      this.lectures = res.data
     })
   },
   methods : {
