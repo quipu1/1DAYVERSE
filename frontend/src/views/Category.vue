@@ -1,12 +1,20 @@
 <template>
   <div class="warp">
     <Navbar/>
-    <main @click="shutDown">
-      <Lecture
-        v-for="(lecture,idx) in lectures"
-        :key="idx"
-        :lecture="lecture"
-      />
+    <main @click="shutDown" v-if="lectures.length > 0">    
+      <div>
+        <h1>강의 목록</h1>
+      </div>
+      <div id="lectureContainer">
+        <Lecture
+          v-for="(lecture,idx) in lectures"
+          :key="idx"
+          :lecture="lecture"
+        />
+      </div>
+    </main>
+        <main v-else>
+      <h1>강의가 없습니다.</h1>
     </main>
     <Footer/>
   </div>
@@ -41,15 +49,24 @@ export default {
     switch(this.group){
       case "health":
         axios.get("http://127.0.0.1:8000/od/onedays/category/1")
-        .then((res)=>{this.lectures = res.data})
+        .then((res)=>{
+          this.lectures = res.data
+          console.log(res.data)
+        })
         break
       case "hobby":
         axios.get("http://127.0.0.1:8000/od/onedays/category/2")
-        .then((res)=>{this.lectures = res.data})
+        .then((res)=>{
+          this.lectures = res.data; 
+          console.log(res.data)
+        })
         break
       case "lang":
         axios.get("http://127.0.0.1:8000/od/onedays/category/3")
-        .then((res)=>{ this.lectures = res.data})
+        .then((res)=>{
+          this.lectures = res.data; 
+          console.log(res.data)
+        })
         break
     }
   },
@@ -64,15 +81,21 @@ export default {
       switch(this.group){
         case "health":
           axios.get("http://127.0.0.1:8000/od/onedays/category/1")
-          .then((res)=>{this.lectures = res.data})
+          .then((res)=>{
+            this.lectures = res.data; 
+            console.log(res.data)
+          })
           break
         case "hobby":
           axios.get("http://127.0.0.1:8000/od/onedays/category/2")
-          .then((res)=>{this.lectures = res.data})
+          .then((res)=>{
+            this.lectures = res.data; 
+            console.log(res.data)
+          })
           break
         case "lang":
           axios.get("http://127.0.0.1:8000/od/onedays/category/3")
-          .then((res)=>{ this.lectures = res.data})
+          .then((res)=>{ this.lectures = res.data; console.log(res.data)})
           break
       }
     },
@@ -89,10 +112,14 @@ export default {
   height: 100%;
 }
 main{
+  text-align: center;
+  height: 100vh;
+}
+#lectureContainer{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-content:center;
-  align-items: center;
+  align-items: flex-start;
   justify-items: center;
   gap: 2.5%;
   padding: 0 5%;

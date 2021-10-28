@@ -5,9 +5,9 @@
       <div id="buyCompleteForm">
         <h1 style="margin: 0;">결제가 완료되었습니다.</h1>
         <div class="lecture-buy-form">
-          <span class="lecture-title-buy-form">{{lecture.name}}</span>
+          <span class="lecture-title-buy-form">{{lecture.title}}</span>
           <div class="lecture-image-container"><img :src="require('@/assets/class1.jpeg')" alt=""></div>
-          <span>{{lecture.tutor}}</span>
+          <span>{{lecture.name}}</span>
           <div>
             <span>{{lecture.date}} {{lecture.start}}</span>
           </div>
@@ -38,14 +38,11 @@ export default {
   },
   data(){
     return {
-      lecture : {
-        "name"  : "1강의",
-        "tutor" : "강사",
-        "password" : "12345",
-        "date" : "2021.10.27",
-        "start" : "06:15",
-      }
+      lecture : {}
     }
+  },
+  created(){
+    
   },
   mounted(){  
   },

@@ -4,10 +4,10 @@
       <img :src="require('@/assets/class1.jpeg')" class="image" alt="">
     </div>
     <div class="flex">
-      <b>{{lecture.teacher}}</b>
+      <b>{{lecture.name}}</b>
     </div>
     <div class="flex">
-      {{lecture.name}}
+      {{lecture.title}}
     </div>
   </div>
 </template>
