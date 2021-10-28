@@ -35,8 +35,11 @@
       :modal="modal"
       @close="changemodal"
     />
-    <div v-if="profilename != username">
-      권한이 없습니다.
+    <div v-if="profilename != username" class="to-main-box center">
+      <div class="to-main-text">
+        권한이 없습니다.
+      </div>
+      <button class="to-main-btn" @click="toMain">To Main</button>
     </div>
   </div>
 </template>
@@ -70,14 +73,6 @@ export default {
     Navbar,
     UpdateProfile,
   },
-  created() {
-    if (this.userjob === 'Tutee') {
-      this.$store.dispatch('userStore/FETCH_TUTEE', this.username)
-    }
-    else if (this.userjob === 'Tutor') {
-      this.$store.dispatch('userStore/FETCH_TUTOR', this.username)
-    }
-  },
   computed: {
     userjob() {
       return this.$store.getters['userStore/getUserJob']
@@ -90,6 +85,10 @@ export default {
     changemodal() {
       this.modal = !this.modal
     },
+    toMain() {
+      this.$router.push({ name: 'Main'})
+    },
+
   }
 }
 </script>
@@ -178,5 +177,26 @@ button {
 .profile-info > h4, svg
 {
   margin: 0.5rem 0;
+}
+.to-main-box
+{
+  position: absolute;
+  top: 45vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.to-main-btn {
+  width: 30%;
+  height: 30px;
+  margin: 0.5rem 12px;
+  margin-bottom: 16px;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #8D3DA5 !important;
 }
 </style>

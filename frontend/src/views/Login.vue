@@ -6,11 +6,11 @@
         <p class="radio-text">Select Your Job</p>
         <div class="radio">
           <div class="radio-input">
-            <input type="radio" id="Tutee" v-model="job" name="job" value="Tutee" checked>
+            <input type="radio" id="Tutee" v-model="job" name="job" value="0" checked>
             <label for="Tutee">Tutee(학생)</label>
           </div>
           <div class="radio-input">
-            <input type="radio" id="Tutor" v-model="job" name="job" value="Tutor">
+            <input type="radio" id="Tutor" v-model="job" name="job" value="1">
             <label for="Tutor">Tutor(강사)</label>
           </div>
         </div>
@@ -58,13 +58,13 @@
       return {
         username: '',
         password: '',
-        job: 'Tutee',
+        job: '0',
       }
     },
     computed: {
       login_error () {
-        if (this.username ==='' || this.password ==='' || (this.job != 'Tutee' && this.job != 'Tutor')) {
-          console.log(this.job)
+        if (this.username ==='' || this.password ==='' || (this.job != '0' && this.job != '1')) {
+          console.log(this.job, typeof(this.job))
           return true
         }
         return false
@@ -78,15 +78,16 @@
         }
 
         const form = new FormData()
+        console.log(this.job, 'job')
         form.append('username', this.username)
         form.append('password', this.password)
-        if (this.job === 'Tutee') {
+        if (this.job === '0') {
           form.append('teachable', 0)
         }
         else if (this.job === 'Tutor') {
-          form.append('teachable', 1)
+          form.append('1', 1)
         }
-        const info = [form, this.username]
+        const info = [form, this.username, this.job]
         this.$store.dispatch('userStore/AUTH_USER', info)
           .then(() => {
             this.$router.push({ name: 'Main'})

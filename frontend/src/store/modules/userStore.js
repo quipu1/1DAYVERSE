@@ -15,13 +15,14 @@ const userStore = {
     getUsername(state) {
       return state.username
     },
+    getUserTeachable(state) {
+      return state.teachable
+    }
   },
   mutations: {
-    FETCH_JOB(state, job) {
-      state.job = job
-    },
-    SET_USER(state, username) {
-      state.username = username
+    SET_USER(state, usersetting) {
+      state.username = usersetting[0]
+      state.teachable = usersetting[1]
     },
     RESET_STATE(state) {
       state.username= null
@@ -34,7 +35,6 @@ const userStore = {
   },
   actions: {
     CREATE_USER({ commit }, userinfo) {
-      console.log(commit)
       return new Promise((resolve, reject) => {
         const CREATE_USER_URL = ACCOUNT_URL + 'signup/'
         axios.post(CREATE_USER_URL, userinfo)
@@ -51,11 +51,13 @@ const userStore = {
     async AUTH_USER({ commit }, info) {
       const userinfo = info[0]
       const username = info[1]
+      const teachable = info[2]
+      const usersetting = [username, teachable]
       return new Promise((resolve, reject) => {
         const AUTH_USER_URL =  ACCOUNT_URL + 'login/'
         axios.post(AUTH_USER_URL, userinfo)
           .then(() => {
-            commit('SET_USER', username)
+            commit('SET_USER', usersetting)
             resolve()
           })
           .catch((err) => {
@@ -64,15 +66,16 @@ const userStore = {
           })
       })
     },
-    FETCH_TUTEE({ commit }, username) {
-      console.log(username)
-      console.log('튜티')
-      console.log(commit)
-    },
-    FETCH_TUTOR({ commit }, username) {
-      console.log(username)
-      console.log('튜터')
-      console.log(commit)
+    LOGOUT({ commit }) {
+      // const LOGOUT_URL = ACCOUNT_URL + 'logout/'
+      // axios.post(LOGOUT_URL)
+      //   .then((res) => {
+      //     console.log(res)
+        commit('RESET_STATE')
+        // })
+        // .catch((err) => {
+        //   console.log(err)
+        // })
     },
     UPDATE_PROFILE({ commit }, userinfo) {
       console.log(userinfo)
