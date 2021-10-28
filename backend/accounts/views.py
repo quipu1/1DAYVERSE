@@ -52,12 +52,12 @@ def signup(request):
 @api_view(['POST'])
 def login(request):
 
-    username = request.POST['username']
+    email = request.POST['email']
     password = request.POST['password']
     teachable = request.POST['teachable']
 
-    if User.objects.filter(username=username).exists():
-        getUser = User.objects.get(username=username)
+    if User.objects.filter(email=email).exists():
+        getUser = User.objects.get(email=email)
         if getUser.teachable == int(teachable):
             if getUser.password == password:
                 request.session['user'] = getUser.id
@@ -67,7 +67,7 @@ def login(request):
         else:
             return Response({'error': '강사/학생 체크를 확인해주세요.'}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({'error': '존재하지 않는 id 입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': '존재하지 않는 이메일입니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # 로그아웃 - 세션값 삭제
