@@ -5,7 +5,7 @@ from rest_framework.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 import re
 
-from .models import Lecture
+from .models import Lecture, Registration
 
 class LectureSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,3 +32,10 @@ class ProfileLectureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lecture
         fields = ('id', 'name', 'description', 'password')
+
+
+class RegistrationSeralizer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Registration
+        fields = '__all__'
