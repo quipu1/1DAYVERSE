@@ -84,15 +84,15 @@
             <div class="section-container" id="timeSection">
               <div>
                 <label>강의 시간</label>
-                <input type="date" class="input-form">
+                <input type="date" class="input-form" v-model="date">
               </div>
               <div>
                 <label for="">Start</label>
-                <input type="time" class="input-form">
+                <input type="time" class="input-form" v-model="start">
               </div>
               <div>
                 <label for="">End</label>
-                <input type="time" class="input-form">
+                <input type="time" class="input-form" v-model="end">
               </div>
             </div>
           </section>
@@ -144,6 +144,7 @@
 </template>
 
 <script>
+import axios from "axios"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 
@@ -162,7 +163,9 @@ export default {
       category : "",
       tutor : "",
       description : "",
-      time : "",
+      date : "",
+      start : "",
+      end : "",
       size : "",
       cost : "",
       password :"",
@@ -196,7 +199,6 @@ export default {
     },
     commaCost(){
       console.log(this.cost)
-      
       return 'W 1000'
     },
     selectSize(onsize){
@@ -204,10 +206,38 @@ export default {
       for (let i  = 0; i< cards.length;i ++){cards[i].style.opacity = "1";}
       document.getElementById(onsize).style.opacity="0.5";
       // document.getElementById(size).style.transform="scale(0.9);"
-      this.size = onsize;
+      switch(onsize){
+        case "smallCard":
+          this.size = 1
+          break
+        case "mediumCard":
+          this.size = 2
+          break
+        case "largeCard":
+          this.size = 3
+          break
+      }
     },
     onSubmit(){
-      alert('제출 되었습니다.');this.$router.go(0)
+      const Form = new FormData();
+      Form.append("tutor", 29)
+      Form.append("name", this.name)
+      Form.append("category", 1)
+      Form.append("description", this.description)
+      Form.append("date", this.date)
+      Form.append("start", this.start)
+      Form.append("end", this.end)
+      Form.append("room_size", 1)
+      Form.append("price", this.cost)
+      Form.append("lecture_cnt", 1)
+      // console.log()
+      console.log(Form)
+      // axios.post("http://127.0.0.1:8000/od/onedays/register/", Form)
+      axios.post("http://127.0.0.1:8000/od/onedays/register/", Form)
+      .then((res)=>{
+        console.log(res)
+      })
+      // alert('제출 되었습니다.');this.$router.go(0)
     },
   }
 }
