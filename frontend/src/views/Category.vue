@@ -1,9 +1,15 @@
 <template>
   <div class="warp">
     <Navbar/>
-    <main @click="shutDown" v-if="lectures.length > 0">    
-      <div>
+    <main @click="shutDown" >    
+      <div v-if="loading">
+        <h1>로딩 중..</h1>
+      </div>
+      <div v-else-if="lectures.length > 0">
         <h1>강의 목록</h1>
+      </div>
+      <div v-else>
+        <h1>강의가 없습니다.</h1>
       </div>
       <div id="lectureContainer">
         <Lecture
@@ -13,9 +19,7 @@
         />
       </div>
     </main>
-        <main v-else>
-      <h1>강의가 없습니다.</h1>
-    </main>
+
     <Footer/>
   </div>
 </template>
@@ -36,7 +40,8 @@ export default {
   },
   data(){
     return {
-      lectures : []
+      lectures : "",
+      loading  : false,
     }
   },
   watch : {
@@ -45,12 +50,14 @@ export default {
     }
   },
   
-  created(){
+  mounted(){
+    this.loading = true;
     switch(this.group){
       case "health":
         axios.get("http://127.0.0.1:8000/od/onedays/category/1")
         .then((res)=>{
           this.lectures = res.data
+          this.loading = false;
           console.log(res.data)
         })
         break
@@ -59,12 +66,14 @@ export default {
         .then((res)=>{
           this.lectures = res.data; 
           console.log(res.data)
+          this.loading = false;
         })
         break
       case "lang":
         axios.get("http://127.0.0.1:8000/od/onedays/category/3")
         .then((res)=>{
-          this.lectures = res.data; 
+          this.lectures = res.data;
+          this.loading = false; 
           console.log(res.data)
         })
         break
@@ -84,6 +93,8 @@ export default {
           .then((res)=>{
             this.lectures = res.data; 
             console.log(res.data)
+          this.loading = false;
+
           })
           break
         case "hobby":
@@ -91,11 +102,15 @@ export default {
           .then((res)=>{
             this.lectures = res.data; 
             console.log(res.data)
+          this.loading = false;
+
           })
           break
         case "lang":
           axios.get("http://127.0.0.1:8000/od/onedays/category/3")
-          .then((res)=>{ this.lectures = res.data; console.log(res.data)})
+          .then((res)=>{ this.lectures = res.data; 
+          this.loading = false;
+          console.log(res.data); })
           break
       }
     },

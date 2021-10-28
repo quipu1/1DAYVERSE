@@ -52,10 +52,13 @@ export default {
     }
   },
   created(){
+    
     axios.get(`http://127.0.0.1:8000/od/onedays/lecture/detail/${this.lecture_id}`)
     .then((res)=>{
       this.lecture = res.data
+      this.$store.dispatch['lectureStore/GET_LECTURE', res.data]
     })
+
   },
   computed : {
     cost() {
