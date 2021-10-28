@@ -35,7 +35,7 @@ def register(request):
 # 카테고리별 강의
 @api_view(['GET'])
 def category(request, c_num):
-    lectures = Lecture.objects.filter(category=c_num)
+    lectures = Lecture.objects.filter(category=c_num, validation=1)
     serializer = LectureListSerializer(lectures, many=True)
     return Response(serializer.data)
 
