@@ -219,21 +219,36 @@ export default {
       }
     },
     onSubmit(){
-      const Form = new FormData();
-      Form.append("tutor", 29)
-      Form.append("name", this.name)
-      Form.append("category", 1)
-      Form.append("description", this.description)
-      Form.append("date", this.date)
-      Form.append("start", this.start)
-      Form.append("end", this.end)
-      Form.append("room_size", 1)
-      Form.append("price", this.cost)
-      Form.append("lecture_cnt", 1)
-      // console.log()
-      console.log(Form)
-      // axios.post("http://127.0.0.1:8000/od/onedays/register/", Form)
-      axios.post("http://127.0.0.1:8000/od/onedays/register/", Form)
+      // const Form = new FormData();
+      // Form.append("tutor", 28)
+      // Form.append("name", "123")
+      // Form.append("category", 1)
+      // Form.append("description", "123")
+      // Form.append("date", "")
+      // Form.append("start", "")
+      // Form.append("end","")
+      // Form.append("room_size", 1)
+      // Form.append("price", 123)
+      // Form.append("lecture_cnt", 1)
+      // Form.append("password", "123")
+      // Form.append("validation", "")
+
+      var data = new FormData();
+      console.log(this.start, this.end, this.date)
+      data.append('name', '박준수');
+      data.append('tutor', '28');
+      data.append('password', 'qwe34q!');
+      data.append('main_image', '');
+      data.append('category', '1');
+      data.append('start', this.start);
+      data.append('end', this.end);
+      data.append('date', this.date);
+      data.append('description', '강의입니다.');
+      data.append('room_size', '1');
+      data.append('price', '5000');
+      data.append('lecture_cnt', '1');
+      data.append('validation', '');
+      axios.post("http://127.0.0.1:8000/od/onedays/register/", data)
       .then((res)=>{
         console.log(res)
       })
