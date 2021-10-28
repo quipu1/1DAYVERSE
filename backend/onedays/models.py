@@ -11,7 +11,8 @@ class Category(models.Model):
 class Lecture(models.Model):
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     tutees = models.ManyToManyField(Tutee, through='Registration')
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=30)
+    title = models.CharField(max_length=100, default='title')
     main_image = models.ImageField(upload_to='images/', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     password = models.CharField(max_length=30)
