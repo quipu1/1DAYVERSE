@@ -75,7 +75,7 @@ const routes = [
     component: Unity
   },
   {
-    path: '/Live',
+    path: '/live',
     name: 'Live',
     component: Live
   },
