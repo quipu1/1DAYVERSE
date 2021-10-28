@@ -50,6 +50,7 @@ const userStore = {
       state.birth= userinfo.birth_day
       state.phone= userinfo.phone_number
       state.userid = userinfo.id
+      state.username = userinfo.username
       // state.lectures= userinfo.lectures
     },
     FETCH_LECTURES(state, lectures) {
@@ -74,7 +75,7 @@ const userStore = {
     async AUTH_USER({ commit }, info) {
       const userinfo = info[0]
       const username = info[1]
-      const teachable = info[2]
+      const teachable = info[1]
       const usersetting = [username, teachable]
       return new Promise((resolve, reject) => {
         const AUTH_USER_URL =  ACCOUNT_URL + 'login/'
@@ -101,7 +102,7 @@ const userStore = {
         // })
     },
     FETCH_PROFILE({ commit }, username) {
-      const FETCH_PROFILE_URL = ACCOUNT_URL + `profile/${username}`
+      const FETCH_PROFILE_URL = ACCOUNT_URL + `profile/${username}/`
       axios.get(FETCH_PROFILE_URL)
         .then((res) => {
           console.log(res)
@@ -112,10 +113,17 @@ const userStore = {
           console.log(err)
         })
     },
-    UPDATE_PROFILE({ commit }, userinfo) {
-      console.log(userinfo)
-      console.log('update 프로필')
-      console.log(commit)
+    UPDATE_PROFILE({ commit }, info) {
+      const userinfo = info[0]
+      const username = info[1]
+      const UPDATE_USER_URL = ACCOUNT_URL + `profile/${username}/`
+      axios.put(UPDATE_USER_URL, userinfo)
+        .then((res) => {
+          commit('FETCH_PROFILE', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     DELETE_USER({ commit }, username) {
       const DELETE_USER_URL =  ACCOUNT_URL + `withdraw/${username}` 

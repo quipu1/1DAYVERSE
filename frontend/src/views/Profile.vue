@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="class-info">
-          <h2 v-if="userjob === 'Tutee'">수강내역</h2>
+          <h2 v-if="teachable === '0'">수강내역</h2>
           <h2 v-else>강의정보</h2>
           <div v-if="!lecture">아직 강의가 없어요😢</div>
           <div v-for="lecture, idx in lectures" :key="idx" class="lecture">
