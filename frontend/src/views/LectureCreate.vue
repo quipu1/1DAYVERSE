@@ -17,8 +17,8 @@
           <section v-if="idx=='title'" class="section-content" id="classTitle" >
             <h1 class="section-header">
               <div style="width:10%;"></div> 
-              <span style="width:60%;">강의 이름 정하기 </span>
-              <button style="width:10%;" @click="onClickBtn('category')">다음</button>
+              <span style="width:60%;" class="section-title">강의 이름 정하기 </span>
+              <button style="width:10%;" @click="onClickBtn('category')" class="next-btn">다음</button>
             </h1>
             <div class="section-container">
               <label>강의 이름</label>
@@ -28,8 +28,8 @@
           <section v-if="idx=='category'" class="section-content">
             <h1 class="section-header">
               <div style="width:10%;"></div> 
-              <span style="width:60%;">강의의 카테고리 정하기</span>
-              <button style="width:10%;" @click="onClickBtn('tutor')">다음</button>
+              <span style="width:60%;" class="section-title">강의의 카테고리 정하기</span>
+              <button style="width:10%;" @click="onClickBtn('tutor')" class="next-btn">다음</button>
             </h1>
             <div class="section-container"> 
               <div class="category-card" id="excerciseCard" @click="selectCategory('excerciseCard')">
@@ -46,8 +46,8 @@
           <section v-if="idx=='tutor'" class="section-content">
             <h1 class="section-header">
               <div style="width:10%;" ></div> 
-              <span style="width:60%;">강사 확인</span>
-              <button style="width:10%;" @click="onClickBtn('description')">다음</button>
+              <span style="width:60%;" class="section-title">강사 확인</span>
+              <button style="width:10%;" @click="onClickBtn('description')" class="next-btn">다음</button>
             </h1>
             <div class="section-container" id="tutorContent">
               <div class="profile-image">
@@ -61,8 +61,8 @@
           <section v-if="idx=='description'" class="section-content">
             <h1 class="section-header">
               <div style="width:10%;"></div> 
-              <span style="width:60%;">강의의 설명 입력 정하기 </span>
-              <button style="width:10%;" @click="onClickBtn('time')">다음</button>
+              <span style="width:60%;" class="section-title">강의의 설명 입력 정하기 </span>
+              <button style="width:10%;" @click="onClickBtn('time')" class="next-btn">다음</button>
             </h1>
             <div class="section-container" id="lectureContent">
               <div class="content-row">
@@ -78,8 +78,8 @@
           <section v-if="idx=='time'" class="section-content">
             <h1 class="section-header">
               <div style="width:10%;"></div> 
-              <span style="width:60%;"> 강의의 시간 정하기 </span>
-              <button style="width:10%;" @click="onClickBtn('cost')">다음</button>
+              <span style="width:60%;" class="section-title"> 강의의 시간 정하기 </span>
+              <button style="width:10%;" @click="onClickBtn('cost')" class="next-btn">다음</button>
             </h1>
             <div class="section-container" id="timeSection">
               <div>
@@ -99,19 +99,19 @@
           <section v-if="idx=='cost'" class="section-content">
             <h1 class="section-header">
               <div style="width:10%;"></div> 
-              <span style="width:60%;">강의의 금액 정하기</span>
-              <button style="width:10%;" @click="onClickBtn('size')">다음</button>
+              <span style="width:60%;" class="section-title">강의의 금액 정하기</span>
+              <button style="width:10%;" @click="onClickBtn('size')" class="next-btn">다음</button>
             </h1>
             <div class="section-container">
               <label>강의 금액</label>
-              <input type="number" class="input-form" v-model="cost" @keyup="commaCost(this)">
+              <input type="text" class="input-form" v-model="cost" @keyup="commaCost">
             </div>
           </section>
           <section v-if="idx=='size'" class="section-content">
             <h1 class="section-header">
               <div style="width:10%;"></div> 
-              <span style="width:60%;">강의의 클래스 이름 정하기</span> 
-              <button style="width:10%;" @click="onClickBtn('password')">다음</button>
+              <span style="width:60%;" class="section-title">강의의 클래스 이름 정하기</span> 
+              <button style="width:10%;" @click="onClickBtn('password')" class="next-btn">다음</button>
             </h1>
             <div class="section-container">
               <div class="class-card" id="smallCard" @click="selectSize('smallCard')">
@@ -128,8 +128,8 @@
           <section v-if="idx=='password'" class="section-content">
             <h1 class="section-header">
               <div style="width:10%;"></div> 
-              <span style="width:60%;">강의의 비밀번호 정하기</span>
-              <button style="width:10%;" @click="onSubmit">제출</button>
+              <span style="width:60%;" class="section-title">강의의 비밀번호 정하기</span>
+              <button style="width:10%;" @click="onSubmit" id="submitBtn">제출</button>
             </h1>
             <div class="section-container">
               <label>강의 비밀번호</label>
@@ -195,6 +195,8 @@ export default {
       this.category=name;
     },
     commaCost(){
+      console.log(this.cost)
+      
       return 'W 1000'
     },
     selectSize(onsize){
@@ -219,7 +221,7 @@ export default {
   }
   main{
     width: 100%;
-    padding: 2% 5%;
+    padding: 2% 0;
     display: flex;
     justify-content: center;
     height: 80vh;
@@ -228,8 +230,8 @@ export default {
     display: flex;
     position: relative;
     width: 90%;
+    justify-content: center;
     /* background-color: black; */
-
   }
   #selectTable{
     width: 15%;
@@ -242,7 +244,6 @@ export default {
     align-items: center;
     /* justify-content: center; */
     gap: 1%;
-
   }
   .select-component{
     width: 100%;
@@ -262,7 +263,6 @@ export default {
     display:flex;
     justify-content: center;
 
-    /* align-items: space-between; */
   }
   .section-content{
     padding: 2% 0;
@@ -275,7 +275,7 @@ export default {
   .section-header{
     /* top: 20%; */
     background-color: lightgray;
-    width: 100%;
+    width: 90%;
     height: 15%;
     font:bolder;
     border-radius: 15px;
@@ -283,6 +283,11 @@ export default {
     justify-content: space-around;
     align-items: center;
     opacity: 75%;
+    
+  }
+  .section-title{
+    font-size: 1.5rem;
+    font:bolder;
   }
   .section-container{
     display: flex;
@@ -295,6 +300,7 @@ export default {
     border-radius: 15px;
     opacity: 75%;
     color: black;
+    margin-bottom: 5%;
   }
   .section-container > label {
     width: 20%;
@@ -321,8 +327,9 @@ export default {
     height: 100%;
     /* aspect-ratio: 1; */
     margin: 0 1%;
-
+    cursor:pointer;
     display: flex;
+    border: none;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -337,9 +344,6 @@ export default {
   }
   #langCard{
     background-color: olive;
-  }
-  .category-card:hover{
-    transform: scale(0.9);
   }
   #tutorContent{
     flex-direction: column;
@@ -359,7 +363,6 @@ export default {
     width: 50%;
     height: 25%;
     font-size: 1.25rem;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -393,12 +396,11 @@ export default {
   .class-card{
     background-color: lightgray;
     width: 30%;
-    border: 1px solid black;
+    border: none;
     border-radius: 15px;
     height: 100%;
     /* aspect-ratio: 1; */
     margin: 0 1%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -416,25 +418,28 @@ export default {
   #largeCard{
     background-color: olive;
   }
-  /* span {
-    position: absolute;
-    background-color: black;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    border-radius: 50%;
-    animation: animate 1s linear infinite;
+  .next-btn{
+    border: 1px solid #8D3DA5;
+    border-radius: 15px;
+    background-color: transparent;
+    width: 20%;
+    height: 40%;
+    cursor:pointer;
   }
-  @keyframes animate{
-    0%
-    {
-      width: 0px;
-      height: 0px;
-      opacity: 35%;
-    }
-    100%{ 
-      width: 50px;
-      height: 50px;
-      opacity: 0%;
-    }
-  } */
+  .next-btn:hover{
+    background-color: #8D3DA5;
+    color:white;
+  }
+  #submitBtn{
+    border: 1px solid #202D91;
+    border-radius: 15px;
+    background-color: transparent;
+    width: 20%;
+    height: 40%;
+    cursor:pointer;
+  }
+  #submitBtn:hover{
+    background-color: #202D91;
+    color:white;
+  }
 </style>
