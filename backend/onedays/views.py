@@ -50,4 +50,7 @@ def detail(request, l_num):
 
 @api_view(['GET'])
 def search(request):
-    return Response('hi')
+    query = request.data['q']
+    lectures = Lecture.objects.filter(title__icontains=query)
+    lecture_list = LectureListSerializer(lectures, many=True)
+    return Response(lecture_list.data)
