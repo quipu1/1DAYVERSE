@@ -3,7 +3,7 @@
     <Navbar/>
     <div class="id-card" v-if="profilename == username">
       <div class="job">
-        <h3 v-if="userjob === 'Tutee'" class="job-text">TUTEE ID</h3>
+        <h3 v-if="teachable === '1'" class="job-text">TUTEE ID</h3>
         <h3 v-else class="job-text">TUTOR ID</h3>
       </div>
       <div class="container grid grid-cols-1 md:grid-cols-6">
@@ -24,6 +24,7 @@
         <div class="class-info">
           <h2 v-if="userjob === 'Tutee'">수강내역</h2>
           <h2 v-else>강의정보</h2>
+          <div v-if="!lecture">아직 강의가 없어요😢</div>
           <div v-for="lecture, idx in lectures" :key="idx" class="lecture">
             {{ lecture }}
           </div>
@@ -52,20 +53,7 @@ export default {
   name: "Profile",
   data() {
     return {
-      // userjob: 'stud',
-      // username: 'amy',
       profilename: this.$route.params.username,
-      birth: '1990.01.01',
-      phone: '1234567890',
-      lectures: [
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sequi corporis fugit nesciunt nobis quam quidem animi molestias vero ad doloribus aperiam expedita alias recusandae, non impedit, odio cum provident.',
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sequi corporis fugit nesciunt nobis quam quidem animi molestias vero ad doloribus aperiam expedita alias recusandae, non impedit, odio cum provident.',
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sequi corporis fugit nesciunt nobis quam quidem animi molestias vero ad doloribus aperiam expedita alias recusandae, non impedit, odio cum provident.',
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sequi corporis fugit nesciunt nobis quam quidem animi molestias vero ad doloribus aperiam expedita alias recusandae, non impedit, odio cum provident.',
-        'Developer',
-        'Developer',
-        'Developer',
-      ],
       modal: false,
     }
   },
@@ -73,12 +61,24 @@ export default {
     Navbar,
     UpdateProfile,
   },
+  created() {
+    this.$store.dispatch('userStore/FETCH_PROFILE', this.profilename)
+  },
   computed: {
-    userjob() {
-      return this.$store.getters['userStore/getUserJob']
+    teachable() {
+      return this.$store.getters['userStore/getUserTeachable']
     },
     username() {
       return this.$store.getters['userStore/getUsername'] 
+    },
+    birth() {
+      return  this.$store.getters['userStore/getUserBirth'] 
+    },
+    phone() {
+      return this.$store.getters['userStore/getUserPhone'] 
+    },
+    lectures() {
+      return this.$store.getters['userStore/getUserLectures'] 
     },
   },
   methods: {
@@ -88,7 +88,6 @@ export default {
     toMain() {
       this.$router.push({ name: 'Main'})
     },
-
   }
 }
 </script>

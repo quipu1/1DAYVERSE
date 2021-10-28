@@ -91,6 +91,7 @@
         this.$store.dispatch('userStore/AUTH_USER', info)
           .then(() => {
             this.$router.push({ name: 'Main'})
+            this.$store.dispatch('userStore/FETCH_PROFILE', this.username)
           })
           .catch(() => {
             const Swal = require('sweetalert2')
