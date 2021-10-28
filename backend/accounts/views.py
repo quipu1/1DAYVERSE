@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 # Create your views here.
 from rest_framework import status
@@ -7,7 +7,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import Tutee, Tutor, User
-from .serializers import ProfileSerializer, UserSerializer
+from .serializers import ProfileSerializer, UserSerializer, ProfileModifySerializer
+from onedays.models import Lecture
+from onedays.serializers import ProfileLectureSerializer
 
 
 @api_view(['POST'])
@@ -83,18 +85,47 @@ def withdraw(request, username):
     return Response({"status":"회원탈퇴"}, status=status.HTTP_204_NO_CONTENT)
 
 
-# 프로필
-@api_view(['GET'])
+# 프로필, 프로필 수정
+@api_view(['GET', 'PUT'])
 def profile(request, username):
-
-    # 유저 정보
     user = get_object_or_404(User, username=username)
-    serializer = ProfileSerializer(user)
 
-    # 유저 수강 목록
-    lectures = request.user.tutee.all()
-    l_serializer = LectureListSerializer(lectures, many=True, context={'userId': request.user})
+    if request.method == 'GET':
 
-    data = {
-        'profile': serializer.data
-    }
+        # 유저 정보
+        serializer = ProfileSerializer(user)
+        userId = serializer.data['id']
+
+        # tutor일 경우 - 개인정보, 내 강의 목록
+        if serializer.data['teachable'] == 1:
+            tutor = get_object_or_404(Tutor, user=userId)
+            tutorId = tutor.id
+            lectures = get_list_or_404(Lecture, tutor=tutorId)
+            l_serializer = ProfileLectureSerializer(lectures, many=True)
+
+        else:
+            # tutee일 경우 - 개인정보, 수강 강의 목록
+            # 유저pk를 통해 튜티pk 가져오기
+            tutee = get_object_or_404(Tutee, user=userId)
+            tuteeId = tutee.id
+
+            # tuteeId를 통해 수강중인 강의 목록 불러오기
+            lectures = tutee.lecture_set.all()
+            l_serializer = ProfileLectureSerializer(lectures, many=True)
+
+        data = {
+                'profile': serializer.data,
+                'lectures': l_serializer.data
+            }
+        return Response(data)
+    
+    elif request.method == 'PUT':
+        serializer = ProfileModifySerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:  
+            data = {
+                'message': '올바르지 않은 형식입니다.'
+            }
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)

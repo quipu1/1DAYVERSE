@@ -25,3 +25,10 @@ class LectureDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lecture
         exclude = ('password',)
+
+
+class ProfileLectureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Lecture
+        fields = ('id', 'name', 'description', 'password')
