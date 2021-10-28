@@ -13,13 +13,14 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Navbar from '@/components/Navbar.vue'
 import Lecture from '@/components/Lecture.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
   name : "Category",
-  props : ["category"],
+  props : ["group"],
   components : {
     Navbar,
     Lecture,
@@ -27,17 +28,30 @@ export default {
   },
   data(){
     return {
-      lectures : [
-        {name : "1번강의", teacher : "1번", id: 1,},
-        {name : "2번강의", teacher : "2번강", id : 2,},
-        {name : "3번강의", teacher : "3번강사", id : 3},
-        {name : "엄청나게 긴 강 오버플로우", teacher : "4번강사당", id : 4,},
-        {name : "5번강의", teacher : "5번강사입니다", id : 5},
-      ]
+      lectures : []
     }
   },
+  watch : {
+    group : function() {
+      return this.groupChange();
+    }
+  },
+  
   created(){
-    console.log(this.category)
+    switch(this.group){
+      case "health":
+        axios.get("http://127.0.0.1:8000/od/onedays/category/1")
+        .then((res)=>{this.lectures = res.data})
+        break
+      case "hobby":
+        axios.get("http://127.0.0.1:8000/od/onedays/category/2")
+        .then((res)=>{this.lectures = res.data})
+        break
+      case "lang":
+        axios.get("http://127.0.0.1:8000/od/onedays/category/3")
+        .then((res)=>{ this.lectures = res.data})
+        break
+    }
   },
   methods : {
     shutDown(){
@@ -45,7 +59,24 @@ export default {
       const dropdownListContainer = document.querySelector(".dropdown-list-container");
       dropdownListContainer.style.display="none"
       dropdownBtn.style.backgroundColor="transparent"
-    }
+    },
+    groupChange(){
+      switch(this.group){
+        case "health":
+          axios.get("http://127.0.0.1:8000/od/onedays/category/1")
+          .then((res)=>{this.lectures = res.data})
+          break
+        case "hobby":
+          axios.get("http://127.0.0.1:8000/od/onedays/category/2")
+          .then((res)=>{this.lectures = res.data})
+          break
+        case "lang":
+          axios.get("http://127.0.0.1:8000/od/onedays/category/3")
+          .then((res)=>{ this.lectures = res.data})
+          break
+      }
+    },
+
   }
 
 }

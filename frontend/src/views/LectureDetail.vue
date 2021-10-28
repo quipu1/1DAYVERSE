@@ -60,7 +60,7 @@ export default {
   computed : {
     cost() {
       return this.lecture.price.toLocaleString('ko-KR')
-    }
+      }
   },
 
   methods : {
