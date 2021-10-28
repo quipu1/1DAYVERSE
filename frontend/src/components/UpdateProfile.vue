@@ -76,10 +76,14 @@ export default {
   name: "UpateProfile",
   data() {
     return {
+      username: null,
+      birth: null,
+      phone: null,
       // 유저 삭제 모달 변수
       delete_modal: false,
       // 유저 삭제
       delete_user: false,
+      profilename: this.$route.params.username,
     }
   },
   props: {
@@ -88,18 +92,16 @@ export default {
       type: Boolean
     },
   },
-
+  created() {
+    this.username = this.$store.getters['userStore/getUsername'] 
+    this.birth = this.$store.getters['userStore/getUserBirth'] 
+    this.phone = this.$store.getters['userStore/getUserPhone'] 
+  },
   computed: {
-    username() {
-      return this.$store.getters['userStore/getUsername'] 
-    },
-    birth() {
-      return  this.$store.getters['userStore/getUserBirth'] 
-    },
-    phone() {
-      return this.$store.getters['userStore/getUserPhone'] 
-    },
     phone_error() {
+      if (!this.phone) {
+        return true
+      }
       var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
       if (this.phone != '') {
         if (this.phone.match(regExp) != null) {
@@ -109,6 +111,9 @@ export default {
       return true
     },
     birth_error() {
+      if (!this.birth) {
+        return true
+      }
       var regExp = /^(19[0-9][0-9]|20\d{2}).(0[0-9]|1[0-2]).(0[1-9]|[1-2][0-9]|3[0-1])$/
       if (this.birth != '') {
         if (this.birth.match(regExp) != null) {
@@ -136,10 +141,24 @@ export default {
       const form = new FormData()
 
       form.append('username', this.username)
-      form.append('birth', this.birth)
-      form.append('phone', this.phone)
+      form.append('birth_day', this.birth)
+      form.append('phone_number', this.phone)
+      form.append('character', '')
+      const info = [form, this.profilename]
+      this.$store.dispatch('userStore/UPDATE_PROFILE', info)
+        .then(() => {
+          const Swal = require('sweetalert2')
 
-      this.$store.dispatch('userStore/UPDATE_PROFILE', form)
+          Swal.fire({
+            text: '프로필 수정이 완료되었습니다.',
+            icon: 'success',
+            confirmButtonText: 'To Profile',
+            confirmButtonColor: '#8D3DA5',
+          }).then(() => {
+            this.$router.push({name:"Profile", params: {username : this.username}})
+          })
+        })
+        .catch(() => {})
     },
     changeDelete() {
       this.delete_modal = !this.delete_modal
