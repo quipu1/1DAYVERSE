@@ -150,8 +150,7 @@ export default {
             confirmButtonText: 'To Profile',
             confirmButtonColor: '#8D3DA5',
           }).then(() => {
-            this.$router.push({name:"Profile", params: {username : this.username}})
-            this.$emit('close')
+            this.$emit('refresh')
           })
         })
         .catch(() => {})

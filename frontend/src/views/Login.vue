@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="form-element">
-        <input type="text" name="email" v-model="email" id="email" required />
+        <input type="text" name="email" autofocus v-model="email" id="email" required/>
         <label class="floating-label" for="email">Enter Your user ID</label>
         <div v-if="email === ''" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
@@ -81,7 +81,7 @@
         if (this.job === '0') {
           form.append('teachable', 0)
         }
-        else if (this.job === 'Tutor') {
+        else if (this.job === '1') {
           form.append('teachable', 1)
         }
         this.$store.dispatch('userStore/AUTH_USER', form)

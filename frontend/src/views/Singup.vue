@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="form-element username-form">
-        <input type="text" name="username" v-model="username" id="username" required/>
+        <input type="text" name="username" v-model="username" id="username" required autofocus/>
         <label class="floating-label" for="username">User ID
         </label>
         <div v-if="username === ''" class="alert">

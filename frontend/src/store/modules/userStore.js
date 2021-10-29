@@ -108,6 +108,7 @@ const userStore = {
       const FETCH_PROFILE_URL = ACCOUNT_URL + `profile/${username}/`
       axios.get(FETCH_PROFILE_URL)
         .then((res) => {
+          console.log(res, 'tutor res 확인')
           commit('FETCH_PROFILE', res.data.profile)
           commit('FETCH_LECTURES', res.data.lectures)
         })
