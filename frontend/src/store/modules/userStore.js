@@ -46,12 +46,10 @@ const userStore = {
       state.lectures= null
     },
     FETCH_PROFILE(state, userinfo) {
-      // state.email= userinfo.email
-      state.birth= userinfo.birth_day
-      state.phone= userinfo.phone_number
+      state.birth = userinfo.birth_day
+      state.phone = userinfo.phone_number
       state.userid = userinfo.id
-      state.username = userinfo.username
-      // state.lectures= userinfo.lectures
+      // state.username = userinfo.username
     },
     FETCH_LECTURES(state, lectures) {
       state.lectures = lectures

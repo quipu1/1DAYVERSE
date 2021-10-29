@@ -72,20 +72,17 @@
     },
     methods: {
       async Login() {
-        
         if (this.login_error) {
           return false
         }
-
         const form = new FormData()
-        console.log(this.job, 'job')
         form.append('email', this.email)
         form.append('password', this.password)
         if (this.job === '0') {
           form.append('teachable', 0)
         }
         else if (this.job === 'Tutor') {
-          form.append('1', 1)
+          form.append('teachable', 1)
         }
         const info = [form, this.email, this.job]
         this.$store.dispatch('userStore/AUTH_USER', info)

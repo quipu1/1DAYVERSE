@@ -24,9 +24,9 @@
         <div class="class-info">
           <h2 v-if="teachable === '0'">수강내역</h2>
           <h2 v-else>강의정보</h2>
-          <div v-if="!lecture">아직 강의가 없어요😢</div>
-          <div v-for="lecture, idx in lectures" :key="idx" class="lecture">
-            {{ lecture }}
+          <div v-if="lectures.length == 0">아직 강의가 없어요😢</div>
+          <div v-for="lectures, idx in lectures" :key="idx" class="lecture">
+            {{ lectures }}
           </div>
         </div>
       </div>
@@ -55,6 +55,7 @@ export default {
     return {
       profilename: this.$route.params.username,
       modal: false,
+      lectures: [],
     }
   },
   components: {
@@ -77,9 +78,9 @@ export default {
     phone() {
       return this.$store.getters['userStore/getUserPhone'] 
     },
-    lectures() {
-      return this.$store.getters['userStore/getUserLectures'] 
-    },
+    // lectures() {
+    //   return this.$store.getters['userStore/getUserLectures'] 
+    // },
   },
   methods: {
     changemodal() {
@@ -188,6 +189,7 @@ button {
 }
 .to-main-btn {
   width: 30%;
+  max-width: 100px;
   height: 30px;
   margin: 0.5rem 12px;
   margin-bottom: 16px;

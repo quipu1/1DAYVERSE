@@ -170,13 +170,10 @@
     },
     methods: {
       createUser() {
-
         if (this.singup_error) {
           return false
         }
-
         const form = new FormData()
-
         form.append('username', this.username)
         form.append('email', this.email)
         form.append('password', this.password)
@@ -191,11 +188,9 @@
         else if (this.job === 'Tutor') {
           form.append('teachable', 1)
         }
-
         this.$store.dispatch('userStore/CREATE_USER', form)
           .then(() => {
             const Swal = require('sweetalert2')
-
             Swal.fire({
               text: '회원가입이 완료되셨습니다.',
               icon: 'success',
@@ -207,7 +202,6 @@
           })
           .catch(() => {
             const Swal = require('sweetalert2')
-
             Swal.fire({
               text: '이미 가입된 username 혹은 email입니다.',
               icon: 'error',
