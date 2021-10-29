@@ -15,6 +15,9 @@
             <button @click="goToMyPage">입장 비밀번호 확인하러 가기</button>
           </div>
           <div>
+            <button @click="goToUnity">유니티로 입장하기</button>
+          </div>
+          <div>
             <button @click="goToMainPage">메인 화면 으로 가기</button>
           </div>
         </div>
@@ -64,6 +67,9 @@ export default {
     },
     goToMyPage(){
       this.$router.push({name : "Profile", params : {"username" : this.$store.getters["userStore/getUsername"]}})
+    },
+    goToUnity(){
+      alert('메타버스로 입장!')
     },
     goToMainPage(){
       this.$router.push({name : "Main"})

@@ -3,9 +3,11 @@
     <Navbar/>
     <main @click="shutDown">
       <section>
-        <div class="content-text">
-          배움이 있는 메타버스의 세계
+        <div class="content-text flex-column">
+          <span>배움이 있는 메타버스의 세계</span>
+          <button  id="goToUnityBtn" @click="goToUnity">유니티로 입장하기</button>
         </div>
+
         <div class="content-image">
           <img :src="require('@/assets/image0.jpg')" alt="" class="image">
         </div>
@@ -40,6 +42,17 @@ export default {
   components : {
     Navbar,
     Footer,
+  },
+  methods : {
+    shutDown(){
+      const dropdownBtn = document.querySelector(".dropdown-btn");
+      const dropdownListContainer = document.querySelector(".dropdown-list-container");
+      dropdownListContainer.style.display="none"
+      dropdownBtn.style.backgroundColor="transparent"
+    },
+    goToUnity(){
+      alert('메타버스로 이동')
+    },
   }
 }
 </script>
@@ -85,6 +98,24 @@ section {
   padding: 10%;
   align-items: center;
   height:100%;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#goToUnityBtn{
+  margin-top: 5%;
+  width: 30%;
+  line-height: 75px;
+  border:none;
+  cursor: pointer;
+  border-radius: 15px;
+  background-color: #C86B98;
+}
+#goToUnityBtn:hover{
+  background-color: #202D91;
+  color: white;
 }
 section:nth-child(1){
   background-color: rgb(255, 205, 243);

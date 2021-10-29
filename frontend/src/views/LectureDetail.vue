@@ -1,7 +1,7 @@
 <template>
   <div class="warp">
     <Navbar/>
-    <main>
+    <main @click="shutDown">
       <div class="left">
         <div class="image-container">
           <i class></i>
@@ -63,6 +63,12 @@ export default {
   },
 
   methods : {
+    shutDown(){
+      const dropdownBtn = document.querySelector(".dropdown-btn");
+      const dropdownListContainer = document.querySelector(".dropdown-list-container");
+      dropdownListContainer.style.display="none"
+      dropdownBtn.style.backgroundColor="transparent"
+    },
     Pay(){
       const Form = new FormData();
       Form.append("lecture_price", this.lecture.price)
