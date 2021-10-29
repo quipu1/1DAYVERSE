@@ -18,13 +18,17 @@ def ready(request):
         "Authorization": "KakaoAK " + "0eb5333f6c1ef20cd388e6e954902b51",   # 변경불가
         "Content-type": "application/x-www-form-urlencoded;charset=utf-8",  # 변경불가
     }
+    price = Form["lecture_price"]
+    if price == "0":
+        price = 1
+
     params = {
         "cid": "TC0ONETIME",    # 테스트용 코드
         "partner_order_id": "1001",     # 주문번호
         "partner_user_id": "100",    # 유저 아이디
         "item_name": Form["lecture_title"],        # 구매 물품 이름
         "quantity": "1",                # 구매 물품 수량
-        "total_amount": Form["lecture_price"],        # 구매 물품 가격
+        "total_amount": price,        # 구매 물품 가격
         "tax_free_amount": "0",         # 구매 물품 비과세
         "approval_url": Front_URL + "done/" + Form["lecture_id"] + "/",
         "cancel_url": Front_URL + "cancel/",
