@@ -133,10 +133,6 @@ export default {
     }
   },
   methods: {
-    setThumbnail() { 
-      this.image = this.$refs.files.files[0]
-      this.image_url = URL.createObjectURL(this.image)
-    },
     update() {
       const form = new FormData()
 
@@ -148,7 +144,6 @@ export default {
       this.$store.dispatch('userStore/UPDATE_PROFILE', info)
         .then(() => {
           const Swal = require('sweetalert2')
-
           Swal.fire({
             text: '프로필 수정이 완료되었습니다.',
             icon: 'success',
@@ -156,6 +151,7 @@ export default {
             confirmButtonColor: '#8D3DA5',
           }).then(() => {
             this.$router.push({name:"Profile", params: {username : this.username}})
+            this.$emit('close')
           })
         })
         .catch(() => {})
