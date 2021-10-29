@@ -37,14 +37,14 @@ export default {
   data (){
     return {
       logo : logo,
-      isTeacher : true,
+      isTeacher : false,
       // isLogin : false,
       keyword : "",
     }
   },
   created() {
     const teacherable = this.$store.getters["userStore/getUserTeachable"]
-      if (teacherable == '1') {
+      if (teacherable === 1) {
         this.isTeacher = true
       }
       else {

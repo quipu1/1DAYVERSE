@@ -3,8 +3,8 @@
     <Navbar/>
     <div class="id-card" v-if="profilename == username">
       <div class="job">
-        <h3 v-if="teachable === '1'" class="job-text">TUTEE ID</h3>
-        <h3 v-else class="job-text">TUTOR ID</h3>
+        <h3 v-if="teachable === 1" class="job-text">TUTOR ID</h3>
+        <h3 v-else class="job-text">TUTEE ID</h3>
       </div>
       <div class="container grid grid-cols-1 md:grid-cols-6">
         <div class="profile">
@@ -22,10 +22,10 @@
           </div>
         </div>
         <div class="class-info">
-          <h2 v-if="teachable === '0'">수강내역</h2>
-          <h2 v-else>강의정보</h2>
-          <div v-if="lectures.length == 0">아직 강의가 없어요😢</div>
-          <div v-for="lectures, idx in lectures" :key="idx" class="lecture">
+          <h2 v-if="teachable === 1">강의정보</h2>
+          <h2 v-else>수강내역</h2>
+          <div v-if="!lectures">아직 강의가 없어요😢</div>
+          <div v-else v-for="lectures, idx in lectures" :key="idx" class="lecture">
             {{ lectures }}
           </div>
         </div>
@@ -35,6 +35,7 @@
       v-if="modal && profilename == username"
       :modal="modal"
       @close="changemodal"
+      @refresh="refresh"
     />
     <div v-if="profilename != username" class="to-main-box center">
       <div class="to-main-text">
@@ -63,6 +64,8 @@ export default {
   },
   created() {
     this.$store.dispatch('userStore/FETCH_PROFILE', this.profilename)
+    console.log(this.username, this.profilename, '수정 후 확인')
+
   },
   computed: {
     teachable() {
@@ -88,6 +91,10 @@ export default {
     toMain() {
       this.$router.push({ name: 'Main'})
     },
+    refresh() {
+      this.changemodal()
+      this.$router.push({name:"Profile", params: {username : this.username}})
+    }
   }
 }
 </script>
