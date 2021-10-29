@@ -57,9 +57,10 @@ const routes = [
     component : LectureCreate,
   },
   {
-    path : '/buy/done',
+    path : '/buy/done/:lecture_id',
     name : 'BuyDone',
     component : BuyDone,
+    props: true,
   },
   {
     path : '/buy/cancel',

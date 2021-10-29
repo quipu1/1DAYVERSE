@@ -16,10 +16,10 @@
           <span v-if="lecture.category===1">운동</span>
           <span v-else-if="lecture.category===2">취미</span>
           <span v-else-if="lecture.category===3">언어</span>
-          <span><b>{{lecture.name}}</b></span>
+          <span><b>{{lecture.title}}</b></span>
           <span>강사 : {{lecture.tutor}}</span>
           <span>모집 인원 : {{lecture.room_size}}명</span>
-          <span>가격 : {{this.cost}}원</span>
+          <span>가격 : {{cost.toLocaleString('ko-KR')}}원</span>
         </div>
         <button @click="Pay" id="payBtn">
           <img :src="PayImage" alt="">
@@ -48,7 +48,7 @@ export default {
     return {
       PayImage : PayImage,
       lecture : "",
-      // cost : "",
+      cost : "",
       image : image
     }
   },
@@ -56,21 +56,22 @@ export default {
     axios.get(`http://127.0.0.1:8000/od/onedays/lecture/detail/${this.lecture_id}`)
     .then((res)=>{
       this.lecture = res.data
-      console.log(res.data)
-      this.$store.dispatch['lectureStore/GET_LECTURE', this.lecture]
+      this.cost = res.data.price
     })
   },
   computed : {
-    cost() {
-      return this.lecture.price.toLocaleString('ko-KR')
-    }
   },
 
   methods : {
     Pay(){
-      axios.post("http://127.0.0.1:8000/od/payments/ready/")
+      const Form = new FormData();
+      Form.append("lecture_price", this.lecture.price)
+      Form.append("lecture_title", this.lecture.title)
+      Form.append("lecture_id", this.lecture.id)
+      Form.append("user_id", this.$store.getters["userStore/getUsername"])
+      axios.post("http://127.0.0.1:8000/od/payments/ready/", Form)
       .then((res)=>{
-        location.href = res.data.next_url
+        location.href = res.data
       })
     }
   }
