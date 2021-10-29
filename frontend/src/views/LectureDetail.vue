@@ -5,7 +5,7 @@
       <div class="left">
         <div class="image-container">
           <i class></i>
-          <img src="https://k5c202.p.ssafy.io/od`${lecture.main_image}`" alt="" id="classImage">
+          <img :src="`https://k5c202.p.ssafy.io/od/docker/jenkins${this.lecture.main_image}`" alt="" id="classImage">
         </div>
         <div>
           <p>{{lecture.description}}</p>
@@ -56,6 +56,7 @@ export default {
     axios.get(`http://127.0.0.1:8000/od/onedays/lecture/detail/${this.lecture_id}`)
     .then((res)=>{
       this.lecture = res.data
+      console.log(res.data)
       this.cost = res.data.price
     })
   },
