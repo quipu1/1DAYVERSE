@@ -12,7 +12,7 @@ from onedays.serializers import RegistrationSeralizer
 @api_view(['POST'])
 def ready(request):
     Form = request.data
-    Front_URL = "https://k5c202.p.ssafy.io/buy"
+    Front_URL = "https://k5c202.p.ssafy.io/buy/"
     URL = 'https://kapi.kakao.com/v1/payment/ready'
     headers = {
         "Authorization": "KakaoAK " + "0eb5333f6c1ef20cd388e6e954902b51",   # 변경불가
