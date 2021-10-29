@@ -62,7 +62,7 @@ const userStore = {
     },
     FETCH_LECTURES(state, lectures) {
       state.lectures = lectures
-    }
+    },
   },
   actions: {
     CREATE_USER({ commit }, userinfo) {
@@ -108,7 +108,6 @@ const userStore = {
       const FETCH_PROFILE_URL = ACCOUNT_URL + `profile/${username}/`
       axios.get(FETCH_PROFILE_URL)
         .then((res) => {
-          console.log(res, 'tutor res 확인')
           commit('FETCH_PROFILE', res.data.profile)
           commit('FETCH_LECTURES', res.data.lectures)
         })
@@ -135,8 +134,7 @@ const userStore = {
     DELETE_USER({ commit }, username) {
       const DELETE_USER_URL =  ACCOUNT_URL + `withdraw/${username}` 
         axios.delete(DELETE_USER_URL, username)
-          .then((res) => {
-            console.log(res)
+          .then(() => {
             commit('RESET_STATE')
           })
           .catch((err) => {

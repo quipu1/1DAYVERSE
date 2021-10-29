@@ -15,21 +15,22 @@
           </div>
         </div>
       </div>
-      <div class="form-element username-form">
+      <div class="form-element username-form check-need">
         <input type="text" name="username" v-model="username" id="username" required autofocus/>
         <label class="floating-label" for="username">User ID
         </label>
-        <div v-if="username === ''" class="alert">
+        <div v-if="username === '' || username_error" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
             <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
             <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
           </svg>
           <span>
-            아이디를 입력해주세요.
+            {{ username_error }}
           </span>
         </div>
+        <button class="check-btn" @click="checkUsername(this.username)">중복 확인</button>
       </div>
-      <div class="form-element">
+      <div class="form-element check-need">
         <input type="text" name="email" v-model="email" id="email" required />
         <label class="floating-label" for="email">Email Address</label>
         <div v-if="email === '' || email_error" class="alert">
@@ -38,9 +39,10 @@
             <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
           </svg>
           <span>
-            이메일을 확인해주세요.
+            {{ email_error }}
           </span>
         </div>
+        <button class="check-btn" @click="checkEmail(this.email)">중복 확인</button>
       </div>
       <div class="form-element">
         <input type="password" name="password" v-model="password" id="password" required />
@@ -78,7 +80,7 @@
             <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
           </svg>
           <span>
-            생일을 입력해주세요.
+            생일을 확인해주세요.
           </span>
         </div>
       </div>
@@ -105,6 +107,8 @@
 </template>
 
 <script>
+import axios from "axios"
+
   export default {
     name: "Signup",
     data() {
@@ -116,17 +120,32 @@
         password_confirm: '',
         birth: '',
         phone: '',
+        username_check: false,
+        email_check: false,
       }
     },
     computed: {
+      username_error() {
+        if (!this.username) {
+          return '닉네임을 확인해주세요'
+        }
+        if (!this.username_check) {
+          return '닉네임 중복체크를 진행해주세요'
+        }
+        return false
+      },
       email_error() {
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
-        if (this.email != '') {
-          if (this.email.match(regExp) != null) {
-            return false
-          }
+        if (!this.email) {
+          return '이메일을 확인해주세요'
         }
-        return true
+        if (this.email.match(regExp) === null) {
+          return '이메일을 확인해주세요.'
+        }
+        if (!this.email_check) {
+          return '이메일 중복체크를 진행해주세요'
+        }
+        return false
       },
       password_error() {
         var regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
@@ -203,13 +222,73 @@
           .catch(() => {
             const Swal = require('sweetalert2')
             Swal.fire({
-              text: '이미 가입된 username 혹은 email입니다.',
+              text: 'username와 email 중복체크를 진행해주세요.',
               icon: 'error',
               confirmButtonText: 'Back',
               confirmButtonColor: '#8D3DA5',
             })
           })
-      }
+      },
+      checkUsername(username) {
+        if (!username) {
+          return
+        }
+        const CHECK_USERNAME_URL = `http://localhost:8000/od/accounts/check/username/${username}/`
+        axios.get(CHECK_USERNAME_URL, username)
+          .then((res) => {
+            if (res.data.available === 1) {
+              this.username_check = true
+            }
+            else {
+              this.username_check = false
+            }
+            const Swal = require('sweetalert2')
+            Swal.fire({
+              text: '사용 가능한 닉네임입니다.',
+              confirmButtonText: 'Back',
+              confirmButtonColor: '#8D3DA5',
+            })
+          })
+          .catch(() => {
+            this.username_check = false
+            const Swal = require('sweetalert2')
+            Swal.fire({
+              text: '이미 존재하는 닉네임입니다.',
+              confirmButtonText: 'Back',
+              confirmButtonColor: '#8D3DA5',
+            })
+          })
+      },
+      checkEmail(email) {
+        if (!email) {
+          return
+        }
+        const CHECK_USEREMAIL_URL = `http://localhost:8000/od/accounts/check/email/${email}/`
+        axios.get(CHECK_USEREMAIL_URL, email)
+          .then((res) => {
+            if (res.data.available === 1) {
+              this.email_check = true
+            }
+            else {
+              this.email_check = false
+            }
+            const Swal = require('sweetalert2')
+            Swal.fire({
+              text: '사용 가능한 이메일입니다.',
+              confirmButtonText: 'Back',
+              confirmButtonColor: '#8D3DA5',
+            })
+          })
+          .catch(() => {
+            this.email_check = false
+            const Swal = require('sweetalert2')
+            Swal.fire({
+              text: '이미 등록된 이메일입니다.',
+              confirmButtonText: 'Back',
+              confirmButtonColor: '#8D3DA5',
+            })
+          })
+      },
     }
   }
 </script>
@@ -247,6 +326,9 @@ body {
   border-radius: 5px;
   background-color: #F6F6F6;
   color: #000000;
+}
+.check-need input {
+  width: 80%;
 }
 .floating-label {
   box-sizing: border-box;
@@ -312,6 +394,21 @@ input:-webkit-autofill:focus {
   display: flex;
   align-content: center;
   margin-top: 0.3rem;
+}
+.check-need
+{
+  display: flex;
+  justify-content: space-between;
+}
+.check-need .alert 
+{
+  right: 20%;
+}
+.check-btn
+{
+  width: 15%;
+  border: none;
+  cursor: pointer;
 }
 .radio {
   display: flex;
