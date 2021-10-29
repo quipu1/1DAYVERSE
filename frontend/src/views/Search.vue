@@ -55,7 +55,7 @@ export default {
     this.loading = true;
     const Form = new FormData();
     Form.append("q", this.keyword)
-    axios.post(`http://127.0.0.1:8000/od/onedays/search/`, Form)
+    axios.post(`https://k5c202.p.ssafy.io/od/onedays/search/`, Form)
     .then((res)=>{
       this.lectures = res.data
       this.loading = false;
@@ -72,7 +72,7 @@ export default {
       this.loading = true;
       const Form = new FormData();
       Form.append("q", this.keyword)
-      axios.post(`http://127.0.0.1:8000/od/onedays/search/`, Form)
+      axios.post(`https://k5c202.p.ssafy.io/od/onedays/search/`, Form)
       .then((res)=>{
         this.lectures = res.data
         console.log(res)
