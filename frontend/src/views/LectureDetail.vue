@@ -5,7 +5,7 @@
       <div class="left">
         <div class="image-container">
           <i class></i>
-          <img :src="`.${this.lecture.main_image}`" alt="" id="classImage">
+          <img :src="`@/../../../backend${this.lecture.main_image}`" alt="" id="classImage">
         </div>
         <div>
           <p>{{lecture.description}}</p>
