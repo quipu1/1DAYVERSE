@@ -1,5 +1,5 @@
 import axios from "axios"
-const ACCOUNT_URL = 'http://localhost:8000/od/accounts/'
+const ACCOUNT_URL = 'https://k5c202.p.ssafy.io/od/accounts/'
 
 const userStore = {
   namespaced: true,
