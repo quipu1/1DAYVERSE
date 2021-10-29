@@ -81,14 +81,36 @@ def login(request):
 
 # 닉네임 체크
 @api_view(['GET'])
-def username_check(request):
-    return Response('hi')
+def check_username(request, username):
+    if User.objects.filter(username=username).exists():
+        data = {
+            'available': 0,
+            'message': '이미 존재하는 닉네임입니다.'
+        }
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        data = {
+            'available': 1,
+            'message': '사용 가능한 닉네임입니다.'
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 # 이메일 체크
 @api_view(['GET'])
-def email_check(request):
-    return Response('hi')
+def check_email(request, email):
+    if User.objects.filter(email=email).exists():
+        data = {
+            'available': 0,
+            'message': '이미 존재하는 이메일입니다.'
+        }
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        data = {
+            'available': 1,
+            'message': '사용 가능한 이메일입니다.'
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 # 로그아웃 - 세션값 삭제
