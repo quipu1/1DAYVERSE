@@ -234,7 +234,6 @@ export default {
     onSubmit(){
 
       var Form = new FormData();
-      console.log(this.image)
       Form.append('name', this.$store.getters["userStore/getUsername"]);
       Form.append('title', this.title);
       Form.append('tutor', this.$store.getters["userStore/getUserId"]);
@@ -249,7 +248,7 @@ export default {
       Form.append('lecture_cnt', '1');
       Form.append('validation', '');
       Form.append('password', this.password);
-      axios.post("http://127.0.0.1:8000/od/onedays/register/", Form)
+      axios.post("https://k5c202.p.ssafy.io/od/onedays/register/", Form)
       .then((res)=>{
         console.log(res.data)
       })
