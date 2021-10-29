@@ -25,8 +25,19 @@
           <h2 v-if="teachable === 1">강의정보</h2>
           <h2 v-else>수강내역</h2>
           <div v-if="!lectures || lectures.length === 0">아직 강의가 없어요😢</div>
-          <div v-else v-for="lectures, idx in lectures" :key="idx" class="lecture">
-            {{ lectures }}
+          <div v-else>
+            <table border="1" class="lecture">
+              <th>Title</th>
+              <th>Description</th>
+              <th>password</th>
+              <th>validation</th>
+              <tr v-for="lecture, idx in lectures" :key="idx">
+                <td>{{ lecture.title }}</td>
+                <td>{{ lecture.description }}</td>
+                <td>{{ lecture.password }}</td>
+                <td>{{ lecture.validation }}</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -165,6 +176,8 @@ export default {
 }
 .lecture {
   margin: 1rem 0;
+  width: 100%;
+  border-color: transparent !important;
 }
 button {
   background-color: transparent !important;

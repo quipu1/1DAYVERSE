@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Main from '../views/Main.vue'
 
 import Login from '../views/Login.vue'
-import Singup from '../views/Singup.vue'
+import Signup from '../views/Signup.vue'
 import Profile from '../views/Profile.vue'
 import Category from '../views/Category.vue'
 import LectureDetail from '../views/LectureDetail.vue'
@@ -28,9 +28,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/singup',
-    name: 'Singup',
-    component: Singup
+    path: '/signup',
+    name: 'Signup',
+    component: Signup
   },
   {
     path: '/:username',
