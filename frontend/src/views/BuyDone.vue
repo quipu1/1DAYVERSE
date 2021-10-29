@@ -3,7 +3,9 @@
     <Navbar/>
     <main @click="shutDown">
       <div id="buyCompleteForm">
-        <h1 style="margin: 0;">결제가 완료되었습니다.</h1>
+        <div id="buyCompleteFormHeader">
+          <h1 style="margin: 0;">결제가 완료되었습니다.</h1>
+        </div>
         <div class="lecture-buy-form">
           <span class="lecture-title-buy-form">{{lecture.title}}</span>
           <div class="lecture-image-container"><img :src="require('@/assets/class1.jpeg')" alt=""></div>
@@ -11,6 +13,8 @@
           <div>
             <span>{{lecture.date}} {{lecture.start}}</span>
           </div>
+        </div>
+        <div id="buyCompleteFormBottom">
           <div>
             <button @click="goToMyPage">입장 비밀번호 확인하러 가기</button>
           </div>
@@ -92,8 +96,7 @@ export default {
     display: block;
     background-color: #FFEEF7;
     width: 100%;
-    height: 50%;
-    /* margin:  0; */
+    margin:  5% 0;
     padding: 5% 0;
   }
 
