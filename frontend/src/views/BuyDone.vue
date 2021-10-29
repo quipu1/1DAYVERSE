@@ -47,7 +47,7 @@ export default {
     .then((res)=>{this.lecture= res.data})
     const Form = new FormData();
     Form.append("tutee", this.$store.getters["userStore/getUserId"])
-    Form.append("lecture",this.lecture_id )
+    Form.append("lecture",this.lecture_id)
     axios.post(`http://127.0.0.1:8000/od/payments/enroll/`,Form)
     .catch((err)=>{
       console.log(err)
