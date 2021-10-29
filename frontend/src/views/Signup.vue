@@ -233,7 +233,7 @@ import axios from "axios"
         if (!username) {
           return
         }
-        const CHECK_USERNAME_URL = `http://localhost:8000/od/accounts/check/username/${username}/`
+        const CHECK_USERNAME_URL = `https://k5c202.p.ssafy.io/od/accounts/check/username/${username}/`
         axios.get(CHECK_USERNAME_URL, username)
           .then((res) => {
             if (res.data.available === 1) {
@@ -263,7 +263,7 @@ import axios from "axios"
         if (!email) {
           return
         }
-        const CHECK_USEREMAIL_URL = `http://localhost:8000/od/accounts/check/email/${email}/`
+        const CHECK_USEREMAIL_URL = `https://k5c202.p.ssafy.io/od/accounts/check/email/${email}/`
         axios.get(CHECK_USEREMAIL_URL, email)
           .then((res) => {
             if (res.data.available === 1) {
