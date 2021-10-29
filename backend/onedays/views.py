@@ -13,6 +13,7 @@ from .serializers import LectureListSerializer, LectureSerializer, LectureDetail
 def register(request):
     # 프론트에서 유저pk를 가져오면
     # 유저pk를 통해 튜터pk 가져오기
+    print(request.data)
     userId = request.data['tutor']
     tutor = get_object_or_404(Tutor, user=userId)
     tutorId = tutor.id
