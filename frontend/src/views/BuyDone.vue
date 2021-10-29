@@ -7,7 +7,7 @@
         <div class="lecture-buy-form">
           <span class="lecture-title-buy-form">{{lecture.title}}</span>
           <div class="lecture-image-container"><img :src="require('@/assets/class1.jpeg')" alt=""></div>
-          <span>{{lecture.name}}</span>
+          <span>강사 : {{lecture.name}}</span>
           <div>
             <span>{{lecture.date}} {{lecture.start}}</span>
           </div>
@@ -26,12 +26,13 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-// import axios from 'axios'
+import axios from 'axios'
 import Footer from '@/components/Footer.vue'
 
 
 export default {
   name : "BuyDone",
+  props : ["lecture_id"],
   components : {
     Navbar,
     Footer,
@@ -42,7 +43,10 @@ export default {
     }
   },
   created(){
-    
+    axios.get(`http://127.0.0.1:8000/od/onedays/lecture/detail/${this.lecture_id}`)
+    .then((res)=>{
+      this.lecture= res.data
+    })
   },
   mounted(){  
   },
@@ -54,7 +58,7 @@ export default {
       dropdownBtn.style.backgroundColor="transparent"
     },
     goToMyPage(){
-      this.$router.push({name : "Profile"})
+      this.$router.push({name : "Profile", params : {"username" : this.$store.getters["userStore/getUsername"]}})
     },
     goToMainPage(){
       this.$router.push({name : "Main"})
