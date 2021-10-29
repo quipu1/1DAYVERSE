@@ -144,7 +144,7 @@ def profile(request, username):
         if serializer.data['teachable'] == 1:
             tutor = get_object_or_404(Tutor, user=userId)
             tutorId = tutor.id
-            lectures = get_list_or_404(Lecture, tutor=tutorId)
+            lectures = Lecture.objects.filter(tutor=tutorId)
             l_serializer = ProfileLectureSerializer(lectures, many=True)
 
         else:
