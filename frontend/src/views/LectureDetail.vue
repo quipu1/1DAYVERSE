@@ -5,7 +5,7 @@
       <div class="left">
         <div class="image-container">
           <i class></i>
-          <img :src="image" alt="" id="classImage">
+          <img src="https://k5c202.p.ssafy.io/od`${lecture.main_image}`" alt="" id="classImage">
         </div>
         <div>
           <p>{{lecture.description}}</p>
