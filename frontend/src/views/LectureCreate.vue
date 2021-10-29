@@ -54,7 +54,7 @@
                 <img src="" alt="" class="tutor-image">
               </div>
               <div class="profile-content">
-                <span>튜터 이름</span>
+                <span>{{this.$store.getters["userStore/getUsername"]}}</span>
               </div>
             </div>
           </section>
@@ -67,7 +67,7 @@
             <div class="section-container" id="lectureContent">
               <div class="content-row">
                 <label>강의 사진</label>
-                <input type="file" multiple @change="uploadImage">
+                <input type="file" multiple @change="uploadImage" ref="lectureImages">
               </div>
               <div class="content-row" style="height: 100%;">
                 <label for="">강의 내용</label>
@@ -83,15 +83,13 @@
             </h1>
             <div class="section-container" id="timeSection">
               <div>
-                <label>강의 시간</label>
+                <label>강의 날짜</label>
                 <input type="date" class="input-form" v-model="date">
               </div>
               <div>
-                <label for="">Start</label>
+                <label for="">시작 시간</label>
                 <input type="time" class="input-form" v-model="start">
-              </div>
-              <div>
-                <label for="">End</label>
+                <label for="">종료 시간</label>
                 <input type="time" class="input-form" v-model="end">
               </div>
             </div>
@@ -104,7 +102,7 @@
             </h1>
             <div class="section-container">
               <label>강의 금액</label>
-              <input type="text" class="input-form" v-model="cost" @keyup="commaCost">
+              <input type="text" class="input-form" v-model="cost" @change="commaCost">
             </div>
           </section>
           <section v-if="idx=='size'" class="section-content">
@@ -115,13 +113,13 @@
             </h1>
             <div class="section-container">
               <div class="class-card" id="smallCard" @click="selectSize('smallCard')">
-                <h3>Small</h3>
+                <h3>~5인</h3>
               </div>
               <div class="class-card" id="mediumCard" @click="selectSize('mediumCard')">
-                <h3>Medium</h3>
+                <h3>~10인</h3>
               </div>
               <div class="class-card" id="largeCard" @click="selectSize('largeCard')">
-                <h3>Large</h3>
+                <h3>~20인</h3>
               </div>                
             </div>
           </section>
@@ -161,6 +159,7 @@ export default {
       title : "",
       category : "",
       tutor : "",
+      image : "",
       description : "",
       date : "",
       start : "",
@@ -207,13 +206,13 @@ export default {
           break
       }
     },
-    uploadImage(event){
-      this.image = event.files
+    uploadImage(){
+      this.image = this.$refs.lectureImages.files
+      // console.log(this.$refs.lectureImages.files)
       console.log(this.image)
     },
     commaCost(){
-      console.log(this.cost)
-      return 'W 1000'
+      this.cost = this.cost.toLocaleString('ko-KR')
     },
     selectSize(onsize){
       const cards = document.getElementsByClassName("class-card")
@@ -235,13 +234,15 @@ export default {
     onSubmit(){
 
       var Form = new FormData();
-      Form.append('name', this.title);
-      Form.append('tutor', '28');
-      Form.append('main_image', "");
+      console.log(this.image)
+      Form.append('name', this.$store.getters["userStore/getUsername"]);
+      Form.append('title', this.title);
+      Form.append('tutor', this.$store.getters["userStore/getUserId"]);
+      Form.append('main_image', this.image);
       Form.append('category', this.category);
-      Form.append('start', this.start);
-      Form.append('end', this.end);
-      Form.append('date', this.date);
+      Form.append('start', "");
+      Form.append('end', "");
+      Form.append('date', "");
       Form.append('description', this.description);
       Form.append('room_size', this.size);
       Form.append('price', String(this.cost));
@@ -251,6 +252,9 @@ export default {
       axios.post("http://127.0.0.1:8000/od/onedays/register/", Form)
       .then((res)=>{
         console.log(res.data)
+      })
+      .catch((res)=>{
+        console.log(res)
       })
     },
   }
@@ -436,6 +440,7 @@ export default {
   #timeSection{
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
   }
   .class-card{
     background-color: lightgray;
