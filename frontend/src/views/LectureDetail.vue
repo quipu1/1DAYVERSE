@@ -53,7 +53,7 @@ export default {
     }
   },
   created(){
-    axios.get(`http://127.0.0.1:8000/od/onedays/lecture/detail/${this.lecture_id}`)
+    axios.get(`https://k5c202.p.ssafy.io/od/onedays/lecture/detail/${this.lecture_id}`)
     .then((res)=>{
       this.lecture = res.data
       console.log(res.data)
@@ -76,7 +76,7 @@ export default {
       Form.append("lecture_title", this.lecture.title)
       Form.append("lecture_id", this.lecture.id)
       Form.append("user_id", this.$store.getters["userStore/getUsername"])
-      axios.post("http://127.0.0.1:8000/od/payments/ready/", Form)
+      axios.post("https://k5c202.p.ssafy.io/od/payments/ready/", Form)
       .then((res)=>{
         location.href = res.data
       })
