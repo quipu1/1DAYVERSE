@@ -54,21 +54,21 @@ export default {
     this.loading = true;
     switch(this.group){
       case "health":
-        axios.get("http://127.0.0.1:8000/od/onedays/category/1")
+        axios.get("https://k5c202.p.ssafy.io/od/onedays/category/1")
         .then((res)=>{
           this.lectures = res.data
           this.loading = false;
         })
         break
       case "hobby":
-        axios.get("http://127.0.0.1:8000/od/onedays/category/2")
+        axios.get("https://k5c202.p.ssafy.io/od/onedays/category/2")
         .then((res)=>{
           this.lectures = res.data; 
           this.loading = false;
         })
         break
       case "lang":
-        axios.get("http://127.0.0.1:8000/od/onedays/category/3")
+        axios.get("https://k5c202.p.ssafy.io/od/onedays/category/3")
         .then((res)=>{
           this.lectures = res.data;
           this.loading = false; 
@@ -86,7 +86,7 @@ export default {
     groupChange(){
       switch(this.group){
         case "health":
-          axios.get("http://127.0.0.1:8000/od/onedays/category/1")
+          axios.get("https://k5c202.p.ssafy.io/od/onedays/category/1")
           .then((res)=>{
             this.lectures = res.data; 
             console.log(res.data)
@@ -95,7 +95,7 @@ export default {
           })
           break
         case "hobby":
-          axios.get("http://127.0.0.1:8000/od/onedays/category/2")
+          axios.get("https://k5c202.p.ssafy.io/od/onedays/category/2")
           .then((res)=>{
             this.lectures = res.data; 
             console.log(res.data)
@@ -104,7 +104,7 @@ export default {
           })
           break
         case "lang":
-          axios.get("http://127.0.0.1:8000/od/onedays/category/3")
+          axios.get("https://k5c202.p.ssafy.io/od/onedays/category/3")
           .then((res)=>{ this.lectures = res.data; 
           this.loading = false;
           console.log(res.data); })
