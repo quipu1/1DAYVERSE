@@ -1,10 +1,12 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.shortcuts import get_list_or_404, get_object_or_404
 
 # Create your views here.
 from rest_framework import status
+from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.serializers import Serializer
 
 from .models import Tutee, Tutor, User
 from .serializers import ProfileSerializer, UserSerializer, ProfileModifySerializer
@@ -47,8 +49,6 @@ def signup(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# 로그인 세션값 추가
-# @csrf_exempt
 @api_view(['POST'])
 def login(request):
 
@@ -61,20 +61,42 @@ def login(request):
         if getUser.teachable == int(teachable):
             if getUser.password == password:
                 request.session['user'] = getUser.id
-                return Response(request.session, status=status.HTTP_200_OK)
+                request.session['login'] = True
+                serializer = UserSerializer(getUser)
+                data = {
+                    'session': request.session,
+                    'user': serializer.data
+                }
+                return Response(data, status=status.HTTP_200_OK)
             else:
+                request.session['login'] = False
                 return Response({'error': '비밀번호가 틀렸습니다.'}, status=status.HTTP_400_BAD_REQUEST)
         else:
+            request.session['login'] = False
             return Response({'error': '강사/학생 체크를 확인해주세요.'}, status=status.HTTP_400_BAD_REQUEST)
     else:
+        request.session['login'] = False
         return Response({'error': '존재하지 않는 이메일입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# 닉네임 체크
+@api_view(['GET'])
+def username_check(request):
+    return Response('hi')
+
+
+# 이메일 체크
+@api_view(['GET'])
+def email_check(request):
+    return Response('hi')
 
 
 # 로그아웃 - 세션값 삭제
 @api_view(['POST'])
 def logout(request):
-    request.session.pop('user')
-    return Response({"status: 로그아웃"}, status=status.HTTP_200_OK)
+    if request.session.get('user'):
+        request.session['login'] = False
+    return Response(request.session, status=status.HTTP_200_OK)
 
 
 # 탈퇴
