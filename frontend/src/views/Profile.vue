@@ -55,7 +55,6 @@ export default {
     return {
       profilename: this.$route.params.username,
       modal: false,
-      lectures: [],
     }
   },
   components: {
@@ -78,9 +77,9 @@ export default {
     phone() {
       return this.$store.getters['userStore/getUserPhone'] 
     },
-    // lectures() {
-    //   return this.$store.getters['userStore/getUserLectures'] 
-    // },
+    lectures() {
+      return this.$store.getters['userStore/getUserLectures'] 
+    },
   },
   methods: {
     changemodal() {

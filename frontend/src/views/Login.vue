@@ -84,8 +84,7 @@
         else if (this.job === 'Tutor') {
           form.append('teachable', 1)
         }
-        const info = [form, this.email, this.job]
-        this.$store.dispatch('userStore/AUTH_USER', info)
+        this.$store.dispatch('userStore/AUTH_USER', form)
           .then(() => {
             this.$router.push({ name: 'Main'})
             // this.$store.dispatch('userStore/FETCH_PROFILE', this.username)
