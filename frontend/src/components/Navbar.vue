@@ -44,6 +44,7 @@ export default {
   },
   created() {
     const teacherable = this.$store.getters["userStore/getUserTeachable"]
+      console.log(teacherable, typeof(teacherable))
       if (teacherable === 1) {
         this.isTeacher = true
       }

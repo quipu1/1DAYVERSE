@@ -24,7 +24,7 @@
         <div class="class-info">
           <h2 v-if="teachable === 1">강의정보</h2>
           <h2 v-else>수강내역</h2>
-          <div v-if="!lectures">아직 강의가 없어요😢</div>
+          <div v-if="!lectures || lectures.length === 0">아직 강의가 없어요😢</div>
           <div v-else v-for="lectures, idx in lectures" :key="idx" class="lecture">
             {{ lectures }}
           </div>
@@ -64,8 +64,6 @@ export default {
   },
   created() {
     this.$store.dispatch('userStore/FETCH_PROFILE', this.profilename)
-    console.log(this.username, this.profilename, '수정 후 확인')
-
   },
   computed: {
     teachable() {
