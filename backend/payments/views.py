@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 import requests
 from accounts.models import Tutee
+from onedays.models import Registration
 from onedays.serializers import RegistrationSeralizer
 
 # Create your views here.
@@ -48,16 +49,23 @@ def enroll(request):
     tutee = get_object_or_404(Tutee, user=userId)
     tuteeId = tutee.id
 
-    # 튜티pk를 데이터에 새로 저장
-    data = request.data.copy()
-    data['tutee'] = tuteeId
-
-    serializer = RegistrationSeralizer(data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    else:
+    # 이미 등록한 유저인지 확인
+    if Registration.objects.filter(tutee=tuteeId).exists():
         data = {
-            'message': '올바르지 않은 형식입니다.'
+            'message': '이미 등록한 강의입니다.'
         }
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        # 튜티pk를 데이터에 새로 저장
+        data = request.data.copy()
+        data['tutee'] = tuteeId
+
+        serializer = RegistrationSeralizer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            data = {
+                'message': '올바르지 않은 형식입니다.'
+            }
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
