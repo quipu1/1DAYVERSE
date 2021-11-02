@@ -45,10 +45,7 @@ def category(request, c_num):
 @api_view(['GET'])
 def detail(request, l_num):
     lecture = get_object_or_404(Lecture.objects.filter(pk=l_num))
-
-    print(lecture.tutor_id)
-    
-    serializer = LectureDetailSerializer(instance=lecture, profile="1")
+    serializer = LectureDetailSerializer(lecture)
     return Response(serializer.data)
 
 
