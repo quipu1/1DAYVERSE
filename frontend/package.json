@@ -17,6 +17,7 @@
     "node-sass": "^6.0.1",
     "notiwind": "^1.2.3",
     "openvidu-browser": "^2.21.0-beta1",
+    "sass-loader": "^10.2.0",
     "sweetalert2": "^11.1.9",
     "vue": "^3.2.20",
     "vue-router": "^4.0.0-0",
@@ -38,7 +39,6 @@
     "eslint-plugin-vue": "^7.0.0",
     "postcss": "^7.0.39",
     "sass": "^1.43.4",
-    "sass-loader": "^12.3.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "yarn": "^1.22.17"
   },
