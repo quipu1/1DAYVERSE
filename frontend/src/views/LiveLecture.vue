@@ -17,7 +17,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '../../assets/styles/common.scss'
+<style lang="scss" scoped>
 
 </style>
