@@ -1,0 +1,50 @@
+@import "./common.scss";
+.setting-card {
+	width: 80%;
+	min-height: 500px;
+	margin: 0 auto;
+	border-radius: 10px;
+	padding: 40px;
+	.card-title {
+		font-size: $subtitle-font-size;
+	}
+}
+.card-box {
+	display: flex;
+	align-content: center;
+	justify-items: center;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+.left-box {
+	width: 300px;
+	height: 200px;
+}
+.set-cam {
+	width: 300px;
+}
+.right-box {
+	.icon {
+		display: inline-block;
+		padding: 20px 20px;
+	}
+	select {
+		width: 75%;
+		height: 40px;
+		border: none;
+		border-bottom: 1px solid $dark-color;
+		font-size: $smallest-font-size;
+	}
+}
+.btn-box {
+	.submit-btn {
+		border: none;
+		background: $point-color;
+		color: $white-color;
+		width: 150px;
+		height: 40px;
+		border-radius: 50px;
+	}
+}

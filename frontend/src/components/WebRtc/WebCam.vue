@@ -36,12 +36,12 @@ export default {
 			subscribers: [],
       Participant: 1,
 			mySessionId: 'SessionA',
-			user: { name: String },
+			user: {},
     }
   },
   created() {
-    this.user.name = 'user' + Math.floor(Math.random() * 100);
     this.joinSession();
+    this.user = this.$store.state.userStore;
   },
   unmounted() {
       if (this.session) this.session.disconnect();
@@ -85,7 +85,7 @@ export default {
 							videoSource: undefined, // The source of video. If undefined default webcam
 							publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
 							publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-							resolution: '640x480',  // The resolution of your video
+							resolution: '320x240',  // The resolution of your video
 							frameRate: 30,			// The frame rate of your video
 							insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
 							mirror: false       	// Whether to mirror your local video or not
