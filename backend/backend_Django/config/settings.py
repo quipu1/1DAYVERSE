@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'accounts',
     'onedays',
     'payments',
+    'unitys',
     'phonenumber_field',
     'rest_framework',
     'corsheaders',
