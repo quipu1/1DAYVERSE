@@ -1,17 +1,23 @@
 <template>
   <div id="LiveRoot">
     <div class="content-box">
-      <h1> TEST </h1>
+      <web-cam />
     </div>
   </div>
 </template>
 
 <script>
+import WebCam from '@/components/WebRtc/WebCam';
 export default {
+  name : 'Live',
+  components: {
+    WebCam,
+  },
 
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '../../assets/styles/common.scss'
 
 </style>
