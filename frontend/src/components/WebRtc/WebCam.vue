@@ -1,13 +1,9 @@
 <template>
   <div id="WebCamRoot">
-    <div id="session" v-if="session">
-			<div id="session-header">
-				<h1 id="session-title">{{ mySessionId }}</h1>
-				<input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" @click="leaveSession" value="Leave session">
-			</div>
+    <div id="session" v-if="data.session">
 			<div id="video-container" class="col-md-6">
-				<user-video :stream-manager="publisher" @click="updateMainVideoStreamManager(publisher)"/>
-				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click="updateMainVideoStreamManager(sub)"/>
+				<chat :data="data" :send="send" />
+				<camera :data="data" :location="location" :leaveSession="leaveSession" :updateStream="updateStream" />
 			</div>
 		</div>
   </div>
@@ -16,7 +12,8 @@
 <script>
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
-import UserVideo from '@/components/WebRtc/UserVideo';
+import Camera from './Camera.vue';
+import Chat from './Chat.vue';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -25,78 +22,115 @@ const OPENVIDU_SERVER_SECRET = "oneday";
 export default {
   name: 'WebCam',
   components: {
-    UserVideo,
+    Camera,
+    Chat,
   },
+	props: {
+		location: String,
+	},
   data() {
     return {
-      OV: undefined,
-			session: undefined,
-			mainStreamManager: undefined,
-			publisher: undefined,
-			subscribers: [],
-      Participant: 1,
-			mySessionId: 'SessionA',
+			data: {
+				OV: undefined,
+				roomName: '',
+				session: undefined,
+				mainStreamManager: undefined,
+				publisher: undefined,
+				subscribers: [],
+				participants: 1,
+				webcam: [],
+				audio: [],
+				setting: {
+					audioSource: undefined, 
+					videoSource: undefined, 
+					publishAudio: false,  	
+					publishVideo: false,  	
+					resolution: '640x480',  
+					frameRate: 30,			
+					insertMode: 'APPEND',	
+					mirror: false
+				},
+				// chat
+				message: [],
+				MessageBell: false,
+				// share screen
+				share: {
+					active: false,
+					scsreen: undefined,
+				},
+			},
 			user: {},
+			lecture_id: 24,
     }
   },
   created() {
     this.joinSession();
     this.user = this.$store.state.userStore;
+		this.data.roomName = this.location + this.lecture_id + 'classRoom';
+		this.data.setting.videoSource = this.$store.getters.getVideo;
+		this.data.setting.audioSource = this.$store.getters.getAudio;
   },
   unmounted() {
-      if (this.session) this.session.disconnect();
+      if (this.data.session) this.data.session.disconnect();
 
-			this.session = undefined;
-			this.mainStreamManager = undefined;
-			this.publisher = undefined;
-			this.subscribers = [];
-			this.OV = undefined;
+			this.data.session = undefined;
+			this.data.mainStreamManager = undefined;
+			this.data.publisher = undefined;
+			this.data.subscribers = [];
+			this.data.OV = undefined;
+			this.data.message = [];
+			this.data.share.active = false;
+			this.data.share.scsreen = undefined;
     
   },
   methods: {
 		joinSession () {
-			this.OV = new OpenVidu();
+			this.data.OV = new OpenVidu();
 
-			this.session = this.OV.initSession();
+			this.data.session = this.data.OV.initSession();
 
-			this.session.on('streamCreated', ({ stream }) => {
-				const subscriber = this.session.subscribe(stream);
-				this.subscribers.push(subscriber);
-			});
-
-			this.session.on('streamDestroyed', ({ stream }) => {
-				const index = this.subscribers.indexOf(stream.streamManager, 0);
-				if (index >= 0) {
-					this.subscribers.splice(index, 1);
+			this.data.session.on('streamCreated', ({ stream }) => {
+				const subscriber = this.data.session.subscribe(stream);
+				if(subscriber.stream.typeOfVideo === "SCREEN") {
+					this.data.share.active = true;
+					this.data.share.scsreen = subscriber;
 				}
+				this.data.subscribers.push(subscriber);
+				this.data.participants = this.$subscribers.length + 1;
 			});
 
-			this.session.on('exception', ({ exception }) => {
+			this.data.session.on('streamDestroyed', ({ stream }) => {
+				const index = this.data.subscribers.indexOf(stream.streamManager, 0);
+				if(stream.typeOfVideo === "SCREEN") {
+					this.data.share.active = false;
+					this.data.share.scsreen = undefined;
+				}
+				if (index >= 0) {
+					this.data.subscribers.splice(index, 1);
+				}
+				this.data.participants = this.subscribers.length + 1;
+			});
+
+			// Chat
+			this.data.session.on('signal:my-chat', (event) => {
+				this.data.message.push({sender: JSON.parse(event.from.data), message: event.data});
+				this.data.MessageBell = true;
+			});
+
+			this.data.session.on('exception', ({ exception }) => {
 				console.warn(exception);
 			});
-			this.getToken(this.mySessionId).then(token => {
-				this.session.connect(token, { clientData: this.myUserName })
+			this.getToken(this.data.roomName).then(token => {
+				this.data.session.connect(token, { clientData: this.user })
 					.then(() => {
 
-						// --- Get your own camera stream with the desired properties ---
 
-						let publisher = this.OV.initPublisher(undefined, {
-							audioSource: undefined, // The source of audio. If undefined default microphone
-							videoSource: undefined, // The source of video. If undefined default webcam
-							publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
-							publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-							resolution: '320x240',  // The resolution of your video
-							frameRate: 30,			// The frame rate of your video
-							insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
-							mirror: false       	// Whether to mirror your local video or not
-						});
+						let publisher = this.data.OV.initPublisher(undefined, this.data.setting);
 
-						this.mainStreamManager = publisher;
-						this.publisher = publisher;
+						this.data.mainStreamManager = publisher;
+						this.data.publisher = publisher;
 
-						// --- Publish your stream ---
-
-						this.session.publish(this.publisher);
+						this.data.session.publish(this.data.publisher);
 					})
 					.catch(error => {
 						console.log('There was an error connecting to the session:', error.code, error.message);
@@ -107,27 +141,27 @@ export default {
 		},
 
 		leaveSession () {
-			if (this.session) this.session.disconnect();
+			if (this.data.session) this.data.session.disconnect();
 
-			this.session = undefined;
-			this.mainStreamManager = undefined;
-			this.publisher = undefined;
-			this.subscribers = [];
-			this.OV = undefined;
-
+			this.data.session = undefined;
+			this.data.mainStreamManager = undefined;
+			this.data.publisher = undefined;
+			this.data.subscribers = [];
+			this.data.OV = undefined;
+			this.data.message = [];
 			window.removeEventListener('beforeunload', this.leaveSession);
+			this.$router.push('/utniy');
 		},
 
 		updateMainVideoStreamManager (stream) {
-			if (this.mainStreamManager === stream) return;
-			this.mainStreamManager = stream;
+			if (this.data.mainStreamManager === stream) return;
+			this.data.mainStreamManager = stream;
 		},
 
-		getToken (mySessionId) {
-			return this.createSession(mySessionId).then(sessionId => this.createToken(sessionId));
+		getToken (roomName) {
+			return this.createSession(roomName).then(sessionId => this.createToken(sessionId));
 		},
 
-		// See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-session
 		createSession (sessionId) {
 			return new Promise((resolve, reject) => {
 				axios
@@ -155,7 +189,6 @@ export default {
 			});
 		},
 
-		// See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-connection
 		createToken (sessionId) {
 			return new Promise((resolve, reject) => {
 				axios
@@ -170,6 +203,31 @@ export default {
 					.catch(error => reject(error.response));
 			});
 		},
+
+		// Chat
+		send(sendMessage) {
+			this.data.session.signal({
+				data: sendMessage,
+				to: [],
+				type: 'my-chat'
+			})
+			.then(() => {
+        console.log('Message successfully sent');
+			})
+			.catch(error => {
+					console.error(error);
+			});
+		},
+
+		updateStream(type) {
+			if(type == 1) {
+				this.data.setting.publishAudio = !this.data.setting.publishAudio;
+				this.data.setting.publishAudio(this.data.setting.publishAudio);
+			} else {
+				this.data.setting.publishVideo = !this.data.setting.publishVideo;
+				this.data.setting.publishVideo(this.data.setting.publishVideo);
+			}
+		}
 	}
 }
 </script>

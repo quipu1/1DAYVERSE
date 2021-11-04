@@ -2,22 +2,24 @@
 <Nav />
   <div id="LiveRoot">
     <div class="wrap">
-      <!-- <web-cam /> -->
-      <camera-setting />
+      <web-cam :location=location />
     </div>
   </div>
 </template>
 
 <script>
-// import WebCam from '@/components/WebRtc/WebCam';
-import CameraSetting from '@/components/WebRtc/CameraSetting'
+import WebCam from '@/components/WebRtc/WebCam';
 import Nav from '@/components/Navbar.vue'
 export default {
   name : 'Live',
   components: {
-    // WebCam,
-    CameraSetting,
+    WebCam,
     Nav,
+  },
+  data() {
+    return {
+      location: 'lecture',
+    }
   },
 
 }
