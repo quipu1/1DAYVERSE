@@ -1,6 +1,12 @@
 <template>
   <div id="CamSettingRoot">
     <div class="row content-box">
+      <div v-if="alertActive" class="alert-box alert alert-info alert-dismissible fade show">
+        <span>
+          <strong>알림!</strong> 1Dayverse 는 카메라와 마이크 권한을 필요로 합니다.
+        </span>
+        <button type="button" class="close" data-dismiss="alert" @click="closeBtn">&times;</button>
+      </div>
       <div class="setting-card shadow-lg">
         <p class="card-title mb-5">카메라 설정</p>
         <div class="card-box">
@@ -71,6 +77,7 @@ export default {
         mirror: false
       },
 			user: {},
+      alertActive: true,
     }
   },
   created() {
@@ -96,6 +103,9 @@ export default {
     }
   },
   methods: {
+    closeBtn() {
+      this.alertActive = false;
+    },
     findDevices() {
       this.OV.getDevices().then(devices => {
         let videoDevices = devices.filter(device => device.kind === 'videoinput');
@@ -127,6 +137,7 @@ export default {
     },
     submitSetting() {
       this.leaveSession();
+      this.$router.go(-1);
     },
 		joinSession () {
       
