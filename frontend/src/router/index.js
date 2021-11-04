@@ -12,6 +12,7 @@ import BuyCancel from '../views/BuyCancel.vue'
 import BuyFail from '../views/BuyFail.vue'
 import Unity from '../views/Unity.vue'
 import Live from '../views/LiveLecture.vue'
+import CamSetting from '../components/WebRtc/CameraSetting.vue'
 import Search from '../views/Search.vue'
 
 
@@ -81,6 +82,11 @@ const routes = [
     path: '/live',
     name: 'Live',
     component: Live
+  },
+  {
+    path: '/camsetting',
+    name: 'CamSetting',
+    component: CamSetting
   },
   {
     path: '/search/:keyword',

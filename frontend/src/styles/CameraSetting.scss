@@ -1,4 +1,19 @@
 @import "./common.scss";
+.alert-box {
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	margin: 0 auto;
+	span {
+		margin-left: 35px;
+	}
+	button {
+		background: none;
+		border: none;
+		color: $dark-color;
+		font-size: $body-font-size;
+	}
+}
 .setting-card {
 	width: 80%;
 	min-height: 500px;
@@ -19,13 +34,15 @@
 	flex-wrap: nowrap;
 }
 .left-box {
-	width: 300px;
+	width: 50%;
+	min-width: 300px;
 	height: 200px;
 }
 .set-cam {
 	width: 300px;
 }
 .right-box {
+	width: 50%;
 	.icon {
 		display: inline-block;
 		padding: 20px 20px;
