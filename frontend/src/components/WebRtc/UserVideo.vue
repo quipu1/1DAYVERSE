@@ -1,8 +1,18 @@
 <template>
 <div v-if="streamManager">
-	<ov-video :stream-manager="streamManager"/>
-  div.
-	<div><p>{{ clientData }}</p></div>
+	<div v-if="streamManager.stream.videoActive" class="active-user">
+		<ov-video :stream-manager="streamManager"/>
+	</div>
+  <div v-else class="inactive-user">
+    <div v-if="!streamManager.stream.videoActive" class="inactive-user-img">
+      <img src="@/assets/default_user.png" alt="user">
+    </div>
+    <div  class="inactive-user-info">
+      <p v-if="!streamManager.stream.videoActive" class="inactive-icon"><i class="fas fa-video-slash"></i></p>
+      <p v-if="!streamManager.stream.audioActive" class="inactive-icon"><i class="fas fa-microphone-slash"></i></p>
+    </div>
+  </div>
+	<div class="user-name"><span>{{ clientData }}</span></div>
 </div>
 </template>
 
@@ -23,8 +33,14 @@ export default {
 	computed: {
 		clientData () {
 			const { clientData } = this.getConnectionData();
-			return clientData;
+      const username = clientData.username;
+			return username;
 		},
+    clientImage () {
+      const { clientData } = this.getConnectionData();
+      const userimg = clientData.userimg;
+			return userimg;
+    }
 	},
 
 	methods: {
@@ -35,3 +51,7 @@ export default {
 	},
 };
 </script>
+<style lang="scss" scoped>
+@import "../../styles/UserVideo.scss";
+	
+</style>

@@ -1,0 +1,39 @@
+@import "./common.scss";
+.inactive-user {
+	width: 300px;
+	height: 200px;
+	background: $black-color;
+	border-radius: 10px;
+	display: grid;
+	align-items: end;
+	justify-content: center;
+	align-content: center;
+	justify-items: stretch;
+}
+.inactive-user-img {
+	padding: 20px 0;
+}
+.inactive-user-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-content: center;
+	align-items: center;
+}
+.inactive-icon {
+	display: inline-block;
+	color: $light-color;
+}
+.user-name {
+	display: inline-block;
+	position: relative;
+	bottom: 36px;
+	left: -100px;
+	background: rgba(255, 255, 255, 0.5);
+	width: 100px;
+	height: 36px;
+	border-radius: 0 15px 0 0;
+	span {
+		line-height: 2em;
+	}
+}

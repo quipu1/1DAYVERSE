@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Character(models.Model):
     name = models.CharField(max_length=20)
-    character_image = models.CharField(max_length=200)
+    character_image = models.CharField(max_length=200, null=True)
 
 # Create your models here.
 class User(AbstractUser):

@@ -11,7 +11,14 @@ public class CamFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = target.position + offset;
+        Rotate();
+        // transform.position = target.position + offset;
+        transform.position = Vector3.Lerp(transform.position, (target.position + offset), .25f);
+        transform.LookAt(target.position);
     }
 
+    void Rotate()
+    {
+        offset = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * 4, Vector3.up)* offset;
+    }
 }
