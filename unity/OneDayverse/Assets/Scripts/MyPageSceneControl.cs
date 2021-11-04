@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class MyPageSceneControl : MonoBehaviour
 {
     public Button ShowCharacterBtn;
+  
     // Start is called before the first frame update
     void Start()
     {
         ShowCharacterBtn.onClick.AddListener(ShowCharacterBtnClick);
+      
     }
 
     // Update is called once per frame
@@ -19,5 +21,7 @@ public class MyPageSceneControl : MonoBehaviour
         GameObject.Find("CharacterChange").transform.Find("CharacterCanvas").gameObject.SetActive(true);
         GameObject.Find("CharacterChange").transform.Find("ControlCharacters").gameObject.SetActive(true);
     }
+
+    
 
 }
