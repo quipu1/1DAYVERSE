@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="btn-box mt-4">
-          <button class="submit-btn" @click="leaveSession">세션 나가기</button>
+          <button class="submit-btn" @click="submitSetting">설정 저장</button>
         </div>
       </div>
     </div>
@@ -107,12 +107,12 @@ export default {
     changeCamera() {
       this.publisher.stream.outboundStreamOpts.publisherProperties.videoSource = this.selectWebCam;
       this.publisher.publishVideo(true);
-      this.$store.commit('setVideo', this.selectWebCam);
+      this.$store.commit('camStore/setVideo', this.selectWebCam);
     },
     changeAudio() {
       this.publisher.stream.outboundStreamOpts.publisherProperties.audioSource = this.selectAudio;
       this.publisher.publishAudio(true);
-      this.$store.commit('setAudio', this.selectAudio);
+      this.$store.commit('camStore/setAudio', this.selectAudio);
     },
     enabledSetting(v) {
       if (v === 'audio') {
@@ -124,6 +124,9 @@ export default {
         this.publisher.publishAudio(false);
 
       }
+    },
+    submitSetting() {
+      this.leaveSession();
     },
 		joinSession () {
       
