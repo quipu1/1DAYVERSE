@@ -1,5 +1,5 @@
 <template>
-<!-- <Nav /> -->
+<Nav />
   <div id="LiveRoot">
     <div class="wrap">
       <web-cam :location=location />
@@ -9,12 +9,12 @@
 
 <script>
 import WebCam from '@/components/WebRtc/WebCam';
-// import Nav from '@/components/Navbar.vue'
+import Nav from '@/components/Navbar.vue'
 export default {
   name : 'Live',
   components: {
     WebCam,
-    // Nav,
+    Nav,
   },
   data() {
     return {
