@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using TMPro;
 
 public class MyPageData : MonoBehaviour
 {
-    private Text myText;
+    private TextMeshProUGUI userName;
+    private TextMeshProUGUI userBirthday;
+    private TextMeshProUGUI phoneNumber;
+    private TextMeshProUGUI lectureName;
+    private TextMeshProUGUI lecturePassword;
+
 
     public class JsonData
     {
-        public int userId;
-        public int id;
-        public string title;
-        public bool completed;
+        public string userName;
+        public string userBirthday;
+        public string phoneNumber;
+        public string lectureName;
+        public string lecturePassword;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        myText = GameObject.Find("TestText").GetComponent<Text>();
+        userName = GameObject.Find("name").GetComponent<TMPro.TextMeshProUGUI>();
         SetText();
-        // Debug.Log(myText.text);
     }
 
     // Update is called once per frame
@@ -50,7 +56,7 @@ public class MyPageData : MonoBehaviour
             yield return request.SendWebRequest();
             // Debug.Log("¿©±â" + request.downloadHandler.text);
             JsonData fromJson = JsonUtility.FromJson<JsonData>(request.downloadHandler.text);
-            myText.text = fromJson.title;
+            userName.text = fromJson.userName;
         }
 
     }
