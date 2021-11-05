@@ -19,6 +19,6 @@ public class CamFollow : MonoBehaviour
 
     void Rotate()
     {
-        offset = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * 4, Vector3.up)* offset;
+        // offset = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * 4, Vector3.up)* offset;
     }
 }
