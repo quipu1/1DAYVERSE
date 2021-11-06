@@ -64,11 +64,11 @@ export default {
     }
   },
   created() {
-    this.joinSession();
-    this.user = this.$store.state.userStore;
+		this.user = this.$store.state.userStore;
 		this.data.roomName = this.location + this.lecture_id + 'classRoom';
 		this.data.setting.videoSource = this.$store.state.camStore.video;
 		this.data.setting.audioSource = this.$store.state.camStore.audio;
+    this.joinSession();
   },
   unmounted() {
       if (this.data.session) this.data.session.disconnect();
