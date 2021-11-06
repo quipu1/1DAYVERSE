@@ -80,19 +80,19 @@ export default {
 
   computed : {
     setWidth40 : function(){
-      if(this.data.subscribers.length < 2 && !this.data.share.active){
+      if(this.datas.subscribers.length < 2 && !this.datas.share.active){
         return true;
       }
       return false;
     },
     setWidth30 : function(){
-      if(this.data.subscribers.length >= 2 && !this.data.share.active){
+      if(this.datas.subscribers.length >= 2 && !this.datas.share.active){
         return true;
       }
       return false;
     },
     next : function(){
-      if((!this.data.share.active && this.data.subscribers.length+1 - (this.page+1)*6 > 0 ) || (this.data.share.active && this.data.subscribers.length+1 - (this.page+1)*4 > 0 )){
+      if((!this.datas.share.active && this.datas.subscribers.length+1 - (this.page+1)*6 > 0 ) || (this.data.share.active && this.data.subscribers.length+1 - (this.page+1)*4 > 0 )){
         return true;
       }
       return false;
@@ -104,23 +104,23 @@ export default {
       return false;
     },
     totalPage : function(){
-      let remain = (this.data.subscribers.length+1)%6;
+      let remain = (this.datas.subscribers.length+1)%6;
       if(remain != 0){
-        return (this.data.subscribers.length+1)/6+1;
+        return (this.datas.subscribers.length+1)/6+1;
       }
-      return (this.data.subscribers.length+1)/6;
+      return (this.datas.subscribers.length+1)/6;
     },
     pageSub : function(){
       if(this.page == 0){
-        if(!this.data.share.active){
-          return this.data.subscribers.slice(0,5);
+        if(!this.datas.share.active){
+          return this.datas.subscribers.slice(0,5);
         }
-        return this.data.subscribers.slice(0,3);
+        return this.datas.subscribers.slice(0,3);
       }else{
-        if(!this.data.share.active){
-          return this.data.subscribers.slice(this.page*5, Math.min(this.page*5+6,this.data.subscribers.length));
+        if(!this.datas.share.active){
+          return this.datas.subscribers.slice(this.page*5, Math.min(this.page*5+6,this.data.subscribers.length));
         }
-        return this.data.subscribers.slice(this.page*3, Math.min(this.page*3+4,this.data.subscribers.length));
+        return this.datas.subscribers.slice(this.page*3, Math.min(this.page*3+4,this.data.subscribers.length));
       }
     },
   },
