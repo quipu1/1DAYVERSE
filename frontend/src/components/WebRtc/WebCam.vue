@@ -3,7 +3,7 @@
     <div id="session" v-if="data.session">
 			<div id="video-container" class="col-md-6">
 				<chat :data="data" :send="send" />
-				<camera :data="data" :location="location" :leaveSession="leaveSession" :updateStream="updateStream" />
+				<camera :data="data" :location="location" v-on:leaveSession="leaveSession" v-on:updateStream="updateStream" />
 			</div>
 		</div>
   </div>
@@ -67,8 +67,8 @@ export default {
     this.joinSession();
     this.user = this.$store.state.userStore;
 		this.data.roomName = this.location + this.lecture_id + 'classRoom';
-		this.data.setting.videoSource = this.$store.getters.getVideo;
-		this.data.setting.audioSource = this.$store.getters.getAudio;
+		this.data.setting.videoSource = this.$store.state.camStore.video;
+		this.data.setting.audioSource = this.$store.state.camStore.audio;
   },
   unmounted() {
       if (this.data.session) this.data.session.disconnect();
@@ -150,7 +150,7 @@ export default {
 			this.data.OV = undefined;
 			this.data.message = [];
 			window.removeEventListener('beforeunload', this.leaveSession);
-			this.$router.push('/utniy');
+			this.$router.push('/unity');
 		},
 
 		updateMainVideoStreamManager (stream) {
@@ -220,12 +220,13 @@ export default {
 		},
 
 		updateStream(type) {
+			console.log("emit updateStream")
 			if(type == 1) {
 				this.data.setting.publishAudio = !this.data.setting.publishAudio;
-				this.data.setting.publishAudio(this.data.setting.publishAudio);
+				this.data.publisher.publishAudio(this.data.setting.publishAudio);
 			} else {
 				this.data.setting.publishVideo = !this.data.setting.publishVideo;
-				this.data.setting.publishVideo(this.data.setting.publishVideo);
+				this.data.publisher.publishVideo(this.data.setting.publishVideo);
 			}
 		}
 	}
