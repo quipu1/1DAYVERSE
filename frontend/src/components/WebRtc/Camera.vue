@@ -131,7 +131,6 @@ export default {
 			this.datas.mainStreamManager = stream;
 		},
     updateStream(type) {
-      console.log("cam updateStream");
       this.$emit('updateStream', type);
 		},
     shareScreen() {

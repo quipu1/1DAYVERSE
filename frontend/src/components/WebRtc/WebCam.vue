@@ -219,7 +219,6 @@ export default {
 		},
 
 		updateStream(type) {
-			console.log("emit updateStream")
 			if(type == 1) {
 				this.data.setting.publishAudio = !this.data.setting.publishAudio;
 				this.data.publisher.publishAudio(this.data.setting.publishAudio);
