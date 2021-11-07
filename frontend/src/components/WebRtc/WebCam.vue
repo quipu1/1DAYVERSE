@@ -1,9 +1,9 @@
 <template>
   <div id="WebCamRoot">
     <div id="session" v-if="data.session">
-			<div id="video-container" class="col-md-6">
-				<chat :data="data" :send="send" />
+			<div id="video-container" class="col">
 				<camera :data="data" :location="location" v-on:leaveSession="leaveSession" v-on:updateStream="updateStream" />
+				<chat :data="data" v-on:send="send" />
 			</div>
 		</div>
   </div>
@@ -53,6 +53,7 @@ export default {
 				// chat
 				message: [],
 				MessageBell: false,
+				msgTime: '',
 				// share screen
 				share: {
 					active: false,
@@ -96,7 +97,7 @@ export default {
 					this.data.share.scsreen = subscriber;
 				}
 				this.data.subscribers.push(subscriber);
-				this.data.participants = this.$subscribers.length + 1;
+				this.data.participants = this.data.subscribers.length + 1;
 			});
 
 			this.data.session.on('streamDestroyed', ({ stream }) => {
@@ -108,12 +109,12 @@ export default {
 				if (index >= 0) {
 					this.data.subscribers.splice(index, 1);
 				}
-				this.data.participants = this.subscribers.length + 1;
+				this.data.participants = this.data.subscribers.length + 1;
 			});
 
 			// Chat
 			this.data.session.on('signal:my-chat', (event) => {
-				this.data.message.push({sender: JSON.parse(event.from.data), message: event.data});
+				this.data.message.push({sender: JSON.parse(event.from.data), message: event.data, time: this.msgTime});
 				this.data.MessageBell = true;
 			});
 
@@ -205,14 +206,12 @@ export default {
 		},
 
 		// Chat
-		send(sendMessage) {
+		send(sendMessage, sendTime) {
+			this.msgTime = sendTime
 			this.data.session.signal({
 				data: sendMessage,
 				to: [],
 				type: 'my-chat'
-			})
-			.then(() => {
-        console.log('Message successfully sent');
 			})
 			.catch(error => {
 					console.error(error);
@@ -233,6 +232,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@import '../../styles/WebCam.scss';
 </style>
