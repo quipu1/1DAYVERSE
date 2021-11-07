@@ -1,0 +1,64 @@
+@import "./common.scss";
+#CameraRoot {
+	width: 70%;
+	height: 100%;
+	float: left;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.cam-content-box {
+	height: 90%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-content: flex-start;
+}
+#video-container {
+	flex: 2;
+	#videos {
+		display: inline-flex;
+		flex-direction: row;
+		align-content: center;
+		justify-content: center;
+		justify-items: center;
+		flex-wrap: wrap;
+		.publisher,
+		.subscribers {
+			margin: 10px;
+		}
+	}
+}
+#webcam-nav {
+	height: 10%;
+	width: 50%;
+	margin: 0 auto;
+	border-radius: 50px;
+	background: $light-color;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+	z-index: 90;
+	.webcam-btn {
+		width: 50px;
+		height: 50px;
+		background: none;
+		border: none;
+		margin: 0px 10px;
+		.webcam-btn-icon {
+			font-size: $body-font-size;
+			color: $dark-color;
+		}
+		.webcam-btn-icon:hover {
+			color: $main-color;
+		}
+		.leave-icon {
+			color: $heart-color;
+		}
+		.leave-icon:hover {
+			color: $red-color;
+		}
+	}
+}

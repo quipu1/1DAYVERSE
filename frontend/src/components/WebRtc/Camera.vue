@@ -1,6 +1,6 @@
 <template>
   <div id="CameraRoot">
-    <div class="cam-content-box">
+    <div class="cam-content-box mt-5">
       <div id="share-container" v-if="datas.share.active">
         <div id="share-screen" v-if="datas.share.screen">
           <user-video class="flex-item screen-video" :stream-manager="datas.share.screen"></user-video>
@@ -8,8 +8,8 @@
       </div>
       <div id="video-container" :class="{'flex-column': datas.share.active, 'screen-share' : data.share.active}">
         <div id="prev">
-          <button class="webcam-button page-button" @click="page -= 1;" v-if="prev">
-            <div v-if="!datas.share.active">fas fa-chevron-left</div>
+          <button class="webcam-btn page-btn" @click="page -= 1;" v-if="prev">
+            <div v-if="!datas.share.active">이전</div>
             <div v-else>fas fa-angle-up</div>
           </button>
         </div>
@@ -18,27 +18,27 @@
           <user-video :class="{subscribers : true, 'flex-item': true, 'width-40': setWidth40, 'width-30' : setWidth30}" v-for="(sub, idx) in pageSub" :key="idx" :stream-manager="sub"></user-video>
         </div>
         <div id="next">
-          <button class="webcam-button page-button" @click="page += 1;" v-if="next">
-            <div v-if="!datas.share.active">fas fa-chevron-right</div>
+          <button class="webcam-btn page-btn" @click="page += 1;" v-if="next">
+            <div v-if="!datas.share.active">다음</div>
             <div v-else>fas fa-angle-down</div>
           </button>
         </div>
       </div>
     </div>
-    <div id="webcam-nav">
-      <button id="btnSetvideo" @click="updateStream(0)" class="webcam-button">
-          <div v-if="!datas.setting.publishVideo"><div id="unpublish-video">fas fa-video-slash</div></div>
-          <div v-else><div id="publish-video">fas fa-video</div></div>
+    <div id="webcam-nav" class="my-2">
+      <button id="btnSetvideo" @click="updateStream(0)" class="webcam-btn">
+          <div v-if="!datas.setting.publishVideo"><i class="webcam-btn-icon fas fa-video-slash"></i></div>
+          <div v-else><i class="webcam-btn-icon fas fa-video"></i></div>
       </button>
-      <button id="btnSetAudio" @click="updateStream(1)" class="webcam-button">
-          <div v-if="!datas.setting.publishAudio"><div id="unpublish-audio">fas fa-microphone-slash</div></div>
-          <div v-else><div id="publish-audio">fas fa-microphone</div></div>
+      <button id="btnSetAudio" @click="updateStream(1)" class="webcam-btn">
+          <div v-if="!datas.setting.publishAudio"><i class="webcam-btn-icon fas fa-microphone-slash"></i></div>
+          <div v-else><i class="webcam-btn-icon fas fa-microphone"></i></div>
       </button>
-      <button id="btnShareScreen" @click="shareScreen" class="webcam-button">
-        <div v-if="!screenShare"><div id="unpublish-screen">fas fa-upload</div></div>
-        <div v-else><div id="publish-screen">fas fa-upload</div></div>
+      <button id="btnShareScreen" @click="shareScreen" class="webcam-btn">
+        <div v-if="!screenShare"><i class="webcam-btn-icon far fa-play-circle"></i></div>
+        <div v-else><i class="webcam-btn-icon far fa-stop-circle"></i></div>
       </button>
-      <button id="btnLeaveSession" @click="leaveSession" class="webcam-button"><div id="leave-session">fas fa-phone-alt</div></button>
+      <button id="btnLeaveSession" @click="leaveSession" class="webcam-btn"><i class="webcam-btn-icon leave-icon fas fa-phone-slash"></i></button>
     </div>
 
   </div>
@@ -175,6 +175,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@import "../../styles/Camera.scss";
 </style>
