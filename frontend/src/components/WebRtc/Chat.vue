@@ -92,7 +92,7 @@ export default {
         this.inactiveBell();
         return false;
       }
-      return this.data.MessageBell;
+      return this.datas.MessageBell;
     }
   },
   data() {
