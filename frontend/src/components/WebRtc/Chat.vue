@@ -89,10 +89,10 @@ export default {
   computed: {
     newChat: function() {
       if(this.activeChat) {
-        this.datas.MessageBell(false);
+        this.inactiveBell();
         return false;
       }
-      return true;
+      return this.data.MessageBell;
     }
   },
   data() {
@@ -126,7 +126,10 @@ export default {
         this.activeChat = false;
         this.activeUsers = false;
       }
-    }
+    },
+    inactiveBell() {
+      this.datas.MessageBell = false;
+    },
   },
 }
 </script>
