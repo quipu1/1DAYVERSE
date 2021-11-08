@@ -14,6 +14,18 @@
 	flex-wrap: nowrap;
 	align-content: flex-start;
 }
+#share-content {
+	flex: 4;
+	#share-screen {
+		width: 100%;
+		.screen-video {
+			.active-user {
+				width: 100% !important;
+				height: 100% !important;
+			}
+		}
+	}
+}
 .video-content {
 	flex: 2;
 	display: flex;
@@ -63,7 +75,7 @@
 	align-content: center;
 	align-items: center;
 	justify-content: center;
-	z-index: 90;
+	z-index: 10;
 	.webcam-btn {
 		width: 50px;
 		height: 50px;
@@ -84,4 +96,37 @@
 			color: $red-color;
 		}
 	}
+}
+.publisher,
+.subscribers {
+	width: 180px;
+	height: 135px;
+	.inactive-user {
+		width: 100% !important;
+		height: 100% !important;
+		background: #242424;
+		border-radius: 10px;
+		display: grid;
+		align-items: end;
+		justify-content: center;
+		align-content: center;
+		justify-items: stretch;
+		margin: 0 auto;
+	}
+}
+.flex-column {
+	flex-direction: column !important;
+	flex: 1 !important;
+	align-items: center !important;
+	.paging-btn {
+		margin-top: 0 !important;
+	}
+}
+.focus-cam {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 90%;
+	height: 100%;
+	z-index: 20;
 }
