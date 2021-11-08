@@ -9,7 +9,6 @@ public class Door_Outline : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        print("MouserEnter");
         Material[] material = gameObject.GetComponent<MeshRenderer>().materials;
         material[0] = Door_outline_after;
         gameObject.GetComponent<MeshRenderer>().materials = material;
@@ -17,7 +16,6 @@ public class Door_Outline : MonoBehaviour
 
     private void OnMouseOver()
     {
-        print("MouserOver");
         Material[] material = gameObject.GetComponent<MeshRenderer>().materials;
         material[0] = Door_outline_after;
         gameObject.GetComponent<MeshRenderer>().materials = material;
