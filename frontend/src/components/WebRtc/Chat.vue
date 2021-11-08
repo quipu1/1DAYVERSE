@@ -40,7 +40,7 @@
           </div>
           <div v-for="(sub, index) in datas.subscribers" :key="index" class="users-info">
             <span class="uesrs-info-icon"><i class="far fa-user"></i></span>
-            <span class="users-info-name">{{JSON.parse(sub.stream.connection.data).username}}</span>
+            <span class="users-info-name">{{JSON.parse(sub.stream.connection.data).clientData.username}}</span>
           </div>
         </div>
 
