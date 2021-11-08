@@ -6,10 +6,10 @@
           <user-video class="flex-item screen-video" :stream-manager="datas.share.screen"></user-video>
         </div>
       </div>
-      <div id="video-container" :class="{'flex-column': datas.share.active, 'screen-share' : data.share.active}">
-        <div id="prev">
+      <div class="video-content" :class="{'flex-column': datas.share.active, 'screen-share' : data.share.active}">
+        <div id="prev" class="paging-btn">
           <button class="webcam-btn page-btn" @click="page -= 1;" v-if="prev">
-            <div v-if="!datas.share.active">이전</div>
+            <div v-if="!datas.share.active"><i class="fas fa-chevron-left"></i></div>
             <div v-else>fas fa-angle-up</div>
           </button>
         </div>
@@ -17,9 +17,9 @@
           <user-video :class="{publisher : true, 'flex-item': true, 'width-40': setWidth40, 'width-30' : setWidth30}" :stream-manager="datas.publisher" v-if="page == 0"></user-video>
           <user-video :class="{subscribers : true, 'flex-item': true, 'width-40': setWidth40, 'width-30' : setWidth30}" v-for="(sub, idx) in pageSub" :key="idx" :stream-manager="sub"></user-video>
         </div>
-        <div id="next">
+        <div id="next" class="paging-btn">
           <button class="webcam-btn page-btn" @click="page += 1;" v-if="next">
-            <div v-if="!datas.share.active">다음</div>
+            <div v-if="!datas.share.active"><i class="fas fa-chevron-right"></i></div>
             <div v-else>fas fa-angle-down</div>
           </button>
         </div>

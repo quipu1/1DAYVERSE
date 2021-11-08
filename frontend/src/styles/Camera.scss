@@ -14,8 +14,12 @@
 	flex-wrap: nowrap;
 	align-content: flex-start;
 }
-#video-container {
+.video-content {
 	flex: 2;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	align-items: flex-start;
 	#videos {
 		display: inline-flex;
 		flex-direction: row;
@@ -23,10 +27,29 @@
 		justify-content: center;
 		justify-items: center;
 		flex-wrap: wrap;
+		flex: 10;
 		.publisher,
 		.subscribers {
 			margin: 10px;
 		}
+	}
+	.paging-btn {
+		margin-top: 20px;
+		button {
+			background: none;
+			border: none;
+			border-radius: 100%;
+			color: $main-color;
+		}
+		button:hover {
+			color: $sub-color;
+		}
+	}
+	#prev {
+		flex: 1;
+	}
+	#next {
+		flex: 1;
 	}
 }
 #webcam-nav {
