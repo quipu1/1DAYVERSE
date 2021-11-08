@@ -1,8 +1,46 @@
 <template>
   <div id="CameraRoot">
-    <div class="cam-content-box">
-      <user-video :stream-manager="datas.publisher"></user-video>
+    <div class="cam-content-box mt-5">
+      <div id="share-container" v-if="datas.share.active">
+        <div id="share-screen" v-if="datas.share.screen">
+          <user-video class="flex-item screen-video" :stream-manager="datas.share.screen"></user-video>
+        </div>
+      </div>
+      <div id="video-container" :class="{'flex-column': datas.share.active, 'screen-share' : data.share.active}">
+        <div id="prev">
+          <button class="webcam-btn page-btn" @click="page -= 1;" v-if="prev">
+            <div v-if="!datas.share.active">이전</div>
+            <div v-else>fas fa-angle-up</div>
+          </button>
+        </div>
+        <div id="videos" :class="{'flex-column': datas.share.active}">
+          <user-video :class="{publisher : true, 'flex-item': true, 'width-40': setWidth40, 'width-30' : setWidth30}" :stream-manager="datas.publisher" v-if="page == 0"></user-video>
+          <user-video :class="{subscribers : true, 'flex-item': true, 'width-40': setWidth40, 'width-30' : setWidth30}" v-for="(sub, idx) in pageSub" :key="idx" :stream-manager="sub"></user-video>
+        </div>
+        <div id="next">
+          <button class="webcam-btn page-btn" @click="page += 1;" v-if="next">
+            <div v-if="!datas.share.active">다음</div>
+            <div v-else>fas fa-angle-down</div>
+          </button>
+        </div>
+      </div>
     </div>
+    <div id="webcam-nav" class="my-2">
+      <button id="btnSetvideo" @click="updateStream(0)" class="webcam-btn">
+          <div v-if="!datas.setting.publishVideo"><i class="webcam-btn-icon fas fa-video-slash"></i></div>
+          <div v-else><i class="webcam-btn-icon fas fa-video"></i></div>
+      </button>
+      <button id="btnSetAudio" @click="updateStream(1)" class="webcam-btn">
+          <div v-if="!datas.setting.publishAudio"><i class="webcam-btn-icon fas fa-microphone-slash"></i></div>
+          <div v-else><i class="webcam-btn-icon fas fa-microphone"></i></div>
+      </button>
+      <button id="btnShareScreen" @click="shareScreen" class="webcam-btn">
+        <div v-if="!screenShare"><i class="webcam-btn-icon far fa-play-circle"></i></div>
+        <div v-else><i class="webcam-btn-icon far fa-stop-circle"></i></div>
+      </button>
+      <button id="btnLeaveSession" @click="leaveSession" class="webcam-btn"><i class="webcam-btn-icon leave-icon fas fa-phone-slash"></i></button>
+    </div>
+
   </div>
 </template>
 
@@ -21,28 +59,40 @@ export default {
   },
   data() {
     return {
+      page: 0,
       screenShare : false,
+      maxHeight : 0,
       datas: {},
     }
   },
   created() {
     this.datas = this.data;
   },
+  mounted() {
+    const target = document.querySelector('.cam-content-box')
+    const targetRect = target.getBoundingClientRect();
+    this.maxHeight = targetRect.height;
+  },
+  updated(){
+    const screen = document.querySelector('.screen-video video');
+    if(screen !== null) screen.setAttribute('style', `max-height:${this.maxHeight-80}px;`);
+  },
+
   computed : {
     setWidth40 : function(){
-      if(this.data.subscribers.length < 2 && !this.data.share.active){
+      if(this.datas.subscribers.length < 2 && !this.datas.share.active){
         return true;
       }
       return false;
     },
     setWidth30 : function(){
-      if(this.data.subscribers.length >= 2 && !this.data.share.active){
+      if(this.datas.subscribers.length >= 2 && !this.datas.share.active){
         return true;
       }
       return false;
     },
     next : function(){
-      if((!this.data.share.active && this.data.subscribers.length+1 - (this.page+1)*6 > 0 ) || (this.data.share.active && this.data.subscribers.length+1 - (this.page+1)*4 > 0 )){
+      if((!this.datas.share.active && this.datas.subscribers.length+1 - (this.page+1)*6 > 0 ) || (this.data.share.active && this.data.subscribers.length+1 - (this.page+1)*4 > 0 )){
         return true;
       }
       return false;
@@ -54,23 +104,23 @@ export default {
       return false;
     },
     totalPage : function(){
-      let remain = (this.data.subscribers.length+1)%6;
+      let remain = (this.datas.subscribers.length+1)%6;
       if(remain != 0){
-        return (this.data.subscribers.length+1)/6+1;
+        return (this.datas.subscribers.length+1)/6+1;
       }
-      return (this.data.subscribers.length+1)/6;
+      return (this.datas.subscribers.length+1)/6;
     },
     pageSub : function(){
       if(this.page == 0){
-        if(!this.data.share.active){
-          return this.data.subscribers.slice(0,5);
+        if(!this.datas.share.active){
+          return this.datas.subscribers.slice(0,5);
         }
-        return this.data.subscribers.slice(0,3);
+        return this.datas.subscribers.slice(0,3);
       }else{
-        if(!this.data.share.active){
-          return this.data.subscribers.slice(this.page*5, Math.min(this.page*5+6,this.data.subscribers.length));
+        if(!this.datas.share.active){
+          return this.datas.subscribers.slice(this.page*5, Math.min(this.page*5+6,this.data.subscribers.length));
         }
-        return this.data.subscribers.slice(this.page*3, Math.min(this.page*3+4,this.data.subscribers.length));
+        return this.datas.subscribers.slice(this.page*3, Math.min(this.page*3+4,this.data.subscribers.length));
       }
     },
   },
@@ -82,7 +132,7 @@ export default {
 		},
     updateStream(type) {
       this.$emit('updateStream', type);
-    },
+		},
     shareScreen() {
       let screen = this.datas.OV.initPublisher(undefined, {
         resolution: "1280x720",
@@ -124,6 +174,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@import "../../styles/Camera.scss";
 </style>

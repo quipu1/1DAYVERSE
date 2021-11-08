@@ -47,8 +47,9 @@ public class PlayerController : MonoBehaviour
         // 만일 점프 중이었고, 다시 바닥에 착지했다면
         if (isJumping && cc.collisionFlags == CollisionFlags.Below)
         {
-            isJumping = false;
             yVelocity = 0;
+            anim.SetBool("isJump", false);
+            isJumping = false;
         }
 
         // 만일 키보드 스페이스 바를 입력했고, 점프를 하지 않은 상태라면
@@ -56,7 +57,9 @@ public class PlayerController : MonoBehaviour
         {
             // 캐릭터 수직 속도에 점프력을 적용하고 점프 상태로 변경
             yVelocity = jumpPower;
+            anim.SetBool("isJump", true);
             isJumping = true;
+            print("jump");
         }
 
         // 캐릭터 수직 속도에 중력 값 적용
