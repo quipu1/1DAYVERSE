@@ -2,16 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MyPageSceneControl : MonoBehaviour
 {
-    public Button ShowCharacterBtn;
   
+    public Button ShowCharacterBtn;
+    public Button ShowPrevSceneBtn;
+    public string prevSceneName = DontDestroyObject.prevScene;
+
+
     // Start is called before the first frame update
     void Start()
     {
         ShowCharacterBtn.onClick.AddListener(ShowCharacterBtnClick);
-      
+        ShowPrevSceneBtn.onClick.AddListener(ShowPrevSceneBtnClick);
+    }
+
+    public void ShowPrevSceneBtnClick()
+    {
+        
+        SceneManager.LoadScene($"{prevSceneName}");
     }
 
     // Update is called once per frame
