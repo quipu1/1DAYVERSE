@@ -40,7 +40,7 @@
           </div>
           <div v-for="(sub, index) in datas.subscribers" :key="index" class="users-info">
             <span class="uesrs-info-icon"><i class="far fa-user"></i></span>
-            <span class="users-info-name">{{JSON.parse(sub.stream.connection.data).username}}</span>
+            <span class="users-info-name">{{JSON.parse(sub.stream.connection.data).clientData.username}}</span>
           </div>
         </div>
 
@@ -77,19 +77,28 @@ export default {
     this.user = this.$store.state.userStore;
     this.datas = this.data;
   },
-  watch: {
-    newChat() {
+  // watch: {
+  //   newChat() {
+  //     if(this.activeChat) {
+  //       this.datas.MessageBell = false;
+  //       return false;
+  //     }
+  //     return this.datas.MessageBell;
+  //   }
+  // },
+  computed: {
+    newChat: function() {
       if(this.activeChat) {
-        this.datas.MessageBell = false;
+        this.datas.MessageBell(false);
         return false;
       }
-      return this.datas.MessageBell;
+      return true;
     }
   },
   data() {
     return {
       datas: {},
-      newChat: false,
+      // newChat: false,
       sendMsg: "",
       activeChat: false,
       activeUsers: false,

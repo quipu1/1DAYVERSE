@@ -1,5 +1,5 @@
 <template>
-<div v-if="streamManager">
+<div v-if="streamManager" :class="{'focus-cam':focusChk}" @click="focusCam">
 	<div v-if="streamManager.stream.videoActive" class="active-user">
 		<ov-video :stream-manager="streamManager"/>
 	</div>
@@ -29,7 +29,11 @@ export default {
 	props: {
 		streamManager: Object,
 	},
-
+	data() {
+		return {
+			focusChk: false,
+		}
+	},
 	computed: {
 		clientData () {
 			const { clientData } = this.getConnectionData();
@@ -48,6 +52,9 @@ export default {
 			const { connection } = this.streamManager.stream;
 			return JSON.parse(connection.data);
 		},
+		focusCam() {
+      this.focusChk = !this.focusChk;
+    },
 	},
 };
 </script>

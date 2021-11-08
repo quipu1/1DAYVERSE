@@ -1,27 +1,28 @@
 <template>
   <div id="CameraRoot">
     <div class="cam-content-box mt-5">
-      <div id="share-container" v-if="datas.share.active">
-        <div id="share-screen" v-if="datas.share.screen">
-          <user-video class="flex-item screen-video" :stream-manager="datas.share.screen"></user-video>
+      
+      <div class="video-content" :class="{'flex-column': data.share.active}">
+        <div id="prev" class="paging-btn">
+          <button class="webcam-btn page-btn" @click="page -= 1;" v-if="prev">
+            <div v-if="!datas.share.active"><i class="fas fa-chevron-left"></i></div>
+            <div v-else><i class="fas fa-chevron-up"></i></div>
+          </button>
+        </div>
+        <div id="videos">
+          <user-video :class="{publisher : true}" :stream-manager="datas.publisher" v-if="page == 0"></user-video>
+          <user-video :class="{subscribers : true}" v-for="(sub, idx) in pageSub" :key="idx" :stream-manager="sub" ></user-video>
+        </div>
+        <div id="next" class="paging-btn">
+          <button class="webcam-btn page-btn" @click="page += 1;" v-if="next">
+            <div v-if="!datas.share.active"><i class="fas fa-chevron-right"></i></div>
+            <div v-else><i class="fas fa-chevron-down"></i></div>
+          </button>
         </div>
       </div>
-      <div id="video-container" :class="{'flex-column': datas.share.active, 'screen-share' : data.share.active}">
-        <div id="prev">
-          <button class="webcam-btn page-btn" @click="page -= 1;" v-if="prev">
-            <div v-if="!datas.share.active">이전</div>
-            <div v-else>fas fa-angle-up</div>
-          </button>
-        </div>
-        <div id="videos" :class="{'flex-column': datas.share.active}">
-          <user-video :class="{publisher : true, 'flex-item': true, 'width-40': setWidth40, 'width-30' : setWidth30}" :stream-manager="datas.publisher" v-if="page == 0"></user-video>
-          <user-video :class="{subscribers : true, 'flex-item': true, 'width-40': setWidth40, 'width-30' : setWidth30}" v-for="(sub, idx) in pageSub" :key="idx" :stream-manager="sub"></user-video>
-        </div>
-        <div id="next">
-          <button class="webcam-btn page-btn" @click="page += 1;" v-if="next">
-            <div v-if="!datas.share.active">다음</div>
-            <div v-else>fas fa-angle-down</div>
-          </button>
+      <div id="share-content" v-if="datas.share.screen">
+        <div id="share-screen" v-if="datas.share.screen">
+          <user-video class="screen-video" :stream-manager="datas.share.screen"></user-video>
         </div>
       </div>
     </div>
@@ -63,6 +64,7 @@ export default {
       screenShare : false,
       maxHeight : 0,
       datas: {},
+      screenSrc: {},
     }
   },
   created() {
@@ -79,18 +81,6 @@ export default {
   },
 
   computed : {
-    setWidth40 : function(){
-      if(this.datas.subscribers.length < 2 && !this.datas.share.active){
-        return true;
-      }
-      return false;
-    },
-    setWidth30 : function(){
-      if(this.datas.subscribers.length >= 2 && !this.datas.share.active){
-        return true;
-      }
-      return false;
-    },
     next : function(){
       if((!this.datas.share.active && this.datas.subscribers.length+1 - (this.page+1)*6 > 0 ) || (this.data.share.active && this.data.subscribers.length+1 - (this.page+1)*4 > 0 )){
         return true;
@@ -145,6 +135,7 @@ export default {
           .getMediaStream()
           .getVideoTracks()[0]
           .addEventListener('ended', () => {
+            // Stop sharing
             this.datas.session.unpublish(screen);
             this.screenShare = false;
             this.datas.share.active = false;
@@ -164,7 +155,29 @@ export default {
       });
 
     },
-
+    shareScreenChk() {
+      console.log("-----------------------------뿅")
+      if(this.datas.share.active) {
+        console.log("My share active")
+        this.screenSrc = this.datas.share.screen;
+        // return true;
+      } else {
+        for (let i = 0; i < this.datas.subscribers.length; i++) {
+          if(this.datas.subscribers[i].stream.typeOfVideo === "SCREEN") {
+            console.log("Sub share active")
+            this.screenSrc = this.sub;
+            // return true;
+          }
+        }
+      }
+    },
+    subscribScreen() {
+      for (let i = 0; i < this.datas.subscribers.length; i++) {
+        if(this.datas.subscribers[i].stream.typeOfVideo === "SCREEN")
+          return this.sub;
+      }
+    },
+    
     leaveSession() {
         this.datas.share.active = false;
         this.$emit('leaveSession');
