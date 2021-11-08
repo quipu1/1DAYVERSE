@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class Cate_PasswordModal : MonoBehaviour
 {
     public GameObject Panel;
+    public GameObject LoungePanel;
     public GameObject WrongPanel;
     public GameObject Player;
 
     public Button checkButton;
+    public Button LoungeButton;
     public InputField PasswordInput;
 
     public GameObject SmallClassTarget;
@@ -18,19 +20,58 @@ public class Cate_PasswordModal : MonoBehaviour
     public GameObject LoungeTarget;
     GameObject Target;
 
+    private void Start()
+    {
+        GameObject Target = new GameObject("new GameObject");
+    }
+
     public string className;
     public string answer;
 
     public void OnMouseDown()
     {
-        bool isActive = Panel.activeSelf;
         className = transform.parent.name;
-        Target = new GameObject("new GameObject=");
-        checkButton.onClick.AddListener(UpdateCheckedClass);
 
-        if (!isActive)
+        if (className == "lounge")
         {
-            Panel.SetActive(!isActive);
+            bool isActive = LoungePanel.activeSelf;
+
+            Panel.GetComponentsInChildren<Text>()[0].text = "Lounge";
+            Panel.GetComponentsInChildren<Text>()[1].text = "";
+
+            if (!isActive)
+            {
+                LoungePanel.SetActive(!isActive);
+            }
+
+            LoungeButton.onClick.AddListener(UpdateCheckedClass);
+        }
+        else
+        {
+            bool isActive = Panel.activeSelf;
+
+            if (className == "class door_1")
+            {
+                Panel.GetComponentsInChildren<Text>()[0].text = className;
+                Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
+            }
+            else if (className == "class door_2")
+            {
+                Panel.GetComponentsInChildren<Text>()[0].text = className;
+                Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
+            }
+            else if (className == "class door_3")
+            {
+                Panel.GetComponentsInChildren<Text>()[0].text = className;
+                Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
+            }
+        
+            checkButton.onClick.AddListener(UpdateCheckedClass);
+
+            if (!isActive)
+            {
+                Panel.SetActive(!isActive);
+            }
         }
     }
 
@@ -39,19 +80,27 @@ public class Cate_PasswordModal : MonoBehaviour
         if (className == "class door_1")
         {
             answer = "123";
-            CheckPassword();
         }
         else if (className == "class door_2")
         {
             answer = "456";
-            CheckPassword();
         }
         else if (className == "class door_3")
         {
             answer = "789";
+        }
+
+        if (PasswordInput.text != answer)
+        {
+            WrongPanel.SetActive(true);
+        }
+        else
+        {
+            WrongPanel.SetActive(false);
             CheckPassword();
         }
-        else if (className == "lounge")
+
+        if (className == "lounge")
         {
             Target = LoungeTarget;
             playMove();
@@ -88,8 +137,6 @@ public class Cate_PasswordModal : MonoBehaviour
 
     public void playMove()
     {
-        print("¿Ãµø");
-        print(Target);
         Player.transform.position = Target.transform.position;
     }
 }
