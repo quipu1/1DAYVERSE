@@ -25,9 +25,9 @@ db.sqlite3-journal
 
 # Distribution / packaging
 .Python
-!/frontend/public/Unity/build/
 !/[Aa]ssets/**/*.meta
-build/
+/[Bb]uild/
+!/frontend/public/Unity/Build/
 develop-eggs/
 dist/
 downloads/
