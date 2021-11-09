@@ -21,7 +21,6 @@ public class MyPageSceneControl : MonoBehaviour
 
     public void ShowPrevSceneBtnClick()
     {
-        
         SceneManager.LoadScene($"{prevSceneName}");
     }
 
