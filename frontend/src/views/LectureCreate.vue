@@ -329,8 +329,7 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    opacity: 75%;
-    
+    opacity: 75;
   }
   .section-title{
     font-size: 1.5rem;
@@ -345,7 +344,7 @@ export default {
     align-items: center;
     background-color: lightgray;
     border-radius: 15px;
-    opacity: 75%;
+    opacity: 75;
     color: black;
     margin-bottom: 5%;
   }

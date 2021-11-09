@@ -1,7 +1,7 @@
 <template>
   <div id="unity">
     <Navbar/>
-    <iframe src="Unity/index.html" frameborder="0"></iframe>
+    <iframe src="unity2/index.html" class="unity-box"></iframe>
   </div>  
 </template>
 
@@ -9,7 +9,7 @@
 import Navbar from '@/components/Navbar.vue'
 
 export default {
-  name: "Unity",
+  name: "Study",
   components: {
     Navbar,
   },
@@ -19,5 +19,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.unity-box
+{
+  border: none;
+  background: none;
+  height: 500px;
+  width: 900px;
+}
 </style>

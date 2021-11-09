@@ -10,7 +10,7 @@ import LectureCreate from '../views/LectureCreate.vue'
 import BuyDone from '../views/BuyDone.vue'
 import BuyCancel from '../views/BuyCancel.vue'
 import BuyFail from '../views/BuyFail.vue'
-import Unity from '../views/Unity.vue'
+import Study from '../views/Study.vue'
 import Live from '../views/LiveLecture.vue'
 import CamSetting from '../components/WebRtc/CameraSetting.vue'
 import Search from '../views/Search.vue'
@@ -74,9 +74,9 @@ const routes = [
     component : BuyFail,
   },
   {
-    path: '/unity',
-    name: 'Unity',
-    component: Unity
+    path: '/study',
+    name: 'Study',
+    component: Study
   },
   {
     path: '/live',
