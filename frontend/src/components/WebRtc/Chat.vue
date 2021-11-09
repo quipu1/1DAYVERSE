@@ -77,15 +77,6 @@ export default {
     this.user = this.$store.state.userStore;
     this.datas = this.data;
   },
-  // watch: {
-  //   newChat() {
-  //     if(this.activeChat) {
-  //       this.datas.MessageBell = false;
-  //       return false;
-  //     }
-  //     return this.datas.MessageBell;
-  //   }
-  // },
   computed: {
     newChat: function() {
       if(this.activeChat) {
@@ -93,12 +84,11 @@ export default {
         return false;
       }
       return this.datas.MessageBell;
-    }
+    },
   },
   data() {
     return {
       datas: {},
-      // newChat: false,
       sendMsg: "",
       activeChat: false,
       activeUsers: false,
@@ -107,10 +97,9 @@ export default {
   },
   methods: {
     sendMessage() {
+      var nowDate = new Date();
+      var time = nowDate.getHours() + ":" + nowDate.getMinutes();
       if(this.sendMsg.length > 0) {
-        var date = new Date();
-        var time = date.getHours() + ":" + date.getMinutes();
-        // this.$emit('send', this.sendMsg + " [" + time + "]");
         this.$emit('send', this.sendMsg, time);
         this.sendMsg = '';
       }

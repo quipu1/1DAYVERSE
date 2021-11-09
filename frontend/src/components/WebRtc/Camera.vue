@@ -2,7 +2,7 @@
   <div id="CameraRoot">
     <div class="cam-content-box mt-5">
       
-      <div class="video-content" :class="{'flex-column': data.share.active}">
+      <div class="video-content" :class="{'flex-column': datas.share.active}">
         <div id="prev" class="paging-btn">
           <button class="webcam-btn page-btn" @click="page -= 1;" v-if="prev">
             <div v-if="!datas.share.active"><i class="fas fa-chevron-left"></i></div>
@@ -11,7 +11,7 @@
         </div>
         <div id="videos">
           <user-video :class="{publisher : true}" :stream-manager="datas.publisher" v-if="page == 0"></user-video>
-          <user-video :class="{subscribers : true}" v-for="(sub, idx) in pageSub" :key="idx" :stream-manager="sub" ></user-video>
+          <user-video :class="{subscribers : true}" v-for="(sub) in pageSub" :key="sub.stream.connection.connectionId" :stream-manager="sub" ></user-video>
         </div>
         <div id="next" class="paging-btn">
           <button class="webcam-btn page-btn" @click="page += 1;" v-if="next">
@@ -140,9 +140,8 @@ export default {
             this.screenShare = false;
             this.datas.share.active = false;
             this.datas.share.screen = undefined;
-            this.datas.session.publish(this.data.publisher);
+            this.data.session.publish(this.datas.publisher);
           });
-
           this.datas.session.unpublish(this.datas.publisher);
           this.screenShare = true;
           this.datas.share.active = true;
