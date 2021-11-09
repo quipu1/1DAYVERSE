@@ -51,7 +51,7 @@ export default {
       dropdownBtn.style.backgroundColor="transparent"
     },
     goToUnity(){
-      alert('메타버스로 이동')
+      this.$router.push({name : "Study" })
     },
   }
 }
