@@ -28,10 +28,10 @@ public class CateEnterCategoryScene : MonoBehaviour
             {
                 if (hit.transform.gameObject.name == "Category1")
                 {
-                    SceneManager.LoadScene("CateExercise");
+                    SceneManager.LoadScene("Lounge");
                 } else if (hit.transform.gameObject.name == "Category2")
                 {
-                    SceneManager.LoadScene("CateHobby");
+                    SceneManager.LoadScene("CateArt");
                 }
                 else if (hit.transform.gameObject.name == "Category3")
                 {
