@@ -1,8 +1,8 @@
 <template>
     <nav>
-    <div style="display:flex; align-items:center; width:50%; justify-content:space-around; padding:0 2.5%;">
+    <div style="display:flex; align-items:center; width:50%; justify-content:space-around; padding:0 2.5%; max-height: 9vh;">
       <img :src="logo" alt="" id="logoImage" @click="goToMainPage">
-      <div style="display:flex; justify-content:center;" id="dropdown">
+      <div style="display:flex; justify-content:center; height: 100%" id="dropdown">
         <button @click="showMenu" class='dropdown-btn'>전체 카테고리 <i class="fas fa-caret-down" style="background-color:none; color:#EEAEF9;"></i></button>
         <div class='dropdown-list-container' style="display:none;">
           <a href="#" @click="goToHealthCategory">운동</a>
@@ -155,7 +155,7 @@ nav{
   /* margin-bottom: 5%; */
 }
 #logoImage{
-  width: 30%;
+  max-height: 9vh;
   cursor: pointer;
 }
 #dropdown{
