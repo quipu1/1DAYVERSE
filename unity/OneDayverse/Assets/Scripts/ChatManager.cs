@@ -51,6 +51,12 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         {
             chatClient.Service();
         }
+
+        if (plrName.text != "" && msgInput.text != "" && Input.GetKey(KeyCode.Return))
+        {
+            SendMsg();
+            msgInput.text = "";
+        }
         
         
         
@@ -105,11 +111,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     }
 
     public void OnGetMessages(string channelName, string[] senders, object[] messages)
-    {
-        for (int i = 0; i < senders.Length; i++)
-        {
-            msgArea.text += senders[i] + ": " + messages[i] + "\n";
-        }
+    {        
+            for (int i = 0; i < senders.Length; i++)
+            {
+                msgArea.text += senders[i] + ": " + messages[i] + "\n";
+            }
     }
 
     public void OnPrivateMessage(string sender, object message, string channelName)
@@ -120,11 +126,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     public void OnSubscribed(string[] channels, bool[] results)
     {
         foreach (var channel in channels)
-        {
-            this.chatClient.PublishMessage(channel, "joined");
+        {   
+            this.chatClient.PublishMessage(channel, "<color=purple>" + plrName.text + "´ÔÀÌ Âü°¡ÇÏ¼Ì½À´Ï´Ù.</color>");
         }
 
-        connectionState.text = "Connected";
+        connectionState.text = "ONLINE";
     }
 
     public void OnUnsubscribed(string[] channels)
