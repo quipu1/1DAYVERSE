@@ -16,6 +16,10 @@
 }
 #share-content {
 	flex: 4;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	#share-screen {
 		width: 100%;
 		.screen-video {
@@ -23,6 +27,13 @@
 				width: 100% !important;
 				height: 100% !important;
 			}
+		}
+	}
+}
+.screen-video {
+	.active-user {
+		#local-video-undefined {
+			max-height: none !important;
 		}
 	}
 }
