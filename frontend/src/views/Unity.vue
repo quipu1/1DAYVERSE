@@ -1,7 +1,7 @@
 <template>
   <div id="unity">
     <Navbar/>
-    <iframe src="Unity/Build/index.html" frameborder="0"></iframe>
+    <iframe src="Unity/index.html" frameborder="0"></iframe>
   </div>  
 </template>
 
