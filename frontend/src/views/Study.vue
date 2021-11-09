@@ -21,7 +21,7 @@ export default {
 .unity-box {
   border: none;
   background: none;
-  height: 500px;
-  width: 900px;
+  height: 600px;
+  width: 1280px;
 }
 </style>
