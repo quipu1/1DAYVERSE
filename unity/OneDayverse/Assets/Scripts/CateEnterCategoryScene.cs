@@ -6,17 +6,6 @@ using UnityEngine.UI;
 
 public class CateEnterCategoryScene : MonoBehaviour
 {
-    public Button ShowMyPageBtn;
-    // Start is called before the first frame update
-    void Start()
-    {
-        ShowMyPageBtn.onClick.AddListener(ShowMyPageBtnClick);
-    }
-
-    private void ShowMyPageBtnClick()
-    {
-        SceneManager.LoadScene("MyPage");
-    }
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +17,7 @@ public class CateEnterCategoryScene : MonoBehaviour
             {
                 if (hit.transform.gameObject.name == "Category1")
                 {
-                    SceneManager.LoadScene("Lounge");
+                    SceneManager.LoadScene("CateExercise");
                 } else if (hit.transform.gameObject.name == "Category2")
                 {
                     SceneManager.LoadScene("CateArt");

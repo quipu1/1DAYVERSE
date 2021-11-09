@@ -7,28 +7,28 @@ using UnityEngine.EventSystems;
 
 public class DontDestroyObject : MonoBehaviour
 {
+    public static DontDestroyObject instance;
     public static string prevScene;
-   
-    void Start()
-    { 
-        var obj = FindObjectsOfType<DontDestroyObject>(); 
-        if (obj.Length == 1) 
-        { 
-            DontDestroyOnLoad(gameObject); 
-        } 
-        else 
-        { 
-            Destroy(gameObject); 
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this);
         }
-        
-    }
+           
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+           
+    }      
 
     public void ShowMyPageBtnClick()
     {
         prevScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene("MyPage");
     }
 
-    void Update()
-    {
-    }
 }

@@ -4122,7 +4122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbe66bfb9a48f74cba7635d7e0cd317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prevScene: 
 --- !u!4 &981450365
 Transform:
   m_ObjectHideFlags: 0
@@ -4560,19 +4559,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1126607180}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 981450364}
-        m_TargetAssemblyTypeName: DontDestroyObject, Assembly-CSharp
-        m_MethodName: ShowMyPageBtnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1126607180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5497,6 +5484,7 @@ GameObject:
   - component: {fileID: 1262991146}
   - component: {fileID: 1262991145}
   - component: {fileID: 1262991149}
+  - component: {fileID: 1262991150}
   m_Layer: 5
   m_Name: CateCanvas
   m_TagString: Untagged
@@ -5598,6 +5586,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnderConstructionText: {fileID: 661965750}
+--- !u!114 &1262991150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262991144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c2ac59877fcdf49a7c83c2f7aee57c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowMyPageBtn: {fileID: 1126607179}
 --- !u!4 &1316420419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4497011438508190, guid: 7bb9e1599858b0e4bae957fd343b73c5, type: 3}

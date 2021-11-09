@@ -1,27 +1,24 @@
 <template>
   <div id="unity">
-    <Navbar/>
+    <Navbar />
     <iframe src="unity2/index.html" class="unity-box"></iframe>
-  </div>  
+  </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
+import Navbar from "@/components/Navbar.vue";
 
 export default {
   name: "Study",
   components: {
     Navbar,
   },
-  methods: {
-  }
-
-}
+  methods: {},
+};
 </script>
 
 <style scoped>
-.unity-box
-{
+.unity-box {
   border: none;
   background: none;
   height: 500px;
