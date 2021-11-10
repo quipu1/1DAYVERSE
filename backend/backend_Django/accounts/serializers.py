@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 import re
 
 from accounts.models import Tutee, Tutor
+from accounts.models import Character
 
 User = get_user_model()
 
@@ -45,3 +46,16 @@ class ProfileModifySerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'birth_day', 'phone_number', 'character', 'profile_image')
+
+
+class CharacterSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Character
+        fields = '__all__'
+
+class CharacterlistSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Character
+        fields = '__all__'

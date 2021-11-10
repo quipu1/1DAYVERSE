@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
 from .models import Character, Tutee, Tutor, User
-from .serializers import ProfileSerializer, UserSerializer, ProfileModifySerializer
+from .serializers import CharacterSerializer, ProfileSerializer, UserSerializer, ProfileModifySerializer
 from onedays.models import Lecture
 from onedays.serializers import ProfileLectureSerializer
 
@@ -141,9 +141,6 @@ def profile(request, username):
         userId = serializer.data['id']
         characterId = serializer.data['character']
 
-        character = Character.objects.filter(pk=characterId)
-        character_img = character.character_image
-
         # tutor일 경우 - 개인정보, 내 강의 목록
         if serializer.data['teachable'] == 1:
             tutor = get_object_or_404(Tutor, user=userId)
@@ -161,11 +158,23 @@ def profile(request, username):
             lectures = tutee.lecture_set.all()
             l_serializer = ProfileLectureSerializer(lectures, many=True)
 
-        data = {
+        if Character.objects.filter(id=characterId).exists():
+            character = Character.objects.filter(id=characterId).get()
+            cserializer = CharacterSerializer(character)
+
+            data = {
                 'profile': serializer.data,
                 'lectures': l_serializer.data,
-                'character': character_img,
+                'character': cserializer.data["character_image"]
             }
+        else:
+
+            data = {
+                    'profile': serializer.data,
+                    'lectures': l_serializer.data,
+                    'character': ""
+                }
+
         return Response(data)
     
     elif request.method == 'PUT':
@@ -184,8 +193,7 @@ api_view(['GET'])
 def character_list(request):
 
     characters = Character.objects.all()
-
-    print(characters)
+    # serializer = CharacterSerializer(characters, many=True)
 
     data = {
 
