@@ -15,6 +15,6 @@ public class MyPageBtnClick : MonoBehaviour
     // Update is called once per frame
     private void ShowMyPageBtnClick()
     {
-        DontDestroyObject.instance.ShowMyPageBtnClick();
+        DontDestroyObject.instance.AfterMyPageBtnClick();
     }
 }
