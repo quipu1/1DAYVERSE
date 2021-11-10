@@ -11,7 +11,7 @@
         </div>
         <div id="videos">
           <user-video :class="{publisher : true}" :stream-manager="datas.publisher" v-if="page == 0"></user-video>
-          <user-video :class="{subscribers : true}" v-for="(sub) in pageSub" :key="sub.stream.connection.connectionId" :stream-manager="sub" ></user-video>
+          <user-video :class="{subscribers : true}" v-for="(sub, idx) in pageSub" :key="idx" :stream-manager="sub" ></user-video>
         </div>
         <div id="next" class="paging-btn">
           <button class="webcam-btn page-btn" @click="page += 1;" v-if="next">
@@ -20,7 +20,7 @@
           </button>
         </div>
       </div>
-      <div id="share-content" v-if="datas.share.screen">
+      <div id="share-content" v-if="datas.share.active">
         <div id="share-screen" v-if="datas.share.screen">
           <user-video class="screen-video" :stream-manager="datas.share.screen"></user-video>
         </div>
@@ -63,12 +63,9 @@ export default {
       page: 0,
       screenShare : false,
       maxHeight : 0,
-      datas: {},
+      datas: this.data,
       screenSrc: {},
     }
-  },
-  created() {
-    this.datas = this.data;
   },
   mounted() {
     const target = document.querySelector('.cam-content-box')
@@ -82,7 +79,7 @@ export default {
 
   computed : {
     next : function(){
-      if((!this.datas.share.active && this.datas.subscribers.length+1 - (this.page+1)*6 > 0 ) || (this.data.share.active && this.data.subscribers.length+1 - (this.page+1)*4 > 0 )){
+      if((!this.datas.share.active && this.datas.subscribers.length+1 - (this.page+1)*6 > 0 ) || (this.datas.share.active && this.datas.subscribers.length+1 - (this.page+1)*4 > 0 )){
         return true;
       }
       return false;
@@ -108,9 +105,9 @@ export default {
         return this.datas.subscribers.slice(0,3);
       }else{
         if(!this.datas.share.active){
-          return this.datas.subscribers.slice(this.page*5, Math.min(this.page*5+6,this.data.subscribers.length));
+          return this.datas.subscribers.slice(this.page*5, Math.min(this.page*5+6,this.datas.subscribers.length));
         }
-        return this.datas.subscribers.slice(this.page*3, Math.min(this.page*3+4,this.data.subscribers.length));
+        return this.datas.subscribers.slice(this.page*3, Math.min(this.page*3+4,this.datas.subscribers.length));
       }
     },
   },
@@ -124,56 +121,37 @@ export default {
       this.$emit('updateStream', type);
 		},
     shareScreen() {
-      let screen = this.datas.OV.initPublisher(undefined, {
-        resolution: "1280x720",
-        videoSource: "screen",
-        publishAudio: this.datas.setting.publishAudio,
-      });
+      if(!this.screenShare) {
+        let screen = this.datas.OV.initPublisher(undefined, {
+          resolution: "1280x720",
+          videoSource: "screen",
+          publishAudio: this.datas.setting.publishAudio,
+        });
 
-      screen.once('accessAllowed', () => {
-        screen.stream
-          .getMediaStream()
-          .getVideoTracks()[0]
-          .addEventListener('ended', () => {
-            // Stop sharing
-            this.datas.session.unpublish(screen);
-            this.screenShare = false;
-            this.datas.share.active = false;
-            this.datas.share.screen = undefined;
-            this.data.session.publish(this.datas.publisher);
-          });
+        screen.once('accessAllowed', () => {
+          screen.stream
+            .getMediaStream()
+            .getVideoTracks()[0]
+            .addEventListener('ended', () => {
+              // Stop sharing
+              this.datas.session.unpublish(screen);
+              this.screenShare = false;
+              this.datas.share.active = false;
+              console.log("-------------ended share screen is : " + this.screenShare);
+              console.log("-------------ended share active is : " + this.datas.share.active);
+              this.datas.share.screen = undefined;
+              this.datas.session.publish(this.datas.publisher);
+            });
           this.datas.session.unpublish(this.datas.publisher);
           this.screenShare = true;
           this.datas.share.active = true;
           this.datas.share.screen = screen;
           this.datas.session.publish(this.datas.share.screen);
 
-      })
-      screen.once("accessDenied", () => {
-        console.warn("ScreenShare: Access Denied");
-      });
-
-    },
-    shareScreenChk() {
-      console.log("-----------------------------뿅")
-      if(this.datas.share.active) {
-        console.log("My share active")
-        this.screenSrc = this.datas.share.screen;
-        // return true;
-      } else {
-        for (let i = 0; i < this.datas.subscribers.length; i++) {
-          if(this.datas.subscribers[i].stream.typeOfVideo === "SCREEN") {
-            console.log("Sub share active")
-            this.screenSrc = this.sub;
-            // return true;
-          }
-        }
-      }
-    },
-    subscribScreen() {
-      for (let i = 0; i < this.datas.subscribers.length; i++) {
-        if(this.datas.subscribers[i].stream.typeOfVideo === "SCREEN")
-          return this.sub;
+        });
+        screen.once("accessDenied", () => {
+          console.warn("ScreenShare: Access Denied");
+        });
       }
     },
     

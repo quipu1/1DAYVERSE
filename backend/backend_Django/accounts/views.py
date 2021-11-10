@@ -8,8 +8,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
-from .models import Tutee, Tutor, User
-from .serializers import ProfileSerializer, UserSerializer, ProfileModifySerializer
+from .models import Character, Tutee, Tutor, User
+from .serializers import CharacterSerializer, CharacterlistSerializer, ProfileSerializer, UserSerializer, ProfileModifySerializer
 from onedays.models import Lecture
 from onedays.serializers import ProfileLectureSerializer
 
@@ -139,6 +139,7 @@ def profile(request, username):
         # 유저 정보
         serializer = ProfileSerializer(user)
         userId = serializer.data['id']
+        characterId = serializer.data['character']
 
         # tutor일 경우 - 개인정보, 내 강의 목록
         if serializer.data['teachable'] == 1:
@@ -157,10 +158,23 @@ def profile(request, username):
             lectures = tutee.lecture_set.all()
             l_serializer = ProfileLectureSerializer(lectures, many=True)
 
-        data = {
+        if Character.objects.filter(id=characterId).exists():
+            character = Character.objects.filter(id=characterId).get()
+            cserializer = CharacterSerializer(character)
+
+            data = {
                 'profile': serializer.data,
-                'lectures': l_serializer.data
+                'lectures': l_serializer.data,
+                'character': cserializer.data["character_image"]
             }
+        else:
+
+            data = {
+                    'profile': serializer.data,
+                    'lectures': l_serializer.data,
+                    'character': ""
+                }
+
         return Response(data)
     
     elif request.method == 'PUT':
@@ -173,3 +187,12 @@ def profile(request, username):
                 'message': '올바르지 않은 형식입니다.'
             }
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def character_list(request):
+
+    characters = Character.objects.all()
+    serializer = CharacterlistSerializer(characters, many=True)
+
+    return Response(serializer.data)
