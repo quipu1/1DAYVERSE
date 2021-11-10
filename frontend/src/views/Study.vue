@@ -21,10 +21,10 @@ export default {
 .unity-box {
   border: none;
   background: none;
-  margin-top: 1vh;
-  height: 89vh;
+  height: 90vh;
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 3vh;
 }
 </style>
