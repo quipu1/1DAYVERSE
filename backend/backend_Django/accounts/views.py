@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
 from .models import Character, Tutee, Tutor, User
-from .serializers import CharacterSerializer, ProfileSerializer, UserSerializer, ProfileModifySerializer
+from .serializers import CharacterSerializer, CharacterlistSerializer, ProfileSerializer, UserSerializer, ProfileModifySerializer
 from onedays.models import Lecture
 from onedays.serializers import ProfileLectureSerializer
 
@@ -189,13 +189,10 @@ def profile(request, username):
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
 
-api_view(['GET'])
+@api_view(['GET'])
 def character_list(request):
 
     characters = Character.objects.all()
-    # serializer = CharacterSerializer(characters, many=True)
+    serializer = CharacterlistSerializer(characters, many=True)
 
-    data = {
-
-    }
-    return Response("hi")
+    return Response(serializer.data)
