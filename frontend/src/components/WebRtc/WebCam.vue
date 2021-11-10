@@ -2,7 +2,7 @@
   <div id="WebCamRoot">
     <div id="session" v-if="data.session">
 			<div id="video-container" class="col">
-				<camera :data="data" :location="location" v-on:leaveSession="leaveSession" v-on:updateStream="updateStream" />
+				<camera :data="data" :OVScreen="OVScreen" :location="location" v-on:leaveSession="leaveSession" v-on:updateStream="updateStream" v-on:joinScreen="joinScreen"/>
 				<chat :data="data" v-on:send="send" />
 			</div>
 		</div>
@@ -58,6 +58,10 @@ export default {
 					screen: undefined,
 				},
 			},
+			OVScreen: {
+				OV: undefined,
+				session: undefined,
+			},
 			user: {},
 			lecture_id: 24,
     }
@@ -65,6 +69,7 @@ export default {
   created() {
 		this.user = this.$store.state.userStore;
 		this.data.roomName = this.location + this.lecture_id + 'classRoom';
+		this.OVScreen.roomName = this.data.roomName;
 		this.data.setting.videoSource = this.$store.state.camStore.video;
 		this.data.setting.audioSource = this.$store.state.camStore.audio;
     this.joinSession();
@@ -84,29 +89,31 @@ export default {
   },
   methods: {
 		joinSession () {
-			this.data.OV = new OpenVidu();
+			this.data.OV = new OpenVidu(); // 유저 캠
+			this.OVScreen.OV = new OpenVidu(); // 화면 공유
 
 			this.data.session = this.data.OV.initSession();
+			this.OVScreen.session = this.OVScreen.OV.initSession();
+			
 
 			this.data.session.on('streamCreated', ({ stream }) => {
 				const subscriber = this.data.session.subscribe(stream);
-				if(subscriber.stream.typeOfVideo === "SCREEN") {
+				if(stream.typeOfVideo == "CAMERA") {
+					this.data.subscribers.push(subscriber);
+				} else if (stream.typeOfVideo == "SCREEN") {
 					this.data.share.active = true;
 					this.data.share.screen = subscriber;
 				}
-				this.data.subscribers.push(subscriber);
-				this.data.participants = this.data.subscribers.length + 1;
+					this.data.participants = this.data.subscribers.length + 1;
 			});
 
 			this.data.session.on('streamDestroyed', ({ stream }) => {
 				const index = this.data.subscribers.indexOf(stream.streamManager, 0);
-				if(stream.typeOfVideo === "SCREEN") {
-					this.data.share.active = false;
-					this.data.share.screen = undefined;
-				}
 				if (index >= 0) {
 					this.data.subscribers.splice(index, 1);
 				}
+				if(stream.typeOfVideo == "SCREEN")
+					this.data.share.active = false;
 				this.data.participants = this.data.subscribers.length + 1;
 			});
 
@@ -116,14 +123,10 @@ export default {
 				this.data.MessageBell = true;
 			});
 
-			// this.data.session.on('exception', ({ exception }) => {
-			// 	console.warn(exception);
-			// });
+			// 캠 getToken
 			this.getToken(this.data.roomName).then(token => {
 				this.data.session.connect(token, { clientData: this.user })
 					.then(() => {
-
-
 						let publisher = this.data.OV.initPublisher(undefined, this.data.setting);
 
 						this.data.mainStreamManager = publisher;
@@ -132,15 +135,24 @@ export default {
 						this.data.session.publish(this.data.publisher);
 					})
 					.catch(error => {
-						console.log('There was an error connecting to the session:', error.code, error.message);
+						console.log('There was an error connecting to the session[Cam]:', error.code, error.message);
+					});
+			});
+			// 화면 공유 getToken
+			this.getToken(this.OVScreen.roomName).then(token => {
+				this.OVScreen.session.connect(token, { clientData: this.user })
+					.catch(error => {
+						console.log('There was an error connecting to the session[OVScreen]:', error.code, error.message);
 					});
 			});
 
 			window.addEventListener('beforeunload', this.leaveSession)
 		},
+		
 
 		leaveSession () {
 			if (this.data.session) this.data.session.disconnect();
+			if (this.OVScreen.session) this.OVScreen.session.disconnect();
 
 			this.data.session = undefined;
 			this.data.mainStreamManager = undefined;
@@ -148,6 +160,10 @@ export default {
 			this.data.subscribers = [];
 			this.data.OV = undefined;
 			this.data.message = [];
+
+			this.OVScreen.session = undefined;
+			this.OVScreen.OV = undefined;
+
 			window.removeEventListener('beforeunload', this.leaveSession);
 			this.$router.push('/unity');
 		},

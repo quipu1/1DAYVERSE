@@ -1,7 +1,12 @@
 <template>
   <div id="CameraRoot">
+    <div v-if="alertActive" class="alert-box alert alert-info alert-dismissible fade show">
+      <span>
+        <strong>알림!</strong> 화면 공유 시 상태창을 '숨기기' 하지 마세요.
+      </span>
+      <button type="button" class="close" data-dismiss="alert" @click="closeBtn">&times;</button>
+    </div>
     <div class="cam-content-box mt-5">
-      
       <div class="video-content" :class="{'flex-column': datas.share.active}">
         <div id="prev" class="paging-btn">
           <button class="webcam-btn page-btn" @click="page -= 1;" v-if="prev">
@@ -57,6 +62,7 @@ export default {
   props: {
     data: Object,
     location: String,
+    OVScreen: Object,
   },
   data() {
     return {
@@ -64,7 +70,9 @@ export default {
       screenShare : false,
       maxHeight : 0,
       datas: this.data,
+      screens: this.OVScreen,
       screenSrc: {},
+      alertActive: false,
     }
   },
   mounted() {
@@ -113,6 +121,9 @@ export default {
   },
 
   methods: {
+    closeBtn() {
+      this.alertActive = false;
+    },
     updateMainVideoStreamManager (stream) {
 			if (this.datas.mainStreamManager === stream) return;
 			this.datas.mainStreamManager = stream;
@@ -121,38 +132,32 @@ export default {
       this.$emit('updateStream', type);
 		},
     shareScreen() {
+      let screen = this.screens.OV.initPublisher(undefined, {
+        resolution: "1280x720",
+        videoSource: "screen",
+      });
       if(!this.screenShare) {
-        let screen = this.datas.OV.initPublisher(undefined, {
-          resolution: "1280x720",
-          videoSource: "screen",
-          publishAudio: this.datas.setting.publishAudio,
-        });
-
         screen.once('accessAllowed', () => {
           screen.stream
             .getMediaStream()
             .getVideoTracks()[0]
             .addEventListener('ended', () => {
               // Stop sharing
-              this.datas.session.unpublish(screen);
+              this.screens.session.unpublish(screen);
               this.screenShare = false;
               this.datas.share.active = false;
-              console.log("-------------ended share screen is : " + this.screenShare);
-              console.log("-------------ended share active is : " + this.datas.share.active);
-              this.datas.share.screen = undefined;
-              this.datas.session.publish(this.datas.publisher);
             });
-          this.datas.session.unpublish(this.datas.publisher);
           this.screenShare = true;
-          this.datas.share.active = true;
-          this.datas.share.screen = screen;
-          this.datas.session.publish(this.datas.share.screen);
-
+          this.alertActive = true;
+          this.screens.session.publish(screen);
+          this.datas.share.active = false;
         });
         screen.once("accessDenied", () => {
+          this.screenShare = false;
+          this.datas.share.active = false;
           console.warn("ScreenShare: Access Denied");
         });
-      }
+      } 
     },
     
     leaveSession() {
