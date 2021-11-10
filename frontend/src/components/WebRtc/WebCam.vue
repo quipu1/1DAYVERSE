@@ -116,9 +116,9 @@ export default {
 				this.data.MessageBell = true;
 			});
 
-			this.data.session.on('exception', ({ exception }) => {
-				console.warn(exception);
-			});
+			// this.data.session.on('exception', ({ exception }) => {
+			// 	console.warn(exception);
+			// });
 			this.getToken(this.data.roomName).then(token => {
 				this.data.session.connect(token, { clientData: this.user })
 					.then(() => {

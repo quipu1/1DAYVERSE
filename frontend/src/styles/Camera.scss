@@ -37,6 +37,13 @@
 		}
 	}
 }
+.focus-cam .screen-video {
+	.active-user {
+		video {
+			max-height: none !important;
+		}
+	}
+}
 .video-content {
 	flex: 2;
 	display: flex;
