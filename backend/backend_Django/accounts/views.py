@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
-from .models import Tutee, Tutor, User
+from .models import Character, Tutee, Tutor, User
 from .serializers import ProfileSerializer, UserSerializer, ProfileModifySerializer
 from onedays.models import Lecture
 from onedays.serializers import ProfileLectureSerializer
@@ -139,6 +139,10 @@ def profile(request, username):
         # 유저 정보
         serializer = ProfileSerializer(user)
         userId = serializer.data['id']
+        characterId = serializer.data['character']
+
+        character = get_object_or_404(Character, pk=characterId)
+        character_img = character.character_image
 
         # tutor일 경우 - 개인정보, 내 강의 목록
         if serializer.data['teachable'] == 1:
@@ -159,7 +163,8 @@ def profile(request, username):
 
         data = {
                 'profile': serializer.data,
-                'lectures': l_serializer.data
+                'lectures': l_serializer.data,
+                'character': character_img,
             }
         return Response(data)
     
