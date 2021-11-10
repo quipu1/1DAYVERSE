@@ -141,7 +141,7 @@ def profile(request, username):
         userId = serializer.data['id']
         characterId = serializer.data['character']
 
-        character = get_object_or_404(Character, pk=characterId)
+        character = Character.objects.filter(pk=characterId)
         character_img = character.character_image
 
         # tutor일 경우 - 개인정보, 내 강의 목록
@@ -178,3 +178,16 @@ def profile(request, username):
                 'message': '올바르지 않은 형식입니다.'
             }
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
+
+api_view(['GET'])
+def character_list(request):
+
+    characters = Character.objects.all()
+
+    print(characters)
+
+    data = {
+
+    }
+    return Response("hi")

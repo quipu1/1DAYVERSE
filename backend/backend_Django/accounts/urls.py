@@ -10,5 +10,6 @@ urlpatterns = [
     path('check/email/<str:email>/', views.check_email),
     path('logout/', views.logout),
     path('withdraw/<str:username>/', views.withdraw),
-    path('profile/<str:username>/', views.profile)
+    path('profile/<str:username>/', views.profile),
+    path('characterlist/', views.character_list)
 ]
