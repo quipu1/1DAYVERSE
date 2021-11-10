@@ -38,8 +38,6 @@ export default {
 				publisher: undefined,
 				subscribers: [],
 				participants: 1,
-				webcam: [],
-				audio: [],
 				setting: {
 					audioSource: undefined, 
 					videoSource: undefined, 
@@ -57,7 +55,7 @@ export default {
 				// share screen
 				share: {
 					active: false,
-					scsreen: undefined,
+					screen: undefined,
 				},
 			},
 			user: {},
@@ -81,7 +79,7 @@ export default {
 			this.data.OV = undefined;
 			this.data.message = [];
 			this.data.share.active = false;
-			this.data.share.scsreen = undefined;
+			this.data.share.screen = undefined;
     
   },
   methods: {
@@ -94,7 +92,7 @@ export default {
 				const subscriber = this.data.session.subscribe(stream);
 				if(subscriber.stream.typeOfVideo === "SCREEN") {
 					this.data.share.active = true;
-					this.data.share.scsreen = subscriber;
+					this.data.share.screen = subscriber;
 				}
 				this.data.subscribers.push(subscriber);
 				this.data.participants = this.data.subscribers.length + 1;
@@ -104,7 +102,7 @@ export default {
 				const index = this.data.subscribers.indexOf(stream.streamManager, 0);
 				if(stream.typeOfVideo === "SCREEN") {
 					this.data.share.active = false;
-					this.data.share.scsreen = undefined;
+					this.data.share.screen = undefined;
 				}
 				if (index >= 0) {
 					this.data.subscribers.splice(index, 1);
@@ -118,9 +116,9 @@ export default {
 				this.data.MessageBell = true;
 			});
 
-			this.data.session.on('exception', ({ exception }) => {
-				console.warn(exception);
-			});
+			// this.data.session.on('exception', ({ exception }) => {
+			// 	console.warn(exception);
+			// });
 			this.getToken(this.data.roomName).then(token => {
 				this.data.session.connect(token, { clientData: this.user })
 					.then(() => {
