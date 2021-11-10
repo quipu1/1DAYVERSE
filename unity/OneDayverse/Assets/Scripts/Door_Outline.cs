@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Left_Door_Outline : MonoBehaviour
+public class Door_Outline : MonoBehaviour
 {
     public Material Door_outline_before;
     public Material Door_outline_after;
