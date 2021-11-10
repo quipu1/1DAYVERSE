@@ -9,7 +9,7 @@ public class MyPageSceneControl : MonoBehaviour
   
     public Button ShowCharacterBtn;
     public Button ShowPrevSceneBtn;
-    public string prevSceneName = DontDestroyObject.prevScene;
+    public static string prevSceneName = DontDestroyObject.prevScene;
 
 
     // Start is called before the first frame update
@@ -21,6 +21,7 @@ public class MyPageSceneControl : MonoBehaviour
 
     public void ShowPrevSceneBtnClick()
     {
+        Debug.Log("preSceneName" + prevSceneName);
         SceneManager.LoadScene($"{prevSceneName}");
     }
 

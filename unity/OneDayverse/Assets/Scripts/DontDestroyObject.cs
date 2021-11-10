@@ -21,13 +21,16 @@ public class DontDestroyObject : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this);
+          
         }
            
-    }      
+    }
 
-    public void ShowMyPageBtnClick()
+
+    public void AfterMyPageBtnClick()
     {
         prevScene = SceneManager.GetActiveScene().name;
+        Debug.Log("현재페이지" + prevScene);
         SceneManager.LoadScene("MyPage");
     }
 
