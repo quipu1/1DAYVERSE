@@ -15,6 +15,46 @@ from onedays.serializers import ProfileLectureSerializer
 
 
 # Create your views here.
+# 프로필, 프로필 수정
+@api_view(['GET'])
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+
+    if request.method == 'GET':
+
+        # 유저 정보
+        serializer = ProfileSerializer(user)            
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def lecture(request, username):
+    user = get_object_or_404(User, username=username)
+
+    if request.method == 'GET':
+
+        # 유저 정보
+        serializer = ProfileSerializer(user)
+        userId = serializer.data['id']
+
+        # tutor일 경우 - 개인정보, 내 강의 목록
+        if serializer.data['teachable'] == 1:
+            tutor = get_object_or_404(Tutor, user=userId)
+            tutorId = tutor.id
+            lectures = Lecture.objects.filter(tutor=tutorId)
+            l_serializer = ProfileLectureSerializer(lectures, many=True)
+
+        else:
+            # tutee일 경우 - 개인정보, 수강 강의 목록
+            # 유저pk를 통해 튜티pk 가져오기
+            tutee = get_object_or_404(Tutee, user=userId)
+            tuteeId = tutee.id
+
+            # tuteeId를 통해 수강중인 강의 목록 불러오기
+            lectures = tutee.lecture_set.all()
+            l_serializer = ProfileLectureSerializer(lectures, many=True)
+
+        return Response(l_serializer.data)
+
 @api_view(['POST'])
 def set_character(request):
     get_data = request.data
