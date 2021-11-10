@@ -13,15 +13,17 @@ public class MyPageData : MonoBehaviour
     private TextMeshProUGUI phone_number;
     private TextMeshProUGUI character;
     private TextMeshProUGUI lecturePassword;
+    public string currentUsername1;
+    public string currentUsername2;
 
 
     public class JsonData
     {
-        public string title;
-        public string id;
+        public string username;
+        public string birth_day;
         public string phone_number;
         public string character;
-        public string lecturePassword;
+ 
     }
 
     // Start is called before the first frame update
@@ -29,22 +31,27 @@ public class MyPageData : MonoBehaviour
     {
         username = GameObject.Find("name").GetComponent<TMPro.TextMeshProUGUI>();
         birth_day = GameObject.Find("birthday").GetComponent<TMPro.TextMeshProUGUI>();
-        StartCoroutine(GetInfo());
-     
+        phone_number = GameObject.Find("phonenumber").GetComponent<TMPro.TextMeshProUGUI>();
+        //currentUsername1 = GetUserData.currentUsername;
+        currentUsername2 = gameObject.GetComponent<GetUserData>().currentUsername;
+        StartCoroutine(GetInfo());     
+        
     }
 
   
     public IEnumerator GetInfo()
     {
         UnityWebRequest request;
-        using (request = UnityWebRequest.Get("https://jsonplaceholder.typicode.com/todos/1"))
+        using (request = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/profile/" + currentUsername2 + "/"))
         {
             yield return request.SendWebRequest();
             Debug.Log("¿©±â" + request.downloadHandler.text);
            
             JsonData fromJson = JsonUtility.FromJson<JsonData>(request.downloadHandler.text);
-            Debug.Log(fromJson.title);
-            
+            username.text = fromJson.username;
+            birth_day.text = fromJson.birth_day;
+            phone_number.text = fromJson.phone_number;
+
         }
 
     }

@@ -8,6 +8,10 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 
+// const sendMessage = (object, method, param) => {
+//   window.gameInstance.SendMessage(object, method, param);
+// };
+
 export default {
   name: "Study",
   components: {
