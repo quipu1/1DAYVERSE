@@ -11,12 +11,10 @@ public class Cate_Language_ToHall : MonoBehaviour
     public void Start()
     {
         CateButton.onClick.AddListener(Move);
-        print("here");
     }
 
     public void Move()
     {
         Player.transform.position = new Vector3(0, 0, 0);
-        print("here2");
     }
 }
