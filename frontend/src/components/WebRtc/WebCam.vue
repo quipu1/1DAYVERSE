@@ -165,7 +165,7 @@ export default {
 			this.OVScreen.OV = undefined;
 
 			window.removeEventListener('beforeunload', this.leaveSession);
-			this.$router.push('/unity');
+			this.$router.push('/study');
 		},
 
 		updateMainVideoStreamManager (stream) {

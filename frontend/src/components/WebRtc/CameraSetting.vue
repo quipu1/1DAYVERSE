@@ -20,7 +20,7 @@
                 <p class="col icon"><i class="fas fa-video"></i></p>
                 <select name="cam" id="cam" v-model="selectWebCam">
                   <option disabled >카메라 설정</option>
-                  <option value="enabledVideo" @click="enabledSetting(video)">설정 안함</option>
+                  <option value="" @click="enabledSetting(video)">설정 안함</option>
                   <option v-for="(item, idx) in webcam" :key="idx" :value=item.deviceId @change="changeCamera">{{item.label}}</option>
                 </select>
               </li>
@@ -28,7 +28,7 @@
                 <p class="col icon"><i class="fas fa-microphone"></i></p>
                 <select name="cam" id="cam" v-model="selectAudio">
                   <option disabled >마이크 설정</option>
-                  <option value="enabledAudio" @click="enabledSetting(audio)">설정 안함</option>
+                  <option value="" @click="enabledSetting(audio)">설정 안함</option>
                   <option v-for="(item, idx) in audio" :key="idx" :value=item.deviceId @change="changeAudio">{{item.label}}</option>
                 </select>
               </li>
@@ -36,7 +36,8 @@
           </div>
         </div>
         <div class="btn-box mt-4">
-          <button class="submit-btn" @click="submitSetting">설정 저장</button>
+          <button class="reset-btn" @click.stop="reset">새로 고침</button>
+          <button class="submit-btn" @click.stop="submitSetting">설정 저장</button>
         </div>
       </div>
     </div>
@@ -115,8 +116,33 @@ export default {
       })
     },
     changeCamera() {
-      this.publisher.stream.outboundStreamOpts.publisherProperties.videoSource = this.selectWebCam;
-      this.publisher.publishVideo(true);
+      
+      this.setting.videoSource = this.selectWebCam;
+
+      this.OV.getDevices().then(devices => {
+        let videoDevices = devices.filter(device => device.kind === 'videoinput');
+        if(videoDevices && videoDevices.length > 1) {
+          var newPublisher = this.OV.initPublisher(undefined, {
+            videoSource: this.selectWebCam,
+            publishAudio: true,
+            publishVideo: true,
+            videoActive: true,
+          });
+          this.session.unpublish(this.publisher).then(() => {
+            this.publisher = newPublisher;
+
+            this.session.publish(this.publisher).then(() => {
+              console.log("New publisher published!")
+            })
+          })
+        } else {
+          // this.publisher.stream.outboundStreamOpts.publisherProperties.videoSource = this.selectWebCam;
+          // this.publisher.videoActive = true;
+          this.publisher.publishVideo(true);
+        }
+      })
+
+      // this.publisher.publishVideo(true);
       this.$store.commit('camStore/setVideo', this.selectWebCam);
     },
     changeAudio() {
@@ -132,12 +158,15 @@ export default {
         console.log("설정안함");
         this.selectWebCam = '';
         this.publisher.publishAudio(false);
-
+        this.session.unpublish(this.publisher);
       }
     },
     submitSetting() {
       this.leaveSession();
-      this.$router.go(-1);
+      this.$router.replace('/live');
+    },
+    reset() {
+      this.$router.go();
     },
 		joinSession () {
       

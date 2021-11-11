@@ -4,8 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import serializers, status
 
-from accounts.models import Tutor
-from .models import Lecture
+from accounts.models import Tutor, Tutee
+from .models import Lecture, Registration
 from .serializers import LectureListSerializer, LectureSerializer, LectureDetailSerializer
 
 # 강의 등록
@@ -46,7 +46,41 @@ def category(request, c_num):
 def detail(request, l_num):
     lecture = get_object_or_404(Lecture.objects.filter(pk=l_num))
     serializer = LectureDetailSerializer(lecture)
-    return Response(serializer.data)
+
+    cnt = Registration.objects.filter(lecture=l_num).count()
+    
+    if serializer.data['room_size'] > cnt:
+        enroll = True
+        remain = serializer.data['room_size'] - cnt
+    else: 
+        enroll = False
+        remain = 0
+
+    data = {
+        'detail': serializer.data,
+        'max': serializer.data['room_size'],
+        'now': cnt,
+        'enroll': enroll,
+        'remain': remain,
+    }
+    return Response(data)
+
+
+# 강의 등록 여부 체크
+@api_view(['GET'])
+def check(request):
+    # 프론트에서 유저pk를 가져오면
+    # 유저pk를 통해 튜티pk 가져오기
+    userId = request.data['tutee']
+    tutee = get_object_or_404(Tutee, user=userId)
+    tuteeId = tutee.id
+
+    # 이미 등록한 유저인지 확인
+    if Registration.objects.filter(tutee=tuteeId, lecture=request.data['lecture']).exists():
+        check = False
+    else:
+        check = True
+    return Response(check)
 
 
 @api_view(['POST'])
