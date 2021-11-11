@@ -172,7 +172,7 @@ def profile(request, username):
             data = {
                     'profile': serializer.data,
                     'lectures': l_serializer.data,
-                    'character': ""
+                    'character': "characters/default.PNG"
                 }
 
         return Response(data)
