@@ -54,7 +54,7 @@ def enroll(request):
     tuteeId = tutee.id
 
     # 이미 등록한 유저인지 확인
-    if Registration.objects.filter(tutee=tuteeId).exists():
+    if Registration.objects.filter(tutee=tuteeId, lecture=request.data['lecture']).exists():
         data = {
             'message': '이미 등록한 강의입니다.'
         }
@@ -70,6 +70,6 @@ def enroll(request):
             return Response(serializer.data)
         else:
             data = {
-                'message': '올바르지 않은 형식입니다.'
+                'message': '존재하지 않는 강의입니다.'
             }
-        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
