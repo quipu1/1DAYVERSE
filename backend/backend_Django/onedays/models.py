@@ -20,7 +20,7 @@ class Lecture(models.Model):
     end = models.TimeField(default=datetime.now, blank=True, null=True)
     date = models.DateField(default=datetime.now, blank=True, null=True)
     description = models.TextField()
-    room_size = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(3)])
+    room_size = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(20)])
     price = models.PositiveIntegerField()
     lecture_cnt = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(7)])
     validation = models.BooleanField(default=False)
