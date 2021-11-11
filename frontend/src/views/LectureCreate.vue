@@ -51,7 +51,7 @@
             </h1>
             <div class="section-container" id="tutorContent">
               <div class="profile-image">
-                <img src="" alt="" class="tutor-image">
+                <img :src="`@/../../../backend/media/${this.profile_image}`" alt="" class="tutor-image">
               </div>
               <div class="profile-content">
                 <span>{{this.$store.getters["userStore/getUsername"]}}</span>
@@ -67,7 +67,7 @@
             <div class="section-container" id="lectureContent">
               <div class="content-row">
                 <label>강의 사진</label>
-                <input type="file" multiple @change="uploadImage" ref="lectureImages">
+                <input type="file" @change="uploadImage" ref="lectureImages">
               </div>
               <div class="content-row" style="height: 100%;">
                 <label for="">강의 내용</label>
@@ -169,6 +169,11 @@ export default {
       password :"",
     }
   },
+  computed: {
+    profile_image() {
+      return this.$store.getters['userStore/getProfileIamge'] 
+    },
+  },
   methods : {
     shutDown(){
       const dropdownBtn = document.querySelector(".dropdown-btn");
@@ -210,6 +215,7 @@ export default {
       this.image = this.$refs.lectureImages.files
       // console.log(this.$refs.lectureImages.files)
       console.log(this.image)
+      console.log('이미지-----------------------')
     },
     commaCost(){
       this.cost = this.cost.toLocaleString('ko-KR')
@@ -237,11 +243,20 @@ export default {
       Form.append('name', this.$store.getters["userStore/getUsername"]);
       Form.append('title', this.title);
       Form.append('tutor', this.$store.getters["userStore/getUserId"]);
-      Form.append('main_image', this.image[0]);
+      if (this.image != "") {
+        console.log(this.image[0])
+        Form.append('main_image', this.image[0]);
+      }
+      else {
+        console.log('사진 없음')
+        Form.append('main_image', '');
+      }
       Form.append('category', this.category);
       Form.append('start', this.start);
       Form.append('end', this.end);
       Form.append('date', this.date);
+      console.log(this.start)
+      console.log(this.date)
       Form.append('description', this.description);
       Form.append('room_size', this.size);
       Form.append('price', this.cost);

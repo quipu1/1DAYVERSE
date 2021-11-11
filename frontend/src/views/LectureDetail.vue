@@ -19,7 +19,7 @@
           <span><b>{{lecture.title}}</b></span>
           <span>강사 : {{lecture.tutor}}</span>
           <span>모집 인원 : {{lecture.room_size}}명</span>
-          <span>가격 : {{cost.toLocaleString('ko-KR')}}원</span>
+          <span>가격 : {{cost}}원</span>
         </div>
         <button @click="Pay" id="payBtn">
           <img :src="PayImage" alt="">
@@ -55,8 +55,9 @@ export default {
   created(){
     axios.get(`https://k5c202.p.ssafy.io/od/onedays/lecture/detail/${this.lecture_id}`)
     .then((res)=>{
-      this.lecture = res.data
-      this.cost = res.data.price
+      this.lecture = res.data.detail
+      console.log(res.data.detail)
+      this.cost = res.data.detail.price.toLocaleString('ko-KR')
     })
   },
   computed : {
