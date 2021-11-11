@@ -33,6 +33,9 @@ const userStore = {
     getUserId(state) {
       return state.userid
     },
+    getProfileIamge(state) {
+      return state.profile_img
+    }
   },
   mutations: {
     SET_USER(state, usersetting) {
@@ -57,8 +60,9 @@ const userStore = {
       state.birth = userinfo.birth_day
       state.phone = userinfo.phone_number
       state.teachable = userinfo.teachable
-      state.character = userinfo.character
-      state.profile_img = userinfo.profile_image
+    },
+    FETCH_PROFILE_IMAGE(state, charinfo) {
+      state.profile_img = charinfo
     },
     FETCH_LECTURES(state, lectures) {
       state.lectures = lectures
@@ -108,7 +112,9 @@ const userStore = {
       const FETCH_PROFILE_URL = ACCOUNT_URL + `profile/${username}/`
       axios.get(FETCH_PROFILE_URL)
         .then((res) => {
+          console.log(res, "Profile Fetch")
           commit('FETCH_PROFILE', res.data.profile)
+          commit('FETCH_PROFILE_IMAGE', res.data.character)
           commit('FETCH_LECTURES', res.data.lectures)
         })
         .catch((err) => {

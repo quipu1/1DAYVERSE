@@ -8,7 +8,7 @@
       </div>
       <div class="container grid grid-cols-1 md:grid-cols-6">
         <div class="profile">
-          <img :src="require('@/assets/class1.jpeg')" class="user-image" alt="">
+          <img :src="`@/../../../backend/${this.profile_image}`" class="user-image" alt="">
           <div class="profile-info">
             <button class="edit" @click="changemodal">
               <svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -91,6 +91,9 @@ export default {
     },
     lectures() {
       return this.$store.getters['userStore/getUserLectures'] 
+    },
+    profile_image() {
+      return this.$store.getters['userStore/getProfileIamge'] 
     },
   },
   methods: {
