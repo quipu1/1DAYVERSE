@@ -1,6 +1,7 @@
 <template>
   <div class="warp">
     <Navbar/>
+    {{ group }}
     <main @click="shutDown" >    
       <div v-if="loading">
         <h1>로딩 중..</h1>
@@ -57,6 +58,7 @@ export default {
         axios.get("https://k5c202.p.ssafy.io/od/onedays/category/1")
         .then((res)=>{
           this.lectures = res.data
+          console.log(this.lectures)
           this.loading = false;
         })
         break
@@ -64,6 +66,7 @@ export default {
         axios.get("https://k5c202.p.ssafy.io/od/onedays/category/2")
         .then((res)=>{
           this.lectures = res.data; 
+          console.log(this.lectures)
           this.loading = false;
         })
         break
@@ -71,6 +74,7 @@ export default {
         axios.get("https://k5c202.p.ssafy.io/od/onedays/category/3")
         .then((res)=>{
           this.lectures = res.data;
+          console.log(this.lectures)
           this.loading = false; 
         })
         break
