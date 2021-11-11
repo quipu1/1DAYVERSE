@@ -56,7 +56,6 @@ export default {
     axios.get(`https://k5c202.p.ssafy.io/od/onedays/lecture/detail/${this.lecture_id}`)
     .then((res)=>{
       this.lecture = res.data
-      console.log(res.data)
       this.cost = res.data.price
     })
   },
