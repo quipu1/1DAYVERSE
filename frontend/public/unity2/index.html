@@ -6,13 +6,13 @@
     <title>Unity WebGL Player | OneDayverse</title>
   </head>
   <body style="text-align: center">
-    <canvas id="unity-canvas" width=1600 height=900 style="width: 1600px; height: 900px; background: #231F20"></canvas>
-    <script src="Build/webgl2.loader.js"></script>
+    <canvas id="unity-canvas" width=1280 height=600 style="width: 1280px; height: 600px; background: #231F20"></canvas>
+    <script src="Build/onedayverseBuild.loader.js"></script>
     <script>
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/webgl2.data",
-        frameworkUrl: "Build/webgl2.framework.js",
-        codeUrl: "Build/webgl2.wasm",
+        dataUrl: "Build/onedayverseBuild.data",
+        frameworkUrl: "Build/onedayverseBuild.framework.js",
+        codeUrl: "Build/onedayverseBuild.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "OneDayverse",
