@@ -36,8 +36,6 @@ export default {
   align-items: center;
   cursor: pointer;
   box-sizing: border-box;
-  height: 20%;
-
 }
 .image-container{
   width: 100%;

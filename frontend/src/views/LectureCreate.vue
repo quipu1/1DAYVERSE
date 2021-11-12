@@ -251,7 +251,17 @@ export default {
       Form.append('end', this.end);
       Form.append('date', this.date);
       Form.append('description', this.description);
-      Form.append('room_size', this.size);
+      var max_num = null
+      if (this.size == '1') {
+        max_num = '5'
+      }
+      else if (this.size == '2') {
+        max_num = '10'
+      }
+      else if (this.size == '3') {
+        max_num = '20'
+      }
+      Form.append('room_size', max_num);
       Form.append('price', this.cost);
       Form.append('lecture_cnt', '1');
       Form.append('validation', '');

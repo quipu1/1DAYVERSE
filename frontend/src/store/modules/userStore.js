@@ -89,6 +89,7 @@ const userStore = {
         axios.post(AUTH_USER_URL, userinfo)
           .then((res) => {
             commit('FETCH_PROFILE', res.data.user)
+            localStorage.setItem('username', res.data.user.username)
             resolve()
           })
           .catch((err) => {

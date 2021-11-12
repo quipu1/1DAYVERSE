@@ -1,7 +1,6 @@
 <template>
   <div class="warp">
     <Navbar/>
-    {{ group }}
     <main @click="shutDown" >    
       <div v-if="loading">
         <h1>로딩 중..</h1>
@@ -53,28 +52,26 @@ export default {
   
   mounted(){
     this.loading = true;
+    const BASE_URL = 'https://k5c202.p.ssafy.io/od/onedays/'
     switch(this.group){
       case "health":
-        axios.get("https://k5c202.p.ssafy.io/od/onedays/category/1")
+        axios.get(BASE_URL+"category/1")
         .then((res)=>{
           this.lectures = res.data
-          console.log(this.lectures)
           this.loading = false;
         })
         break
       case "hobby":
-        axios.get("https://k5c202.p.ssafy.io/od/onedays/category/2")
+        axios.get(BASE_URL+"category/2")
         .then((res)=>{
           this.lectures = res.data; 
-          console.log(this.lectures)
           this.loading = false;
         })
         break
       case "lang":
-        axios.get("https://k5c202.p.ssafy.io/od/onedays/category/3")
+        axios.get(BASE_URL+"category/category/3")
         .then((res)=>{
           this.lectures = res.data;
-          console.log(this.lectures)
           this.loading = false; 
         })
         break
@@ -88,30 +85,29 @@ export default {
       dropdownBtn.style.backgroundColor="transparent"
     },
     groupChange(){
+      const BASE_URL = 'https://k5c202.p.ssafy.io/od/onedays/'
       switch(this.group){
         case "health":
-          axios.get("https://k5c202.p.ssafy.io/od/onedays/category/1")
+          axios.get(BASE_URL+"category/1")
           .then((res)=>{
             this.lectures = res.data; 
-            console.log(res.data)
-          this.loading = false;
-
+            this.loading = false;
           })
+          .catch((err) => {console.log(err)})
           break
         case "hobby":
-          axios.get("https://k5c202.p.ssafy.io/od/onedays/category/2")
+          axios.get(BASE_URL+"/category/2")
           .then((res)=>{
             this.lectures = res.data; 
-            console.log(res.data)
-          this.loading = false;
-
+            this.loading = false;
           })
           break
         case "lang":
-          axios.get("https://k5c202.p.ssafy.io/od/onedays/category/3")
-          .then((res)=>{ this.lectures = res.data; 
-          this.loading = false;
-          console.log(res.data); })
+          axios.get(BASE_URL+"category/3")
+          .then((res)=>{ 
+            this.lectures = res.data; 
+            this.loading = false;
+          })
           break
       }
     },
@@ -129,7 +125,8 @@ export default {
 }
 main{
   text-align: center;
-  height: 100vh;
+  height: 82vh;
+  overflow: auto;
 }
 #lectureContainer{
   display: grid;
@@ -139,7 +136,6 @@ main{
   justify-items: center;
   gap: 2.5%;
   padding: 0 5%;
-  height: 100%;
   margin-top: 5%;
 }
 </style>
