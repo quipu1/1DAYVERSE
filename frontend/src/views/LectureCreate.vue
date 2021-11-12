@@ -270,7 +270,7 @@ export default {
       .then(()=>{
         const Swal = require('sweetalert2')
           Swal.fire({
-            title: '생성이 완료되었습니다.',
+            text: '생성이 완료되었습니다.',
             showClass: {
               popup: 'animate__animated animate__fadeInDown'
             },

@@ -130,7 +130,9 @@ section:nth-child(3){
   width: 50%;
   font-size: 1.5rem;
   line-height: 100%;
-  /* text-align: center; */
+  text-align: center;
+  margin-left: 0;
+  padding-left: 0;
 }
 .content-image{
   width: 50%;
