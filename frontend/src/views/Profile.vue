@@ -185,7 +185,7 @@ export default {
   padding: 1rem;
   border-radius: 10px;
   height: 50vh;
-  overflow: scroll;
+  overflow: auto;
 }
 .lecture {
   margin: 1rem 0;
