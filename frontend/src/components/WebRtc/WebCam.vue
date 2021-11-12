@@ -3,7 +3,8 @@
     <div id="session" v-if="data.session">
 			<div id="video-container" class="col">
 				<camera :data="data" :OVScreen="OVScreen" :location="location" v-on:leaveSession="leaveSession" v-on:updateStream="updateStream" v-on:joinScreen="joinScreen"/>
-				<chat :data="data" v-on:send="send" />
+				<chat :data="data" v-on:send="send" v-on:settingModal="settingModal" />
+				<camera-setting v-if="activeSetting" :activeModal="activeSetting" v-on:settingModal="settingModal" />
 			</div>
 		</div>
   </div>
@@ -14,6 +15,7 @@ import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import Camera from './Camera.vue';
 import Chat from './Chat.vue';
+import CameraSetting from './CameraSetting.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -24,6 +26,7 @@ export default {
   components: {
     Camera,
     Chat,
+		CameraSetting,
   },
 	props: {
 		location: String,
@@ -63,6 +66,7 @@ export default {
 				session: undefined,
 			},
 			user: {},
+			activeSetting: false,
 			lecture_id: 24,
     }
   },
@@ -88,6 +92,13 @@ export default {
     
   },
   methods: {
+		settingModal(v) {
+			if (v == 1) {
+				this.activeSetting = !this.activeSetting;
+			} else {
+				this.activeSetting = false;
+			}
+    },
 		joinSession () {
 			this.data.OV = new OpenVidu(); // 유저 캠
 			this.OVScreen.OV = new OpenVidu(); // 화면 공유

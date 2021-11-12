@@ -1,4 +1,10 @@
 @import "./common.scss";
+#CamSettingRoot {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 90;
+}
 .alert-box {
 	display: flex;
 	justify-content: space-between;
@@ -65,7 +71,10 @@
 		height: 40px;
 		border-radius: 50px;
 	}
-	.reset-btn {
+	.submit-btn:hover {
+		background: #cd5b92;
+	}
+	.cancel-btn {
 		border: none;
 		background: $gray-color;
 		color: $white-color;
@@ -73,5 +82,20 @@
 		height: 40px;
 		border-radius: 50px;
 		margin-right: 20px;
+	}
+	.cancel-btn:hover {
+		background: $dark-gray-color;
+	}
+}
+.reset-col {
+	text-align: right;
+	margin-right: 5px;
+	.reset-btn {
+		background: none;
+		border: none;
+		color: $dark-color;
+	}
+	.reset-btn:hover {
+		color: $main-color;
 	}
 }
