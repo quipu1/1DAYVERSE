@@ -68,15 +68,14 @@ def detail(request, l_num):
 
 # 강의 등록 여부 체크
 @api_view(['GET'])
-def check(request):
+def check(request, user, lecture):
     # 프론트에서 유저pk를 가져오면
     # 유저pk를 통해 튜티pk 가져오기
-    userId = request.data['tutee']
-    tutee = get_object_or_404(Tutee, user=userId)
+    tutee = get_object_or_404(Tutee, user=user)
     tuteeId = tutee.id
 
     # 이미 등록한 유저인지 확인
-    if Registration.objects.filter(tutee=tuteeId, lecture=request.data['lecture']).exists():
+    if Registration.objects.filter(tutee=tuteeId, lecture=lecture).exists():
         check = False
     else:
         check = True
