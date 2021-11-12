@@ -3,24 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.Runtime.InteropServices;
 
 public class CharacterPick : MonoBehaviour
 {
-    string onScreen = "start";
+    public string onScreen = "start";
+    public string username;
+    public int character;
     public Button StopBtn;
     public Button GoBtn;
+    private string currentUsername;
+    private Dictionary<string, int> characterDic = new Dictionary<string, int>();
+   
+  
+    [DllImport("__Internal")]
+    private static extern string GetUsername();
 
-    public class User
-    {
-        public string username;
-        public string character;
-    }
+
     // Start is called before the first frame update
     void Start()
     {
-     
+        currentUsername = GetUsername();
         StopBtn.onClick.AddListener(StopBtnClick);
         GoBtn.onClick.AddListener(GoBtnClick);
+
+        characterDic["SchoolBoy"] = 1;
+        characterDic["GamerGirl"] = 2;
+        characterDic["Gangster"] = 3;
+        characterDic["Jock"] = 4;
+        characterDic["SchoolGirl"] = 5;
     }
 
     // Update is called once per frame
@@ -59,20 +70,16 @@ public class CharacterPick : MonoBehaviour
         GameObject.Find("CharacterChange").transform.Find("ControlCharacters").gameObject.SetActive(false);
     }
 
-    public IEnumerator SendInfo(string json)
+    public IEnumerator SendInfo(string username, int character)
     {
-        UnityWebRequest request;
-        using (request = UnityWebRequest.Post("https://jsonplaceholder.typicode.com/todos/1", json))
-        {
-            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
-            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
+        WWWForm form = new WWWForm();
+        form.AddField("nickname", username);
+        form.AddField("character", character);
 
-            yield return request.SendWebRequest();
-            Debug.Log("¿©±â" + request.downloadHandler.text);
+        UnityWebRequest request = UnityWebRequest.Post("https://k5c202.p.ssafy.io/od/unitys/character/", form);
+        yield return request.SendWebRequest();
+        Debug.Log(request.result);
 
-        }
 
     }
 
@@ -82,16 +89,13 @@ public class CharacterPick : MonoBehaviour
         {
             GameObject.Find("OnePick").transform.Find($"{onScreen}").gameObject.SetActive(false);
         }
-        Debug.Log(onScreen);
 
-        User userInfo = new User
-        {
-            username = "idididid2",
-            character = onScreen,
-        };
+        username = currentUsername;
+        character = characterDic[onScreen];
+        Debug.Log(character);
+        
 
-        string json = JsonUtility.ToJson(userInfo);
-        StartCoroutine(SendInfo(json));
+        StartCoroutine(SendInfo(username, character));
 
         GameObject.Find("ShowMyInfo").transform.Find("MyInfoCanvas").gameObject.SetActive(true);
         GameObject.Find("CharacterChange").transform.Find("CharacterCanvas").gameObject.SetActive(false);
