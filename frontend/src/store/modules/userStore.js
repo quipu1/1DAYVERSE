@@ -89,6 +89,7 @@ const userStore = {
         axios.post(AUTH_USER_URL, userinfo)
           .then((res) => {
             commit('FETCH_PROFILE', res.data.user)
+            localStorage.setItem('username', res.data.user.username)
             resolve()
           })
           .catch((err) => {
@@ -98,21 +99,13 @@ const userStore = {
       })
     },
     LOGOUT({ commit }) {
-      // const LOGOUT_URL = ACCOUNT_URL + 'logout/'
-      // axios.post(LOGOUT_URL)
-      //   .then((res) => {
-      //     console.log(res)
-        commit('RESET_STATE')
-        // })
-        // .catch((err) => {
-        //   console.log(err)
-        // })
+      commit('RESET_STATE')
+      localStorage.removeItem('username')
     },
     FETCH_PROFILE({ commit }, username) {
       const FETCH_PROFILE_URL = ACCOUNT_URL + `profile/${username}/`
       axios.get(FETCH_PROFILE_URL)
         .then((res) => {
-          console.log(res, "Profile Fetch")
           commit('FETCH_PROFILE', res.data.profile)
           commit('FETCH_PROFILE_IMAGE', res.data.character)
           commit('FETCH_LECTURES', res.data.lectures)

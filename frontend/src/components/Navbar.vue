@@ -37,20 +37,8 @@ export default {
   data (){
     return {
       logo : logo,
-      isTeacher : false,
-      // isLogin : false,
       keyword : "",
     }
-  },
-  created() {
-    const teacherable = this.$store.getters["userStore/getUserTeachable"]
-      console.log(teacherable, typeof(teacherable))
-      if (teacherable === 1) {
-        this.isTeacher = true
-      }
-      else {
-        this.isTeacher = false
-      }
   },
   computed: {
     username() {
@@ -66,6 +54,12 @@ export default {
         return false
       }
     },
+    isTeacher() {
+      if (this.$store.getters["userStore/getUserTeachable"] == '1') {
+        return true
+      }
+      return false
+    }
   },
   methods : {
     shutDown(){
@@ -90,31 +84,53 @@ export default {
       this.$router.push({name : "Search", params: {"keyword" : this.keyword}})
       }
       else{
-        alert('검색어를 입력해주세요')
-        this.$router.go(0)
+        const Swal = require('sweetalert2')
+        Swal.fire({
+          text: '검색어를 입력해주세요.',
+        })
       }
     },
     makeClass(){
       this.$router.push({name : "LectureCreate"})
     },
     goToMyPage(){
-      alert('내 정보 페이지로 이동')
-      if (this.username) {
-        this.$router.push({name:"Profile", params: {username : this.username}})
-      }
+      const Swal = require('sweetalert2')
+      let timerInterval
+      Swal.fire({
+        html: '내 정보 페이지로 이동',
+        timer: 700,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        willClose: () => {
+          clearInterval(timerInterval)
+        }
+      }).then(() => {
+        if (this.username) {
+          this.$router.push({name:"Profile", params: {username : this.username}})
+        }
+      })
     },
     goToSignupPage(){
       this.$router.push({name : "Signup"})
     },
     logout(){
-      if(confirm('로그아웃 하시겠습니까?')){
-        alert('로그아웃')
-        this.$store.dispatch('userStore/LOGOUT')
-        // localStorage.removeItem("vuex")
-        // this.$router.push({name : "Main"})
-      }else{
-        alert('취소 되었습니다.')
-      }
+      const Swal = require('sweetalert2')
+        Swal.fire({
+          text: '로그아웃 하시겠습니까?',
+          confirmButtonText: 'Logout',
+          showCancelButton: true,
+          confirmButtonColor: '#8D3DA5',
+        }).then(() => {
+          this.$store.dispatch('userStore/LOGOUT')
+          localStorage.removeItem("vuex")
+          if (this.$route.name != 'Main') {
+            this.$router.push({ name: 'Main' })
+          }
+          else {
+            this.$router.go()
+          }
+        })
     },
     login(){
       this.$router.push({name : "Login"})
@@ -151,7 +167,7 @@ nav{
   justify-items: center;
   width: 100%;
   background-color: #FFEEF7;
-  height: 10%;
+  height: 10vh;
   /* margin-bottom: 5%; */
 }
 #logoImage{

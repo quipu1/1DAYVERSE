@@ -133,12 +133,9 @@ export default {
         .dispatch("userStore/AUTH_USER", form)
         .then(() => {
           this.$router.push({ name: "Main" });
-          localStorage.setItem("username", this.email);
-          // this.$store.dispatch('userStore/FETCH_PROFILE', this.username)
         })
         .catch(() => {
           const Swal = require("sweetalert2");
-
           Swal.fire({
             text: "직업 혹은 username 혹은 비밀번호를 확인해주세요.",
             icon: "error",
