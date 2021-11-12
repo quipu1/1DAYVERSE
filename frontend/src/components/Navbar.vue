@@ -151,7 +151,7 @@ nav{
   justify-items: center;
   width: 100%;
   background-color: #FFEEF7;
-  height: 10%;
+  height: 10vh;
   /* margin-bottom: 5%; */
 }
 #logoImage{

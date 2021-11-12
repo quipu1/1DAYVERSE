@@ -18,12 +18,13 @@
           <span v-else-if="lecture.category===3">언어</span>
           <span><b>{{lecture.title}}</b></span>
           <span>강사 : {{lecture.tutor}}</span>
-          <span>모집 인원 : {{lecture.room_size}}명</span>
+          <span>모집 인원 : {{lecture.lecture_cnt}} / {{lecture.room_size}}명</span>
           <span>가격 : {{cost}}원</span>
         </div>
-        <button @click="Pay" id="payBtn">
+        <button v-if="!err_message" @click="Pay" id="payBtn">
           <img :src="PayImage" alt="">
         </button>
+        <div v-else>{{ err_message }}</div>
       </div>
     </main>
     <Footer/>
@@ -49,18 +50,33 @@ export default {
       PayImage : PayImage,
       lecture : "",
       cost : "",
-      image : image
+      image : image,
+      registerable: null,
     }
   },
   created(){
     axios.get(`https://k5c202.p.ssafy.io/od/onedays/lecture/detail/${this.lecture_id}`)
     .then((res)=>{
       this.lecture = res.data.detail
-      console.log(res.data.detail)
       this.cost = res.data.detail.price.toLocaleString('ko-KR')
     })
+    const user_id = this.$store.getters["userStore/getUserId"]
+    axios.get(`https://k5c202.p.ssafy.io/od/onedays/check/${user_id}/${this.lecture_id}`)
+    .then((res) => 
+      this.registerable = res.data
+    )
+    .catch((err) => console.log(err))
   },
   computed : {
+    err_message() {
+      if (this.registerable == false) {
+        return '이미 등록한 강좌힙니다.'
+      }
+      else if (Number(this.lecture.lecture_cnt) >= Number(this.lecture.room_size)) {
+        return '이미 마감된 강좌힙니다.'
+      }
+      return null
+    }
   },
 
   methods : {

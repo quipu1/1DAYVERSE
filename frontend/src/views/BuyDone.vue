@@ -55,7 +55,7 @@ export default {
     const Form = new FormData();
     Form.append("tutee", this.$store.getters["userStore/getUserId"])
     Form.append("lecture",this.lecture_id)
-    axios.post(`https://k5c202.p.ssafy.io/od/payments/enroll/`,Form)
+    axios.post(`https://k5c202.p.ssafy.io/od/payments/enroll/`, Form)
     .catch((err)=>{
       console.log(err)
     })

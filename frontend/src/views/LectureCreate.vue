@@ -213,9 +213,6 @@ export default {
     },
     uploadImage(){
       this.image = this.$refs.lectureImages.files
-      // console.log(this.$refs.lectureImages.files)
-      console.log(this.image)
-      console.log('이미지-----------------------')
     },
     commaCost(){
       this.cost = this.cost.toLocaleString('ko-KR')
@@ -244,28 +241,46 @@ export default {
       Form.append('title', this.title);
       Form.append('tutor', this.$store.getters["userStore/getUserId"]);
       if (this.image != "") {
-        console.log(this.image[0])
         Form.append('main_image', this.image[0]);
       }
       else {
-        console.log('사진 없음')
         Form.append('main_image', '');
       }
       Form.append('category', this.category);
       Form.append('start', this.start);
       Form.append('end', this.end);
       Form.append('date', this.date);
-      console.log(this.start)
-      console.log(this.date)
       Form.append('description', this.description);
-      Form.append('room_size', this.size);
+      var max_num = null
+      if (this.size == '1') {
+        max_num = '5'
+      }
+      else if (this.size == '2') {
+        max_num = '10'
+      }
+      else if (this.size == '3') {
+        max_num = '20'
+      }
+      Form.append('room_size', max_num);
       Form.append('price', this.cost);
       Form.append('lecture_cnt', '1');
       Form.append('validation', '');
       Form.append('password', this.password);
       axios.post("https://k5c202.p.ssafy.io/od/onedays/register/", Form)
-      .then((res)=>{
-        console.log(res.data)
+      .then(()=>{
+        const Swal = require('sweetalert2')
+          Swal.fire({
+            title: '생성이 완료되었습니다.',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            },
+            confirmButtonText: 'To Main',
+          }).then(() => {
+            this.$router.push({ name: 'Main'})
+          })
       })
       .catch((res)=>{
         console.log(res)
