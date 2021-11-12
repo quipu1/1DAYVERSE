@@ -5,6 +5,6 @@ urlpatterns = [
     path('register/', views.register),
     path('category/<int:c_num>', views.category),
     path('lecture/detail/<int:l_num>', views.detail),
-    path('check/', views.check),
+    path('check/<int:user>/<int:lecture>/', views.check),
     path('search/', views.search),
 ]

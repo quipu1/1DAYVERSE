@@ -62,8 +62,13 @@
           <i class="far fa-comments"></i>
           <span v-if="newChat" class="new-chat">●</span>
         </div>
+        <!-- 설정 Btn -->
+        <div class="setting-tab" @click="activeSetting">
+          <i class="fas fa-user-cog"></i>
+        </div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -118,6 +123,9 @@ export default {
     },
     inactiveBell() {
       this.datas.MessageBell = false;
+    },
+    activeSetting() {
+      this.$emit('settingModal', 1);
     },
   },
 }
