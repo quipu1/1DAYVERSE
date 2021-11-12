@@ -1,6 +1,6 @@
 <template>
   <div id="CamSettingRoot">
-    <div class="row content-box">
+    <div class="row content-box modal-box">
       <div v-if="alertActive" class="alert-box alert alert-info alert-dismissible fade show">
         <span>
           <strong>알림!</strong> 1Dayverse 는 카메라와 마이크 권한을 필요로 합니다.
@@ -33,10 +33,13 @@
                 </select>
               </li>
             </ul>
+            <div class="reset-col">
+              <button class="reset-btn" @click.stop="reset"><i class="fas fa-redo-alt"></i></button>
+            </div>
           </div>
         </div>
         <div class="btn-box mt-4">
-          <button class="reset-btn" @click.stop="reset">새로 고침</button>
+          <button v-if="activeModal" class="cancel-btn" @click.stop="cancel">취소</button>
           <button class="submit-btn" @click.stop="submitSetting">설정 저장</button>
         </div>
       </div>
@@ -55,6 +58,9 @@ export default {
   name: 'CamSetting',
   components: {
     UserVideo,
+  },
+  props: {
+    activeModal: Boolean,
   },
   data() {
     return {
@@ -106,6 +112,9 @@ export default {
   methods: {
     closeBtn() {
       this.alertActive = false;
+    },
+    cancel() {
+      this.$emit('settingModal', 2);
     },
     findDevices() {
       this.OV.getDevices().then(devices => {
@@ -162,8 +171,12 @@ export default {
       }
     },
     submitSetting() {
-      this.leaveSession();
-      this.$router.replace('/live');
+      if(this.activeModal) {
+        this.$emit('settingModal', 2);
+      } else {
+        this.leaveSession();
+        this.$router.replace('/live');
+      }
     },
     reset() {
       this.$router.go();
