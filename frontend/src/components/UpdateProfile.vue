@@ -49,24 +49,6 @@
         </div>
         <button class="delete" @click="changeDelete">회원탈퇴하기</button>
       </div>
-      <div class="modal" v-else>
-        <div>
-          <div>
-            <p class="radio-text">정말로 삭제하시겠습니까?</p>
-            <div class="radio">
-              <div class="radio-input">
-                <input type="radio" id="student" v-model="delete_user" value="false" checked>
-                <label for="student">No</label>
-              </div>
-              <div class="radio-input">
-                <input type="radio" id="professor" v-model="delete_user" value="delete">
-                <label for="professor">Yes</label>
-              </div>
-            </div>
-            <button class="btn delete-btn main-purple" @click="submitDelete">Submit</button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -79,10 +61,6 @@ export default {
       username: null,
       birth: null,
       phone: null,
-      // 유저 삭제 모달 변수
-      delete_modal: false,
-      // 유저 삭제
-      delete_user: false,
       profilename: this.$route.params.username,
     }
   },
@@ -156,15 +134,16 @@ export default {
         .catch(() => {})
     },
     changeDelete() {
-      this.delete_modal = !this.delete_modal
-    },
-    submitDelete() {
-      if (this.delete_user) {
-        this.$store.dispatch('userStore/DELETE_USER', this.username)
-          .then(() => {
-            const Swal = require('sweetalert2')
-
-            Swal.fire({
+      const Swal = require('sweetalert2')
+      Swal.fire({
+        text: '정말로 삭제하시겠습니까?',
+        confirmButtonText: 'Delete',
+        showCancelButton: true,
+        confirmButtonColor: '#8D3DA5',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$store.dispatch('userStore/DELETE_USER', this.username)
+          Swal.fire({
               title: '삭제되셨습니다.',
               showClass: {
                 popup: 'animate__animated animate__fadeInDown'
@@ -175,15 +154,16 @@ export default {
             }).then(() => {
               this.$router.push({ name: 'Main'})
             })
-          })
-      }
-      else {
-        this.delete_modal = !this.delete_modal
-      }
+        } 
+      })
     },
     toMain() {
       this.$router.push({ name: 'Main'})
     },
+    refresh() {
+      this.changemodal()
+      this.$router.push({name:"Profile", params: {username : this.username}})
+    }
   }
 }
 </script>

@@ -2,30 +2,42 @@
   <div>
     <Navbar/>
     <main @click="shutDown">
-      <section>
+      <section class="first-box">
         <div class="content-text flex-column">
-          <span>배움이 있는 메타버스의 세계</span>
+          <span class="title">배움이 있는 메타버스의 세계</span>
+          <span class="explain">원데이버스는 기존 원데이 클래스에</span>
+          <span class="explain">메타버스 환경을 더해</span>
+          <span class="explain">현장감 있는 비대면 수업 환경을 제공하는 서비스입니다.</span>
           <button  id="goToUnityBtn" @click="goToUnity">유니티로 입장하기</button>
         </div>
-
+        <div class="empty-box"></div>
         <div class="content-image">
           <img :src="require('@/assets/image0.jpg')" alt="" class="image">
         </div>
       </section>
       <section>
-        <div class="content-text">
-         <b>1dayverse</b>는 자신만의 캐릭터를 만들 수 있습니다.
-        </div>
         <div class="content-image">
-          <img :src="require('@/assets/image1.webp')" alt="" class="image">
+          <img :src="require('@/assets/explain1.png')" alt="" class="image">
+        </div>
+        <div class="empty-box"></div>
+        <div class="content-text">
+          <span class="title">원데이 클래스에 참여해보세요.</span>
+          <span class="explain">원데이버스에서는</span>
+          <span class="explain">웹사이트를 통해</span>
+          <span class="explain">간단하게 강좌 개설과 수강 신청이 가능합니다.</span>
         </div>
       </section>
       <section>
         <div class="content-text">
-          원데이 클래스에 참여해보세요
+          <span class="title">1dayverse는 <br/>자신만의 캐릭터를<br/> 만들 수 있습니다.</span>
+          <span class="explain">메타버스 환경 내에서</span>
+          <span class="explain">자신만의 캐릭터를 생성하고</span>
+          <span class="explain">자유롭게 이동하며</span>
+          <span class="explain">강좌 수강과 여가 활동이 가능합니다.</span>
         </div>
+        <div class="empty-box"></div>
         <div class="content-image">
-          <img :src="require('@/assets/image2.webp')" alt="" class="image">
+          <img :src="require('@/assets/image1.webp')" alt="" class="image">
         </div>
       </section>
     </main>
@@ -95,29 +107,33 @@ main{
 }
 section {
   display: flex;
-  padding: 10%;
+  padding: 0 10%;
   align-items: center;
-  height:100%;
+  height: 100vh;
+}
+.first-box {
+  height: 90vh;
 }
 .flex-column{
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 #goToUnityBtn{
   margin-top: 5%;
   width: 30%;
-  line-height: 75px;
+  line-height: 65px;
   border:none;
   cursor: pointer;
   border-radius: 15px;
+  color: white;
+  font-weight: bold;
   background-color: #C86B98;
 }
 #goToUnityBtn:hover{
   background-color: #202D91;
   color: white;
 }
-section:nth-child(1){
+/* section:nth-child(1){
   background-color: rgb(255, 205, 243);
 }
 section:nth-child(2){
@@ -125,19 +141,33 @@ section:nth-child(2){
 }
 section:nth-child(3){
   background-color: rgb(223, 186, 255);
-}
+} */
 .content-text{
-  width: 50%;
+  width: 45%;
   font-size: 1.5rem;
-  line-height: 100%;
-  text-align: center;
+  text-align: start;
   margin-left: 0;
   padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .content-image{
-  width: 50%;
+  width: 45%;
 }
 .image{
+  height: 50vh;
   width: 100%;
+}
+.title {
+  font-weight: bold;
+  margin-bottom: 3rem;
+  font-size: 2.3rem;
+}
+.explain {
+  font-size: 1.3rem;
+}
+.empty-box {
+  width: 10%;
 }
 </style>
