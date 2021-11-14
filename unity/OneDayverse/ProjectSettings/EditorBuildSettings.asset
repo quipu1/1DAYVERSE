@@ -11,25 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Category.unity
     guid: dce2832d00abe9a4fad3aa3fca0a0834
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/CateLanguage.unity
-    guid: dc50f25d3cd72a948a086960fb500b79
-  - enabled: 1
-    path: Assets/Scenes/Lounge.unity
-    guid: 05a5b9d0f24f1ab468d27f964f79c356
-  - enabled: 1
-    path: Assets/Scenes/MyPage.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/CateExercise.unity
+    guid: e056a2a43ee6cea43a99c2b46679aa44
   - enabled: 1
     path: Assets/Scenes/CateArt.unity
     guid: 1ce612a13cd312c4c936f93367299af2
   - enabled: 1
-    path: Assets/Scenes/CateExercise.unity
-    guid: e056a2a43ee6cea43a99c2b46679aa44
+    path: Assets/Scenes/CateLanguage.unity
+    guid: dc50f25d3cd72a948a086960fb500b79
   m_configObjects: {}
