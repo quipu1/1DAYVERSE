@@ -15,7 +15,7 @@ public class GetUserData : MonoBehaviour
 
     private void Awake()
     {
-        currentUsername = GetUsername();
+        // currentUsername = GetUsername();
     }
     // Start is called before the first frame update
     void Start()
