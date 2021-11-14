@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="form-element username-form check-need">
-        <input type="text" name="username" v-model="username" id="username" required autofocus/>
+        <input type="text" name="username" v-model="username" id="username" required autofocus @input="CheckChange('username')"/>
         <label class="floating-label" for="username">User ID
         </label>
         <div v-if="username === '' || username_error" class="alert">
@@ -31,7 +31,7 @@
         <button class="check-btn" @click="checkUsername(this.username)">중복 확인</button>
       </div>
       <div class="form-element check-need">
-        <input type="text" name="email" v-model="email" id="email" required />
+        <input type="text" name="email" v-model="email" id="email" required @input="CheckChange('email')"/>
         <label class="floating-label" for="email">Email Address</label>
         <div v-if="email === '' || email_error" class="alert">
           <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-exclamation-triangle" style="margin-right: 0.2rem">
@@ -236,6 +236,7 @@ import axios from "axios"
         const CHECK_USERNAME_URL = `https://k5c202.p.ssafy.io/od/accounts/check/username/${username}/`
         axios.get(CHECK_USERNAME_URL, username)
           .then((res) => {
+            console.log(res.data.available)
             if (res.data.available === 1) {
               this.username_check = true
             }
@@ -289,6 +290,14 @@ import axios from "axios"
             })
           })
       },
+      CheckChange(value) {
+        if (value === 'username') {
+          this.username_check = false
+        }
+        else if (value === 'email') {
+          this.email_check = false
+        }
+      }
     }
   }
 </script>

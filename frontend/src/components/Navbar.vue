@@ -116,21 +116,22 @@ export default {
     },
     logout(){
       const Swal = require('sweetalert2')
-        Swal.fire({
-          text: '로그아웃 하시겠습니까?',
-          confirmButtonText: 'Logout',
-          showCancelButton: true,
-          confirmButtonColor: '#8D3DA5',
-        }).then(() => {
+      Swal.fire({
+        text: '로그아웃 하시겠습니까?',
+        confirmButtonText: 'Logout',
+        showCancelButton: true,
+        confirmButtonColor: '#8D3DA5',
+      }).then((result) => {
+        if (result.isConfirmed) {
           this.$store.dispatch('userStore/LOGOUT')
-          localStorage.removeItem("vuex")
           if (this.$route.name != 'Main') {
             this.$router.push({ name: 'Main' })
           }
           else {
             this.$router.go()
           }
-        })
+        } 
+      })
     },
     login(){
       this.$router.push({name : "Login"})
@@ -184,6 +185,7 @@ nav{
   background-color:transparent;
   text-align: center;
   cursor:pointer;
+  border-radius: 3px;
 }
 .down-caret {
   width: 0;

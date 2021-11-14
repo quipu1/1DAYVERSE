@@ -10,15 +10,30 @@
         <div class="profile">
           <img :src="`@/../../../backend/media/${this.profile_image}`" class="user-image" alt="">
           <div class="profile-info">
-            <button class="edit" @click="changemodal">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <button class="delete" @click="changeDelete">
+              <span>회원탈퇴</span>
+            </button>
+            <div class="user-info">
+              <span>{{ username }}</span>
+              <svg @click="changeuserinfo('name')" xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
               </svg>
-            </button>
-            <h4>{{ username }}</h4>
-            <h4>{{ birth }}</h4>
-            <h4>{{ phone }}</h4>
+            </div>
+            <div class="user-info">
+              <span>{{ birth }}</span>
+              <svg @click="changeuserinfo('birth')" xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+              </svg>
+            </div>
+            <div class="user-info">
+              <span>{{ phone }}</span>
+              <svg @click="changeuserinfo('phone')" xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+              </svg>
+            </div>
           </div>
         </div>
         <div class="class-info">
@@ -52,36 +67,25 @@
         </div>
       </div>
     </div>
-    <UpdateProfile
-      v-if="modal && profilename == username"
-      :modal="modal"
-      @close="changemodal"
-      @refresh="refresh"
-    />
-    <div v-if="profilename != username" class="to-main-box center">
-      <div class="to-main-text">
-        권한이 없습니다.
-      </div>
-      <button class="to-main-btn" @click="toMain">To Main</button>
+    <div class="ease_in_out under">
+      <img :src="require('@/assets/bus.png')" class="bus" alt="" />
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import UpdateProfile from '@/components/UpdateProfile'
 
 export default {
   name: "Profile",
   data() {
     return {
       profilename: this.$route.params.username,
-      modal: false,
+      error_message: false,
     }
   },
   components: {
     Navbar,
-    UpdateProfile,
   },
   created() {
     this.$store.dispatch('userStore/FETCH_PROFILE', this.profilename)
@@ -107,16 +111,140 @@ export default {
     },
   },
   methods: {
-    changemodal() {
-      this.modal = !this.modal
+    phone_error(info) {
+      if (info === "") {
+        this.error_message = '번호를 확인해주세요'
+      }
+      var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/
+      if (info.match(regExp) === null) {
+        this.error_message = '형식을 확인해주세요'
+      }
+      else if (info != "") {
+        this.error_message = false
+      }
+    },
+    birth_error(info) {
+      if (info === "") {
+        return this.error_message = '생일을 입력해주세요'
+      }
+      var regExp = /^(19[0-9][0-9]|20\d{2}).(0[0-9]|1[0-2]).(0[1-9]|[1-2][0-9]|3[0-1])$/
+      if (info.match(regExp) === null) {
+        this.error_message = '형식을 확인해주세요'
+      }
+      else if (info != "") {
+        this.error_message = false
+      }
     },
     toMain() {
       this.$router.push({ name: 'Main'})
     },
-    refresh() {
-      this.changemodal()
-      this.$router.push({name:"Profile", params: {username : this.username}})
-    }
+    refresh(info) {
+      this.$router.push({name:"Profile", params: {username : info}})
+    },
+    changeDelete() {
+      const Swal = require('sweetalert2')
+      Swal.fire({
+        text: '정말로 삭제하시겠습니까?',
+        confirmButtonText: 'Delete',
+        showCancelButton: true,
+        confirmButtonColor: '#8D3DA5',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$store.dispatch('userStore/DELETE_USER', this.username)
+          Swal.fire({
+              title: '삭제되셨습니다.',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            }).then(() => {
+              this.$router.push({ name: 'Main'})
+            })
+        } 
+      })
+    },
+    changeuserinfo(info) {
+      var explain = ""
+      if (info === "birth") {
+        explain = "ex) 2000.01.01"
+      }
+      else if (info === "phone") {
+        explain = "ex) 01012345678"
+      }
+      const Swal = require('sweetalert2')
+      Swal.fire({
+      text: `Change your ${info} ${explain}`,
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Update',
+      showLoaderOnConfirm: true,
+      preConfirm: (new_info) => {
+        console.log(this.error_message)
+        const form = new FormData()
+        var newuser = this.username
+        if (info === "name") {
+          newuser = new_info
+          form.append('username', new_info)
+          form.append('birth_day', this.birth)
+          form.append('phone_number', this.phone)
+          form.append('character', '')
+        }
+        else if (info === "birth") {
+          form.append('username', this.username)
+          form.append('birth_day', new_info)
+          form.append('phone_number', this.phone)
+          form.append('character', '')
+          this.birth_error(new_info)
+        }
+        else if (info === "phone") {
+          form.append('username', this.username)
+          form.append('birth_day', this.birth)
+          form.append('phone_number', new_info)
+          form.append('character', '')
+          this.phone_error(new_info)
+        }
+        if (!this.error_message) {
+          const form_info = [form, this.profilename]     
+          this.$store.dispatch('userStore/UPDATE_PROFILE', form_info)
+            .then(() => {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '수정되셨습니다',
+                showConfirmButton: false,
+                timer: 1000,
+              })
+              this.refresh(newuser)
+              }
+            )
+            .catch(() => {
+              if (info === 'name') {
+                this.error_message = "중복된 닉네임입니다"
+              }
+              Swal.showValidationMessage(
+                `Request failed: ${this.error_message}`
+              )
+              this.error_message = false
+            })
+        }
+        else {
+          Swal.showValidationMessage(
+            `Request failed: ${this.error_message}`
+          )
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({})
+        }
+      })
+    },
   }
 }
 </script>
@@ -230,5 +358,47 @@ button {
   color: #ffffff;
   cursor: pointer;
   background-color: #8D3DA5 !important;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+}
+.user-info > span {
+  margin-right: 1rem;
+}
+.delete {
+  margin: 1rem;
+}
+.bus
+{
+  z-index: -2;
+  width: 30vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: move 8s infinite alternate;
+  overflow: hidden;
+}
+.under {
+  z-index: -3;
+  position: fixed;
+  bottom: 0;
+  background-image: url("./../assets/background.png");
+  height: 40vh;
+  width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.ease_in_out {
+  animation-timing-function: ease-in-out;
+  overflow: hidden;
+}
+@-webkit-keyframes move {
+  from {
+    margin-left: 20vw;
+  }
+  to {
+    margin-left: 60vw;
+  }
 }
 </style>

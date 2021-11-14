@@ -19,8 +19,6 @@
         />
       </div>
     </main>
-
-    <Footer/>
   </div>
 </template>
 
@@ -28,7 +26,6 @@
 import axios from 'axios'
 import Navbar from '@/components/Navbar.vue'
 import Lecture from '@/components/Lecture.vue'
-import Footer from '@/components/Footer.vue'
 
 export default {
   name : "Category",
@@ -36,7 +33,6 @@ export default {
   components : {
     Navbar,
     Lecture,
-    Footer,
   },
   data(){
     return {
@@ -125,7 +121,7 @@ export default {
 }
 main{
   text-align: center;
-  height: 82vh;
+  height: 90vh;
   overflow: auto;
 }
 #lectureContainer{
@@ -136,6 +132,8 @@ main{
   justify-items: center;
   gap: 2.5%;
   padding: 0 5%;
-  margin-top: 5%;
+}
+h1 {
+  margin: 2rem 0;
 }
 </style>
