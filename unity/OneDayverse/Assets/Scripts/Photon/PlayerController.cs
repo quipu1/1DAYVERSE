@@ -7,13 +7,14 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 using System.IO;
 // using static GameController;//게임 컨트롤러 사용
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
-{      
+{     
+
     [SerializeField] GameObject cameraHolder;
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     
-    [SerializeField] Item[] items;
-    int itemIndex;
-    int previousItemIndex = -1;
+    // [SerializeField] Item[] items;
+    // int itemIndex;
+    // int previousItemIndex = -1;
 
     float verticalLookRotation;
     bool grounded;
@@ -21,18 +22,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     Vector3 moveAmount;
     Rigidbody rb;
     PhotonView PV;
+    PlayerManager playerManager;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
-
+        playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
     }
     void Start()
     {
         if(PV.IsMine)
         {   
             // EquipItem(0);
-
         }
         else{
             Destroy(GetComponentInChildren<Camera>().gameObject);
@@ -88,6 +89,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         //     items[itemIndex].Use();
         // }
 
+        if(transform.position.y < -10f)
+        {
+            Die();
+        }
+
 
     }
 
@@ -103,7 +109,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     void Move()
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-
         moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
     }
     void Jump()
@@ -168,5 +173,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             return;
 
         Debug.Log("피해를 입다." + damage);
-    }   
+    }  
+
+    void Die()
+    {
+        playerManager.Die();
+    } 
+    public void moveToLargeClass()
+    {   
+        Debug.Log("111");
+        // Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(2);
+        // PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
+    }
 }

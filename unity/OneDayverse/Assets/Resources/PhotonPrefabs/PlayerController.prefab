@@ -279,7 +279,7 @@ Rigidbody:
   m_GameObject: {fileID: 5946608988338935568}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.1
+  m_Drag: 0.2
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -302,9 +302,8 @@ MonoBehaviour:
   mouseSensitivity: 3
   sprintSpeed: 20
   walkSpeed: 8
-  jumpForce: 300
+  jumpForce: 1000
   smoothTime: 0.1
-  items: []
 --- !u!114 &8407052258857286367
 MonoBehaviour:
   m_ObjectHideFlags: 0
