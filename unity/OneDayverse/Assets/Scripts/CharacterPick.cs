@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Runtime.InteropServices;
+using UnityEngine.SceneManagement;
 
 public class CharacterPick : MonoBehaviour
 {
@@ -92,14 +93,14 @@ public class CharacterPick : MonoBehaviour
 
         username = currentUsername;
         character = characterDic[onScreen];
-        Debug.Log(character);
         
 
         StartCoroutine(SendInfo(username, character));
+        SceneManager.LoadScene("MyPage");
 
-        GameObject.Find("ShowMyInfo").transform.Find("MyInfoCanvas").gameObject.SetActive(true);
-        GameObject.Find("CharacterChange").transform.Find("CharacterCanvas").gameObject.SetActive(false);
-        GameObject.Find("CharacterChange").transform.Find("ControlCharacters").gameObject.SetActive(false);
-      
+        //GameObject.Find("ShowMyInfo").transform.Find("MyInfoCanvas").gameObject.SetActive(true);
+        //GameObject.Find("CharacterChange").transform.Find("CharacterCanvas").gameObject.SetActive(false);
+        //GameObject.Find("CharacterChange").transform.Find("ControlCharacters").gameObject.SetActive(false);
+
     }
 }

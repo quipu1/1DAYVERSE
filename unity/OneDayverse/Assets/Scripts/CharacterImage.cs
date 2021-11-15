@@ -41,18 +41,23 @@ public class CharacterImage : MonoBehaviour
         public string teachable;
     }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         characterDic[1] = character1;
         characterDic[2] = character2;
         characterDic[3] = character3;
         characterDic[4] = character4;
         characterDic[5] = character5;
-
         currentUsername = GetUsername();
         StartCoroutine(GetUserImageInfo());
- 
     }
+
+    private void OnEnable()
+    {
+        StartCoroutine(GetUserImageInfo());
+
+    }
+
     public IEnumerator GetUserImageInfo()
     {
         UnityWebRequest userInforequest;
