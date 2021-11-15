@@ -29,6 +29,10 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
     void Awake()
     {
         // playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
+        // PV = GetComponent<PhotonView>();
+        // playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
+
+
     }
     private void Start()
     {   
@@ -133,15 +137,25 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
             {   
                 // playerController.moveToLargeClass();
                 // playMove();
-                Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(2);
-                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
+                
+                // Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(2);
+                // Debug.Log(PV.ViewID);
+
+                // PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"),spawnpoint.position,spawnpoint.rotation,0, new object[] {PV.ViewID});
                 
                 // transform.position = spawnpoint.position;
+                // playerController.moveToLargeClass();
+                // GameObject.Find("PlayerManager").GetComponent<PlayerManager>().goToLargeClass();
+                // playerManager.Die();
+ 
+                playerController = GetComponent<PlayerController>();
+                playerController.GetComponent<PlayerController>().moveToLargeClass();
             }
             else if (className == "class door_2")
             {
                 // playerManager.Die();
                 Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(1);
+                Vector3 move =  spawnpoint.position;
                 PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
             }
             else if (className == "class door_3")

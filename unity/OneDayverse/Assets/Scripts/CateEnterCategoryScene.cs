@@ -38,9 +38,13 @@ public class CateEnterCategoryScene : MonoBehaviour
 
                     // PhotonNetwork.JoinOrCreateRoom("Language", RO, TypedLobby.Default);
                     PhotonNetwork.JoinRoom("Language");
-
-
                 }               
+                else if (hit.transform.gameObject.name=="Fountain")
+                {
+                    PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
+                    PhotonNetwork.LoadLevel(6);
+
+                }
 
             }
         }
