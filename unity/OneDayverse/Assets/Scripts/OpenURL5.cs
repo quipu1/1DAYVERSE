@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class OpenURL5 : MonoBehaviour
 {
-    void Update()
+    void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Application.OpenURL("http://iogames.space/raid-land-io");
-        }
+        Application.OpenURL("http://iogames.space/raid-land-io");
     }
 }

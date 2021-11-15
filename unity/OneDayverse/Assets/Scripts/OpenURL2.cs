@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class OpenURL2 : MonoBehaviour
 {
-    void Update()
+    void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Application.OpenURL("https://iogames.space/squid-game-io");
-        }
+        Application.OpenURL("https://iogames.space/squid-game-io");
     }
+
 }
