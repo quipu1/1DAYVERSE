@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class DontDestroyObject : MonoBehaviour
 {
     public static DontDestroyObject instance;
-    public static string prevScene;
+    public string prevScene;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class DontDestroyObject : MonoBehaviour
 
     public void AfterMyPageBtnClick()
     {
-        prevScene = SceneManager.GetActiveScene().name;
+        instance.prevScene = SceneManager.GetActiveScene().name;
         Debug.Log("현재페이지" + prevScene);
         SceneManager.LoadScene("MyPage");
     }
