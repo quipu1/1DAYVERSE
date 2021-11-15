@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class OpenURL3 : MonoBehaviour
 {
-    void Update()
+    void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Application.OpenURL("http://iogames.space/slither-io");
-        }
+        Application.OpenURL("http://iogames.space/slither-io");
     }
 }

@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class OpenURL4 : MonoBehaviour
 {
-    void Update()
+    void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Application.OpenURL("http://iogames.space/smash-karts-io-game");
-        }
+        Application.OpenURL("http://iogames.space/smash-karts-io-game");
     }
 }
