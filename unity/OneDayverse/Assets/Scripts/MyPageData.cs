@@ -121,12 +121,12 @@ public class MyPageData : MonoBehaviour
     public IEnumerator GetLectureInfo()
     {
         UnityWebRequest lectureInforequest;
-        using (lectureInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/lecture/" + "oxoxo" + "/"))
+        using (lectureInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/lecture/" + currentUsername + "/"))
         {
             yield return lectureInforequest.SendWebRequest();
             var response = lectureInforequest.downloadHandler.text;
             Lectures lectureInfo = JsonUtility.FromJson<Lectures>(response);
-            Debug.Log(lectureInfo.lectures[0].name);
+            //Debug.Log(lectureInfo.lectures[0].name);
             lecture_tutor.text = lectureInfo.lectures[0].name;
             lecture_name.text = lectureInfo.lectures[0].title;
             lecture_password.text = lectureInfo.lectures[0].password;
