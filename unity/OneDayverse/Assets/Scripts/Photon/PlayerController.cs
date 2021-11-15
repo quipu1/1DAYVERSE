@@ -93,6 +93,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             Die();
         }
+        if(transform.position.z > 100)
+        {
+            Die();
+        }
 
 
     }

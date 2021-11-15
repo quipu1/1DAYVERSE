@@ -137,7 +137,6 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
                 PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
                 
                 // transform.position = spawnpoint.position;
-
             }
             else if (className == "class door_2")
             {
