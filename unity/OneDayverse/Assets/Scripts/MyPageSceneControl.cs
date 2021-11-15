@@ -9,7 +9,7 @@ public class MyPageSceneControl : MonoBehaviour
   
     public Button ShowCharacterBtn;
     public Button ShowPrevSceneBtn;
-    public static string prevSceneName = DontDestroyObject.prevScene;
+    public string prevSceneName = DontDestroyObject.instance.prevScene;
 
 
     // Start is called before the first frame update

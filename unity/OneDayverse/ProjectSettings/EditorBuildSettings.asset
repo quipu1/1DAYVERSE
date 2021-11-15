@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CateLanguage.unity
     guid: dc50f25d3cd72a948a086960fb500b79
+  - enabled: 1
+    path: Assets/Scenes/MyPage.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Lounge.unity
+    guid: 05a5b9d0f24f1ab468d27f964f79c356
   m_configObjects: {}
