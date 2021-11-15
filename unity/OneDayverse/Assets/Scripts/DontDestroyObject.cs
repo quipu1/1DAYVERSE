@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class DontDestroyObject : MonoBehaviour
 {
     public static DontDestroyObject instance;
-    public string prevScene;
+    public string prevScene = instance.prevScene;
 
     private void Awake()
     {
