@@ -7,9 +7,6 @@
           <i class></i>
           <img :src="`@/../../../backend${this.lecture.main_image}`" alt="" id="classImage">
         </div>
-        <div>
-          <p>{{lecture.description}}</p>
-        </div>
       </div>
       <div class="right">
         <div class="class-info">
@@ -18,6 +15,7 @@
           <span v-else-if="lecture.category===3">언어</span>
           <span><b>{{lecture.title}}</b></span>
           <span>강사 : {{lecture.tutor}}</span>
+          <span>상세설명 : {{lecture.description}}</span>
           <span>모집 인원 : {{lecture.lecture_cnt}} / {{lecture.room_size}}명</span>
           <span>가격 : {{cost}}원</span>
         </div>
@@ -107,8 +105,8 @@ export default {
 main{
   display: flex;
   background-color: lightgray;
-  padding : 2% 5%;
-  height: 100vh;
+  padding : 5% 5%;
+  height: 90vh;
 }
 .left{
   display: flex;
@@ -148,7 +146,7 @@ main{
   margin-bottom: 5%;
 }
 #payBtn{
-  /* width: 100%; */
+  width: 100%;
   /* height: 5%; */
   background-color: transparent;
   display: flex;
