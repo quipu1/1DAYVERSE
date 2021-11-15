@@ -19,8 +19,6 @@
         />
       </div>
     </main>
-
-    <Footer/>
   </div>
 </template>
 
@@ -28,7 +26,6 @@
 import axios from 'axios'
 import Navbar from '@/components/Navbar.vue'
 import Lecture from '@/components/Lecture.vue'
-import Footer from '@/components/Footer.vue'
 
 export default {
   name : "Category",
@@ -36,7 +33,6 @@ export default {
   components : {
     Navbar,
     Lecture,
-    Footer,
   },
   data(){
     return {

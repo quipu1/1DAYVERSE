@@ -27,7 +27,6 @@
         <div v-else>{{ err_message }}</div>
       </div>
     </main>
-    <Footer/>
   </div>  
 </template>
 
@@ -35,7 +34,6 @@
 import axios from 'axios'
 import Navbar from '@/components/Navbar.vue'
 import image from '@/assets/drawing_image.jpg'
-import Footer from '@/components/Footer.vue'
 import PayImage from '@/assets/payment_icon_yellow_medium.png'
 
 export default {
@@ -43,7 +41,6 @@ export default {
   props : ["lecture_id"],
   components : {
     Navbar,
-    Footer,
   },
   data(){
     return {
