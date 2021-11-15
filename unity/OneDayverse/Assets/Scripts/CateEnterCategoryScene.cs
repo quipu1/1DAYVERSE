@@ -31,7 +31,6 @@ public class CateEnterCategoryScene : MonoBehaviour
                     // PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
                     PhotonNetwork.JoinRoom("Art");
 
-
                 }
                 else if (hit.transform.gameObject.name == "Category3")
                 {
