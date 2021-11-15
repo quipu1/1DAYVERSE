@@ -6,15 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class MyPageSceneControl : MonoBehaviour
 {
-  
+
     public Button ShowCharacterBtn;
     public Button ShowPrevSceneBtn;
-    public string prevSceneName = DontDestroyObject.instance.prevScene;
+    public string prevSceneName;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        prevSceneName = DontDestroyObject.instance.prevScene;
         ShowCharacterBtn.onClick.AddListener(ShowCharacterBtnClick);
         ShowPrevSceneBtn.onClick.AddListener(ShowPrevSceneBtnClick);
     }
@@ -33,6 +34,6 @@ public class MyPageSceneControl : MonoBehaviour
         GameObject.Find("CharacterChange").transform.Find("ControlCharacters").gameObject.SetActive(true);
     }
 
-    
+
 
 }

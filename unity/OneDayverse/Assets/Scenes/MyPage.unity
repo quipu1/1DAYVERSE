@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbe66bfb9a48f74cba7635d7e0cd317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prevScene: 
 --- !u!4 &20075362
 Transform:
   m_ObjectHideFlags: 0
@@ -979,7 +980,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.91, y: -0.16}
+  m_AnchoredPosition: {x: 0.87, y: -0.16}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &329271084
@@ -1113,7 +1114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.2, y: -0.16}
+  m_AnchoredPosition: {x: 2.23, y: -0.16}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &359917756
@@ -2273,6 +2274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowCharacterBtn: {fileID: 543194742}
   ShowPrevSceneBtn: {fileID: 1108440875}
+  prevSceneName: 
 --- !u!114 &767467846
 MonoBehaviour:
   m_ObjectHideFlags: 0

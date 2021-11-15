@@ -38,7 +38,7 @@ public class MyPageData : MonoBehaviour
     [DllImport("__Internal")]
     private static extern string GetUsername();
 
-
+    [Serializable]
     public class Profile
     {
         public string id;
@@ -49,7 +49,26 @@ public class MyPageData : MonoBehaviour
         public string profile_image;
         public string teachable;
     }
+      
 
+    [Serializable]
+    public class Lecture
+    {
+        public string id;
+        public string name;
+        public string title;
+        public string description;
+        public string password;
+        public string validation;
+    }
+
+    [Serializable]
+    public class Lectures
+    {
+        public Lecture[] lectures;
+    }
+
+    [Serializable]
     public class JsonData
     {
         public Profile profile;
@@ -57,19 +76,6 @@ public class MyPageData : MonoBehaviour
         public string character;
     }
 
-    public class Lectures
-    {
-        public List<Lecture> lectureList;
-    }
-    public class Lecture
-    {
-        public string id;
-        public string name;
-        public string title;
-        public string description;       
-        public string password;
-        public string validation;
-    }
 
 
     // Start is called before the first frame update
@@ -89,15 +95,15 @@ public class MyPageData : MonoBehaviour
         lecture_password = GameObject.Find("lecturepassword").GetComponent<TMPro.TextMeshProUGUI>();
 
         currentUsername = GetUsername();
-        StartCoroutine(GetUserInfo());     
-        //StartCoroutine(GetLectureInfo());
+        StartCoroutine(GetUserInfo());
+        StartCoroutine(GetLectureInfo());
     }
 
-  
+
     public IEnumerator GetUserInfo()
     {
         UnityWebRequest userInforequest;
-        using (userInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/profile/"+ currentUsername + "/"))
+        using (userInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/profile/" + currentUsername + "/"))
         {
             yield return userInforequest.SendWebRequest();
 
@@ -115,18 +121,15 @@ public class MyPageData : MonoBehaviour
     public IEnumerator GetLectureInfo()
     {
         UnityWebRequest lectureInforequest;
-        using (lectureInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/accounts/profile/" + "oxoxo" + "/"))
+        using (lectureInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/lecture/" + currentUsername + "/"))
         {
             yield return lectureInforequest.SendWebRequest();
             var response = lectureInforequest.downloadHandler.text;
-            JsonData userInfo = JsonUtility.FromJson<JsonData>(response);
-            
-            Debug.Log(userInfo);                
-
-            //lecture_tutor.text = fromJson[0].name;
-            //lecture_password.text = fromJson[0].password;
-
-
+            Lectures lectureInfo = JsonUtility.FromJson<Lectures>(response);
+            //Debug.Log(lectureInfo.lectures[0].name);
+            lecture_tutor.text = lectureInfo.lectures[0].name;
+            lecture_name.text = lectureInfo.lectures[0].title;
+            lecture_password.text = lectureInfo.lectures[0].password;
         }
 
     }
