@@ -24,20 +24,25 @@ public class CateEnterCategoryScene : MonoBehaviour
 
                     // PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
                     // PhotonNetwork.LoadLevel(2);
-                    PhotonNetwork.JoinRoom("Exercise");
+                    // PhotonNetwork.JoinRoom("Exercise");
+
+                    PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
+                    PhotonNetwork.LoadLevel(2);
                 } else if (hit.transform.gameObject.name == "Category2")
                 {
                     // SceneManager.LoadScene("CateArt");
                     // PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
-                    PhotonNetwork.JoinRoom("Art");
-
+                    // PhotonNetwork.JoinRoom("Art");
+                    PhotonNetwork.JoinOrCreateRoom("Art", RO, TypedLobby.Default);
+                    PhotonNetwork.LoadLevel(3);
                 }
                 else if (hit.transform.gameObject.name == "Category3")
                 {
                     // SceneManager.LoadScene("CateLanguage");
 
                     // PhotonNetwork.JoinOrCreateRoom("Language", RO, TypedLobby.Default);
-                    PhotonNetwork.JoinRoom("Language");
+                    PhotonNetwork.JoinOrCreateRoom("Language", RO, TypedLobby.Default);
+                    PhotonNetwork.LoadLevel(4);
                 }               
                 else if (hit.transform.gameObject.name=="Fountain")
                 {
