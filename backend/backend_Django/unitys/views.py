@@ -53,7 +53,11 @@ def lecture(request, username):
             lectures = tutee.lecture_set.all()
             l_serializer = ProfileLectureSerializer(lectures, many=True)
 
-        return Response(l_serializer.data)
+        data = {
+            'lectures': l_serializer.data
+        }
+
+        return Response(data)
 
 @api_view(['POST'])
 def set_character(request):

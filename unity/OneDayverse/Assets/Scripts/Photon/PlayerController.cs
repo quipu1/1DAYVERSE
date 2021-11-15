@@ -49,50 +49,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         Move();
         Jump();
 
-        // for (int i = 0; i< items.Length; i++)
-        // {
-        //     if(Input.GetKeyDown((i+1).ToString()))
-        //     {
-        //         EquipItem(i);
-        //         break;
-        //     }
-
-        // }
-
-        // if(Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
-        // {   
-        //     if (itemIndex >= items.Length -1)
-        //     {
-        //         EquipItem(0);
-        //     }
-        //     else
-        //     {
-        //         EquipItem(itemIndex + 1);
-        //     }
-
-        // }
-        // else if(Input.GetAxisRaw("Mouse ScrollWheel") < 0f) {
-
-        //     if (itemIndex <= 0)
-        //     {
-        //         EquipItem(items.Length - 1);
-        //     }
-        //     else
-        //     {
-        //         EquipItem(itemIndex - 1);
-        //     }
-
-        // }
-
-        // if(Input.GetMouseButtonDown(0))
-        // { 
-        //     items[itemIndex].Use();
-        // }
-
         if(transform.position.y < -10f)
         {
             Die();
         }
+
         if(transform.position.z > 100)
         {
             Die();
@@ -127,36 +88,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         grounded = _grounded;
     }
 
-    // void EquipItem(int _index)
-    // {   
-    //     if(_index == previousItemIndex)
-    //         return;
-
-    //     itemIndex = _index;
-    //     items[itemIndex].itemGameObject.SetActive(true);
-
-    //     if(previousItemIndex != -1)
-    //     {
-    //         items[previousItemIndex].itemGameObject.SetActive(false);
-    //     }
-    //     previousItemIndex = itemIndex;
-
-    //     if (PV.IsMine)
-    //     {
-    //         Hashtable hash = new Hashtable();
-
-    //         hash.Add("itemIndex", itemIndex);
-    //         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-
-    //     }
-    // }
-    // public override void OnPlayerPropertiesUpdate(PlayerController targetPlayer, Hashtable changedProps)
-    // {
-    //     if(!PV.IsMine && targetPlayer == PV.Owner)
-    //     {
-    //         EquipItem((int)changedProps["itemIndex"]);
-    //     }
-    // }
 
     void FixedUpdate()
     {
