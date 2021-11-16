@@ -12,6 +12,16 @@ mergeInto(LibraryManager.library, {
     return buffer;
   },
 
+  setLectureCate: funtion(v) {
+    let name = v;
+    window.localStorage.setItem("inLectureName", name);
+  },
+
+  setLectureId: function(v) {
+    let id = v;
+    window.localStorage.setItem("inLectureId", id);
+  }
+
 });
 
 
