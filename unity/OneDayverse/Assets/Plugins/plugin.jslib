@@ -12,7 +12,7 @@ mergeInto(LibraryManager.library, {
     return buffer;
   },
 
-  setLectureCate: funtion(v) {
+  setLectureCate: function(v) {
     let name = v;
     window.localStorage.setItem("inLectureName", name);
   },
@@ -20,7 +20,7 @@ mergeInto(LibraryManager.library, {
   setLectureId: function(v) {
     let id = v;
     window.localStorage.setItem("inLectureId", id);
-  }
+  },
 
 });
 
