@@ -1,8 +1,29 @@
 <template>
   <!-- <router-view/> -->
   <router-view :key="$route.fullPath"/>
+  <unity v-if="$store.state.userStore.userid !== null && showUnity"/>
 </template>
-
+<script>
+import Unity from '@/components/Unity.vue'
+export default {
+  name: 'App',
+  components: {
+    Unity,
+  },
+  computed: {
+    showUnity : function() {
+      if(this.$route.name === "Study" || this.$route.name === "Live") {
+        return true;
+      }
+      return false;
+    }
+  },
+  data() {
+    return {
+    }
+  },
+}
+</script>
 <style>
   body{
     margin: 0;
