@@ -54,22 +54,47 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             Die();
         }
 
-        if(transform.position.z > 100)
+        if(3.5< transform.position.z && transform.position.z < 5.5)
         {
-            Die();
+            if(-3.7 < transform.position.x  && transform.position.x < -1.8)
+            {
+                transform.position = SpawnManager.Instance.GetSpawnpoint(2).position;
+                // transform.position = location.position;
+            }
+        }
+        if(37.3< transform.position.z && transform.position.z < 40.3)
+        {
+            if(-3.7 < transform.position.x  && transform.position.x < -1.8)
+            {
+                transform.position = SpawnManager.Instance.GetSpawnpoint(1).position;
+            }
         }
 
-
+        if(42.2< transform.position.z && transform.position.z < 44.2)
+        {   
+            if(7.3 < transform.position.x  && transform.position.x < 9.3)
+            {
+                transform.position = SpawnManager.Instance.GetSpawnpoint(0).position;
+                // transform.position = location.position;
+            }
+        }
+        if(16.7< transform.position.z && transform.position.z < 18.7)
+        {
+            if(7.3 < transform.position.x  && transform.position.x < 9.3)
+            {
+                transform.position = SpawnManager.Instance.GetSpawnpoint(3).position;
+            }
+        }
     }
 
 
     void Look()
     {
-        transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
-        verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
+        // transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+        // verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        // verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
 
-        cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+        // cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
     }
     void Move()
     {
