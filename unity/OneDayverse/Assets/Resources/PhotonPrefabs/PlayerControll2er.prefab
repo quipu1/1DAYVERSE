@@ -18,25 +18,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.1, z: 0}
---- !u!114 &9191309362769903840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9189709711047016111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85a405840bfca9b42bdbde3e3400f19a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraHolder: {fileID: 0}
-  mouseSensitivity: 3
-  sprintSpeed: 7
-  walkSpeed: 7
-  jumpForce: 300
-  smoothTime: 6
-  items: []
 --- !u!1 &9191309361005622210
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +59,7 @@ GameObject:
   - component: {fileID: 9191309361187594424}
   - component: {fileID: 4042823295053352259}
   - component: {fileID: 8399632804529871652}
-  - component: {fileID: 2773044403741158516}
+  - component: {fileID: -611355439281357855}
   m_Layer: 0
   m_Name: PlayerControll2er
   m_TagString: Untagged
@@ -139,7 +120,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &2773044403741158516
+--- !u!114 &-611355439281357855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,16 +129,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9191309361187594431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85a405840bfca9b42bdbde3e3400f19a, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraHolder: {fileID: 0}
-  mouseSensitivity: 3
-  sprintSpeed: 77
-  walkSpeed: 7
-  jumpForce: 300
-  smoothTime: 5
-  items: []
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &9191309362086656511
 PrefabInstance:
   m_ObjectHideFlags: 0
