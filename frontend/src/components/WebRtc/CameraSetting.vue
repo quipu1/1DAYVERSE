@@ -40,7 +40,8 @@
         </div>
         <div class="btn-box mt-4">
           <button v-if="activeModal" class="cancel-btn" @click.stop="cancel">취소</button>
-          <button class="submit-btn" @click.stop="submitSetting">설정 저장</button>
+          <button v-if="activeModal" class="submit-btn" @click.stop="submitSetting">설정 저장</button>
+          <button v-else class="submit-btn" @click.stop="submitSetting">설정 저장</button>
         </div>
       </div>
     </div>
@@ -172,10 +173,11 @@ export default {
     },
     submitSetting() {
       if(this.activeModal) {
+        this.leaveSession();
         this.$emit('settingModal', 2);
       } else {
         this.leaveSession();
-        this.$router.replace('/live');
+        this.$router.replace('/study');
       }
     },
     reset() {
