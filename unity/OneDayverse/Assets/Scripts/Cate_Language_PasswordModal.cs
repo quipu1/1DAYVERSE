@@ -54,7 +54,7 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
     public void OnMouseDown()
     {
 
-        currentUsername = "oxoxo";
+        currentUsername = GetUsername();
         Player = GameObject.Find(currentUsername);
 
         className = transform.parent.name;
