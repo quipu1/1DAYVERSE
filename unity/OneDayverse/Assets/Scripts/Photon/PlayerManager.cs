@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        currentUsername = "oxoxo";
+        currentUsername = GetUsername();
         StartCoroutine(GetUserInfo());
     }
 
@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
     {   
 
         // Debug.Log("플레이어 컨트롤러 생성");
-        Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(4);
+        Transform spawnpoint = SpawnManager.Instance.GetSpawnpoint(4);
         // PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), Vector3.zero, Quaternion.identity);
         controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", charnum.ToString()), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
 

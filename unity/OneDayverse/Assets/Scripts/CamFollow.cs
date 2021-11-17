@@ -17,7 +17,7 @@ public class CamFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentUsername = "oxoxo";
+        currentUsername = GetUsername();
         target = GameObject.Find(currentUsername);
        
 

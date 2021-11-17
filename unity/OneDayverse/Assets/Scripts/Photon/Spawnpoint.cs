@@ -8,7 +8,7 @@ public class Spawnpoint : MonoBehaviour
 
     void Awake()
     {
-        // graphics.SetActive(false);
+        graphics.SetActive(false);
     }
 
 

@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             // EquipItem(0);
-            currentUsername = "oxoxo";
+            currentUsername = GetUsername();
             this.gameObject.name = currentUsername;
         }
         else
