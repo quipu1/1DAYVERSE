@@ -111,7 +111,7 @@ public class MyPageData : MonoBehaviour
         lecture_tutor3 = GameObject.Find("lecturetutor3").GetComponent<TMPro.TextMeshProUGUI>();
         lecture_password3 = GameObject.Find("lecturepassword3").GetComponent<TMPro.TextMeshProUGUI>();
 
-        currentUsername = "oxoxo";
+        currentUsername = GetUsername();
         StartCoroutine(GetUserInfo());
         StartCoroutine(GetLectureInfo());
     }
