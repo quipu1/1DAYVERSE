@@ -5,16 +5,29 @@ using UnityEngine;
 public class CamFollow : MonoBehaviour
 {
 
-    public Transform target;
+    GameObject target;
+    Transform traget_transform;
     public Vector3 offset;
+
+    private void Start()
+    {
+        
+    }
 
     // Update is called once per frame
     void Update()
     {
         Rotate();
-        // transform.position = target.position + offset;
-        transform.position = Vector3.Lerp(transform.position, (target.position + offset), .25f);
-        transform.LookAt(target.position);
+        target = GameObject.Find("4(Clone)");
+
+        if (target != null)
+        {
+            traget_transform = target.transform;
+            // transform.position = target.position + offset;
+            transform.position = Vector3.Lerp(transform.position, (traget_transform.position + offset), .25f);
+            transform.LookAt(new Vector3(traget_transform.position.x, traget_transform.position.y+1.5f, traget_transform.position.z));
+
+        }
     }
 
     void Rotate()

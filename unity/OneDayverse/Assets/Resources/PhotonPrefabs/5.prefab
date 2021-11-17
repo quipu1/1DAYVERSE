@@ -83,36 +83,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871858428576428072}
   m_Enabled: 1
---- !u!1 &2752056930949527085
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2752056930949527084}
-  m_Layer: 0
-  m_Name: CamPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2752056930949527084
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2752056930949527085}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2755650517674405252}
-  m_RootOrder: 36
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2752403337794549818
 GameObject:
   m_ObjectHideFlags: 0
@@ -4685,7 +4655,6 @@ Transform:
   - {fileID: 2747731752065600018}
   - {fileID: 2747256236907687272}
   - {fileID: 2747323069086627128}
-  - {fileID: 2752056930949527084}
   - {fileID: 7595893593542475816}
   - {fileID: 2231452338312686175}
   m_Father: {fileID: 0}
@@ -4829,7 +4798,7 @@ Rigidbody:
   m_Drag: 0.2
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -4851,6 +4820,10 @@ MonoBehaviour:
   walkSpeed: 10
   jumpForce: 400
   smoothTime: 0.1
+  anim: {fileID: 0}
+  moveSpeed: 7
+  target: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &4595536898335923340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5772,7 +5745,7 @@ Transform:
   - {fileID: 5444551173246630009}
   - {fileID: 4658106994794986133}
   m_Father: {fileID: 2755650517674405252}
-  m_RootOrder: 37
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5467472591218923072
 GameObject:
@@ -5804,7 +5777,7 @@ Transform:
   m_LocalScale: {x: 0.59999996, y: 1, z: 0.59999996}
   m_Children: []
   m_Father: {fileID: 2755650517674405252}
-  m_RootOrder: 38
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1455862302888587727
 BoxCollider:

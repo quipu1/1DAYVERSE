@@ -7,14 +7,11 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 using System.IO;
 // using static GameController;//게임 컨트롤러 사용
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
-{     
-
+{
     [SerializeField] GameObject cameraHolder;
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
-    
-    // [SerializeField] Item[] items;
-    // int itemIndex;
-    // int previousItemIndex = -1;
+    // private Animator anim;
+    [SerializeField] private Animator anim;
 
     float verticalLookRotation;
     bool grounded;
@@ -22,127 +19,120 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     Vector3 moveAmount;
     Rigidbody rb;
     PhotonView PV;
-    PlayerManager playerManager;
+    // GameObject transform;
+    GameObject player;
+
+    CharacterController cc;
+    private Vector3 moveVec;
+    float gravity = -5f;
+    float yVelocity = 0;
+    public float moveSpeed = 7f;
+
+    public Transform target;
+    public Vector3 offset;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
-        playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
+        player = transform.gameObject;
     }
     void Start()
     {
-        if(PV.IsMine)
-        {   
+        cc = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
+        if (PV.IsMine)
+        {
             // EquipItem(0);
         }
-        else{
+        else
+        {
             Destroy(GetComponentInChildren<Camera>().gameObject);
-            Destroy(rb);       
+            Destroy(rb);
         }
     }
     void Update()
     {
-        if(!PV.IsMine)
+        if (!PV.IsMine)
             return;
-
-        Look();
         Move();
         Jump();
-
-        if(transform.position.y < -10f)
-        {
-            Die();
-        }
-
-        if(3.5< transform.position.z && transform.position.z < 5.5)
-        {
-            if(-3.7 < transform.position.x  && transform.position.x < -1.8)
-            {
-                transform.position = SpawnManager.Instance.GetSpawnpoint(2).position;
-                // transform.position = location.position;
-            }
-        }
-        if(37.3< transform.position.z && transform.position.z < 40.3)
-        {
-            if(-3.7 < transform.position.x  && transform.position.x < -1.8)
-            {
-                transform.position = SpawnManager.Instance.GetSpawnpoint(1).position;
-            }
-        }
-
-        if(42.2< transform.position.z && transform.position.z < 44.2)
-        {   
-            if(7.3 < transform.position.x  && transform.position.x < 9.3)
-            {
-                transform.position = SpawnManager.Instance.GetSpawnpoint(0).position;
-                // transform.position = location.position;
-            }
-        }
-        if(16.7< transform.position.z && transform.position.z < 18.7)
-        {
-            if(7.3 < transform.position.x  && transform.position.x < 9.3)
-            {
-                transform.position = SpawnManager.Instance.GetSpawnpoint(3).position;
-            }
-        }
     }
 
 
-    void Look()
-    {
-        // transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
-        // verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        // verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
-
-        // cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
-    }
     void Move()
     {
-        Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
+        float h = Input.GetAxis("Horizontal");  // x��
+        float v = Input.GetAxis("Vertical");    // z��
+
+        Vector3 dir = new Vector3(h, 0, v);
+        dir = dir.normalized;
+        moveVec = new Vector3(h, 0, v).normalized;
+
+        if (grounded && cc.collisionFlags == CollisionFlags.Below)
+        {
+            yVelocity = 0;
+            anim.SetBool("isJump", false);
+            grounded = false;
+        }
+
+        if (Input.GetButtonDown("Jump") && !grounded)
+        {
+            yVelocity = jumpForce;
+            anim.SetBool("isJump", true);
+            grounded = true;
+            print("jump");
+        }
+
+        yVelocity += gravity * Time.deltaTime;
+
+        dir.y = yVelocity;
+
+        cc.Move(dir * moveSpeed * Time.deltaTime);
+
+        // when moving forward
+        if (h == 0 && v == 0)
+        {
+            anim.SetBool("isMove", false);
+        }
+        else
+        {
+            anim.SetBool("isMove", true);
+        }
+
+        transform.LookAt(transform.position + moveVec);
+
+
     }
     void Jump()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && grounded)
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             rb.AddForce(transform.up * jumpForce);
+            anim.SetBool("isJump", true);
         }
+        else
+        {
+            anim.SetBool("isJump", false);
+        }
+
     }
     public void SetGroundedState(bool _grounded)
     {
         grounded = _grounded;
     }
 
-
-    void FixedUpdate()
+    public void TakeDamage(float damage)
     {
-        if(!PV.IsMine)
-            return;
-        rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-    }
-
-
-    public void TakeDamage(float damage){
         PV.RPC("RPC_Takedamage", RpcTarget.All, damage);
     }
 
     [PunRPC]
     void RPC_TakeDamage(float damage)
-    {   
-        if(!PV.IsMine)
+    {
+        if (!PV.IsMine)
             return;
 
         Debug.Log("피해를 입다." + damage);
-    }  
-
-    void Die()
-    {
-        playerManager.Die();
-    } 
-    public void moveToLargeClass()
-    {   
-        Debug.Log("111");
-        // Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(2);
-        // PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
     }
 }

@@ -149,7 +149,6 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
                 // playerManager.Die();
  
                 playerController = GetComponent<PlayerController>();
-                playerController.GetComponent<PlayerController>().moveToLargeClass();
             }
             else if (className == "class door_2")
             {
