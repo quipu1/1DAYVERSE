@@ -161,6 +161,10 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
             }
             else if (className == "class door_2")
             {
+                #if UNITY_WEBGL
+                    setLectureCate(data: scene.name);
+                    setLectureId(data: className);
+                #endif
                 // playerManager.Die();
                 Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(1);
                 Vector3 move =  spawnpoint.position;
@@ -168,6 +172,10 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
             }
             else if (className == "class door_3")
             {
+                #if UNITY_WEBGL
+                    setLectureCate(data: scene.name);
+                    setLectureId(data: className);
+                #endif
                 // playerManager.Die();    
                 Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(0);
                 PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
