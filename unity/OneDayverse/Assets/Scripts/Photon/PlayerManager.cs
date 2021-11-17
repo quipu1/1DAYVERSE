@@ -38,9 +38,8 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        currentUsername = "idididid2";
+        currentUsername = GetUsername();
         StartCoroutine(GetUserInfo());
-        
     }
 
     public IEnumerator GetUserInfo()
@@ -51,7 +50,7 @@ public class PlayerManager : MonoBehaviour
             yield return userInforequest.SendWebRequest();
 
             Profile profileJson = JsonUtility.FromJson<Profile>(userInforequest.downloadHandler.text);
-            print(userInforequest.downloadHandler.text);
+        
             charnum = profileJson.character;
         }
         if (PV.IsMine)
@@ -66,9 +65,6 @@ public class PlayerManager : MonoBehaviour
         // Debug.Log("플레이어 컨트롤러 생성");
         Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(4);
         // PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), Vector3.zero, Quaternion.identity);
-        print("캐릭터 번호");
-        print(charnum);
-        
         controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", charnum.ToString()), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
 
     }

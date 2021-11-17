@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public Transform target;
     public Vector3 offset;
     string currentUsername;
-    GameObject mainCam;
 
     void Awake()
     {
@@ -46,13 +45,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     }
     void Start()
     {
-        mainCam = GameObject.Find("Main Camera");
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+
         if (PV.IsMine)
         {
             // EquipItem(0);
-            currentUsername = "idididid2";
+            currentUsername = GetUsername();
             this.gameObject.name = currentUsername;
         }
         else
@@ -63,7 +62,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     }
     void Update()
     {
-        print(PV);
         if (!PV.IsMine)
             return;
         Move();
@@ -92,7 +90,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             yVelocity = jumpForce;
             anim.SetBool("isJump", true);
             grounded = true;
-            print("jump");
         }
 
         yVelocity += gravity * Time.deltaTime;
