@@ -52,12 +52,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             // EquipItem(0);
-            currentUsername = "oxoxo";
+            currentUsername = "idididid2";
             this.gameObject.name = currentUsername;
         }
         else
         {
-            Destroy(GetComponentInParent<Camera>().gameObject);
+            Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(rb);
         }
     }

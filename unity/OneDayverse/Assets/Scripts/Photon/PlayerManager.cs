@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        currentUsername = "oxoxo";
+        currentUsername = "idididid2";
         StartCoroutine(GetUserInfo());
         
     }
