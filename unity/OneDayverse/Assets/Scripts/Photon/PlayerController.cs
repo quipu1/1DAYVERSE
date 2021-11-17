@@ -53,14 +53,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             // EquipItem(0);
             currentUsername = "oxoxo";
-            GameObject personalCam = Instantiate(mainCam);
-            personalCam.name = currentUsername + "_Cam";
-            personalCam.GetComponent<CamFollow>().enabled = true;
             this.gameObject.name = currentUsername;
         }
         else
         {
-            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(GetComponentInParent<Camera>().gameObject);
             Destroy(rb);
         }
     }

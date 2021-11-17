@@ -69,7 +69,7 @@ public class PlayerManager : MonoBehaviour
         print("캐릭터 번호");
         print(charnum);
         
-        controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Test"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
+        controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", charnum.ToString()), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
 
     }
 
