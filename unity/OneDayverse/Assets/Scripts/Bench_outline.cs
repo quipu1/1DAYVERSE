@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Photon.Pun;
+using Photon.Realtime;
 public class Bench_outline : MonoBehaviour
 {
     public Material Bench_outline_before;
@@ -38,8 +39,12 @@ public class Bench_outline : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.transform.gameObject.name == "Bench")
-                {
-                    SceneManager.LoadScene("Lounge");
+                {   
+                    RoomOptions RO = new RoomOptions();
+                    // SceneManager.LoadScene("Lounge");
+                    PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
+                    PhotonNetwork.LoadLevel(6);
+                    
                 }
 
             }
