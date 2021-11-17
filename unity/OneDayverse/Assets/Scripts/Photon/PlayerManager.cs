@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
     public IEnumerator GetUserInfo()
     {
         UnityWebRequest userInforequest;
-        using (userInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/profile/" + "oxoxo" + "/"))
+        using (userInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/profile/" + "idididid2" + "/"))
         {
             yield return userInforequest.SendWebRequest();
 
