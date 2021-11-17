@@ -155,7 +155,7 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
                 // playerManager.Die();
                 #if UNITY_WEBGL
                     setLectureCate(data: scene.name);
-                    setLectureId(data: className);
+                    setLectureId(data: "101");
                 #endif
                 playerController = GetComponent<PlayerController>();
             }
@@ -163,7 +163,7 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
             {
                 #if UNITY_WEBGL
                     setLectureCate(data: scene.name);
-                    setLectureId(data: className);
+                    setLectureId(data: "102");
                 #endif
                 // playerManager.Die();
                 Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(1);
@@ -174,7 +174,7 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
             {
                 #if UNITY_WEBGL
                     setLectureCate(data: scene.name);
-                    setLectureId(data: className);
+                    setLectureId(data: "103");
                 #endif
                 // playerManager.Die();    
                 Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(0);
