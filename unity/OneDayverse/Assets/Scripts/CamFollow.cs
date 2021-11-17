@@ -18,6 +18,7 @@ public class CamFollow : MonoBehaviour
     void Update()
     {
         currentUsername = GetUsername();
+        // currentUsername = "oxoxo";
         target = GameObject.Find(currentUsername);
        
 

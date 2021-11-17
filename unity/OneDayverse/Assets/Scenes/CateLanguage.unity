@@ -974,14 +974,9 @@ MonoBehaviour:
   Panel: {fileID: 643917332}
   LoungePanel: {fileID: 786827765}
   WrongPanel: {fileID: 1650971655}
-  Player: {fileID: 0}
   checkButton: {fileID: 985274293}
   LoungeButton: {fileID: 1129707629}
   PasswordInput: {fileID: 1782345281}
-  SmallClassTarget: {fileID: 0}
-  MidClassTarget: {fileID: 0}
-  LargeClassTarget: {fileID: 0}
-  LoungeTarget: {fileID: 0}
   className: 
   answer: 
 --- !u!1 &264746155
@@ -1527,8 +1522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e826be0e89b8b44084694c8944a8e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  CateButton: {fileID: 321293970}
+  LoungeButton: {fileID: 321293970}
 --- !u!1 &364094021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,8 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e826be0e89b8b44084694c8944a8e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  CateButton: {fileID: 321293970}
+  LoungeButton: {fileID: 0}
 --- !u!1 &440789870
 GameObject:
   m_ObjectHideFlags: 0
@@ -4188,14 +4181,9 @@ MonoBehaviour:
   Panel: {fileID: 643917332}
   LoungePanel: {fileID: 786827765}
   WrongPanel: {fileID: 1650971655}
-  Player: {fileID: 0}
   checkButton: {fileID: 985274293}
   LoungeButton: {fileID: 1129707629}
   PasswordInput: {fileID: 1782345281}
-  SmallClassTarget: {fileID: 0}
-  MidClassTarget: {fileID: 0}
-  LargeClassTarget: {fileID: 0}
-  LoungeTarget: {fileID: 0}
   className: 
   answer: 
 --- !u!1001 &881925807
@@ -7661,14 +7649,9 @@ MonoBehaviour:
   Panel: {fileID: 643917332}
   LoungePanel: {fileID: 786827765}
   WrongPanel: {fileID: 1650971655}
-  Player: {fileID: 0}
   checkButton: {fileID: 985274293}
   LoungeButton: {fileID: 1129707629}
   PasswordInput: {fileID: 1782345281}
-  SmallClassTarget: {fileID: 0}
-  MidClassTarget: {fileID: 0}
-  LargeClassTarget: {fileID: 0}
-  LoungeTarget: {fileID: 0}
   className: 
   answer: 
 --- !u!1001 &1736184358
@@ -8163,6 +8146,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4556694855844174, guid: c46afe706fb2cde4883f7afaeaa67a78, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1256
+      objectReference: {fileID: 0}
     - target: {fileID: 23072247148951056, guid: c46afe706fb2cde4883f7afaeaa67a78, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -8606,7 +8593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71e6a7149777114bbbe7c9b859e2df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   offset: {x: 0, y: 3, z: -4}
 --- !u!4 &1981051737 stripped
 Transform:
@@ -8875,13 +8861,8 @@ MonoBehaviour:
   Panel: {fileID: 643917332}
   LoungePanel: {fileID: 786827765}
   WrongPanel: {fileID: 1650971655}
-  Player: {fileID: 0}
   checkButton: {fileID: 985274293}
   LoungeButton: {fileID: 1129707629}
   PasswordInput: {fileID: 1782345281}
-  SmallClassTarget: {fileID: 0}
-  MidClassTarget: {fileID: 0}
-  LargeClassTarget: {fileID: 0}
-  LoungeTarget: {fileID: 0}
   className: 
   answer: 
