@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class CamFollow : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class CamFollow : MonoBehaviour
     GameObject target;
     Transform traget_transform;
     public Vector3 offset;
+    string currentUsername;
+
+    [DllImport("__Internal")]
+    private static extern string GetUsername();
 
     private void Start()
     {
@@ -18,7 +23,8 @@ public class CamFollow : MonoBehaviour
     void Update()
     {
         Rotate();
-        target = GameObject.Find("4(Clone)");
+        currentUsername = GetUsername();
+        target = GameObject.Find(currentUsername);
 
         if (target != null)
         {

@@ -5,6 +5,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using System.IO;
+using System.Runtime.InteropServices;
+
 // using static GameController;//게임 컨트롤러 사용
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
@@ -12,6 +14,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     // private Animator anim;
     [SerializeField] private Animator anim;
+
+    [DllImport("__Internal")]
+    private static extern string GetUsername();
 
     float verticalLookRotation;
     bool grounded;
@@ -30,6 +35,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public Transform target;
     public Vector3 offset;
+    string currentUsername;
+    GameObject mainCam;
 
     void Awake()
     {
@@ -39,11 +46,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     }
     void Start()
     {
+        mainCam = GameObject.Find("Main Camera");
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         if (PV.IsMine)
         {
             // EquipItem(0);
+            currentUsername = GetUsername();
+            GameObject personalCam = Instantiate(mainCam);
+            personalCam.name = currentUsername + "_Cam";
+            personalCam.GetComponent<CamFollow>().enabled = true;
+            this.gameObject.name = currentUsername;
         }
         else
         {

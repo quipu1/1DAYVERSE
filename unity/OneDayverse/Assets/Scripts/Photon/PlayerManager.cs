@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        currentUsername = "idididid2";
+        currentUsername = GetUsername();
         StartCoroutine(GetUserInfo());
         
     }
@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
     public IEnumerator GetUserInfo()
     {
         UnityWebRequest userInforequest;
-        using (userInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/profile/" + "idididid2" + "/"))
+        using (userInforequest = UnityWebRequest.Get("https://k5c202.p.ssafy.io/od/unitys/profile/" + currentUsername + "/"))
         {
             yield return userInforequest.SendWebRequest();
 
