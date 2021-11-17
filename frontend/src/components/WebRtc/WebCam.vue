@@ -67,12 +67,15 @@ export default {
 			},
 			user: {},
 			activeSetting: false,
-			lecture_id: 24,
+			lectureId: '',
+			lecutreCate: ''.
     }
   },
   created() {
 		this.user = this.$store.state.userStore;
-		this.data.roomName = this.location + this.lecture_id + 'classRoom';
+		this.lectureId = localStorage.getItem('inLectureId');
+		this.lecutreCate = localStorage.getItem('inLectureName');
+		this.data.roomName = this.location + this.lecutreCate + this.lectureId;
 		this.OVScreen.roomName = this.data.roomName;
 		this.data.setting.videoSource = this.$store.state.camStore.video;
 		this.data.setting.audioSource = this.$store.state.camStore.audio;
