@@ -68,7 +68,7 @@ export default {
 			user: {},
 			activeSetting: false,
 			lectureId: '',
-			lecutreCate: ''.
+			lecutreCate: '',
     }
   },
   created() {
