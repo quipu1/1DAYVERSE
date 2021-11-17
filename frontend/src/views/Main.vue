@@ -63,7 +63,7 @@ export default {
       dropdownBtn.style.backgroundColor="transparent"
     },
     goToUnity(){
-      this.$router.push({name : "Study" })
+      this.$router.push({name : "CamSetting" })
     },
   }
 }
