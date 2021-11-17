@@ -78,8 +78,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener
 
     public void SendMsg()
     {
+        if (msgInput.text != "")
+        {
 
-        chatClient.PublishMessage(worldchat, msgInput.text);
+            chatClient.PublishMessage(worldchat, msgInput.text);
+        }
         
     }
     
@@ -113,7 +116,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     public void OnGetMessages(string channelName, string[] senders, object[] messages)
     {        
             for (int i = 0; i < senders.Length; i++)
-            {
+            {   
                 msgArea.text += senders[i] + ": " + messages[i] + "\n";
             }
     }
