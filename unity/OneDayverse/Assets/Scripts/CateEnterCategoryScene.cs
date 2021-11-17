@@ -22,19 +22,19 @@ public class CateEnterCategoryScene : MonoBehaviour
                 {
                     // SceneManager.LoadScene("CateExercise");
 
-                    PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
-                    PhotonNetwork.LoadLevel(2);
-                    // PhotonNetwork.JoinOrCreateRoom("Exercise");
+                    // PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
+                    // PhotonNetwork.LoadLevel(2);
+                    PhotonNetwork.JoinRoom("Exercise");
 
                     // PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
                     // PhotonNetwork.LoadLevel(2);
                 } else if (hit.transform.gameObject.name == "Category2")
                 {
                     // SceneManager.LoadScene("CateArt");
-                    PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
-                    // PhotonNetwork.JoinRoom("Art");
+                    // PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
+                    PhotonNetwork.JoinRoom("Art");
                     // PhotonNetwork.JoinOrCreateRoom("Art", RO, TypedLobby.Default);
-                    PhotonNetwork.LoadLevel(3);
+                    // PhotonNetwork.LoadLevel(3);
                     // PhotonNetwork.JoinRoom("Art");
                 }
                 else if (hit.transform.gameObject.name == "Category3")
@@ -42,9 +42,9 @@ public class CateEnterCategoryScene : MonoBehaviour
                     // SceneManager.LoadScene("CateLanguage");
 
                     // PhotonNetwork.JoinOrCreateRoom("Language", RO, TypedLobby.Default);
-                    PhotonNetwork.JoinOrCreateRoom("Language", RO, TypedLobby.Default);
-                    PhotonNetwork.LoadLevel(4);
-                    // PhotonNetwork.JoinRoom("Language");
+                    // PhotonNetwork.JoinOrCreateRoom("Language", RO, TypedLobby.Default);
+                    // PhotonNetwork.LoadLevel(4);
+                    PhotonNetwork.JoinRoom("Language");
 
                 }               
                 else if (hit.transform.gameObject.name=="Fountain")
