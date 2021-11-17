@@ -14,16 +14,18 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
     public GameObject Panel;
     public GameObject LoungePanel;
     public GameObject WrongPanel;
-    public GameObject Player;
+    GameObject Player;
 
     public Button checkButton;
     public Button LoungeButton;
     public InputField PasswordInput;
 
-    public GameObject SmallClassTarget;
-    public GameObject MidClassTarget;
-    public GameObject LargeClassTarget;
-    public GameObject LoungeTarget;
+    GameObject SmallClassTarget;
+    GameObject MidClassTarget;
+    GameObject LargeClassTarget;
+    GameObject LoungeTarget;
+
+    string currentUsername;
     GameObject Target;
     PhotonView PV;
     PlayerManager playerManager;
@@ -31,16 +33,15 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
     PlayerController playerController;
     Scene scene;
 
-    void Awake()
-    {
-        // playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
-        // PV = GetComponent<PhotonView>();
-        // playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
+    [DllImport("__Internal")]
+    private static extern string GetUsername();
 
-
-    }
     private void Start()
-    {   
+    {
+        SmallClassTarget = GameObject.Find("SmallClassSpawnpoint");
+        MidClassTarget = GameObject.Find("MediumClassSpawnpoint ");
+        LargeClassTarget = GameObject.Find("LargeClassSpawnpoint");
+
         playerController = GetComponent<PlayerController>();
 
         GameObject Target = new GameObject("new GameObject");
@@ -52,6 +53,10 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
 
     public void OnMouseDown()
     {
+
+        currentUsername = GetUsername();
+        Player = GameObject.Find(currentUsername);
+
         className = transform.parent.name;
 
         if (className == "lounge")
@@ -141,52 +146,26 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
         {
             if (className == "class door_1")
             {
-                // playerController.moveToLargeClass();
-                // playMove();
-
-                // Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(2);
-                // Debug.Log(PV.ViewID);
-
-                // PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"),spawnpoint.position,spawnpoint.rotation,0, new object[] {PV.ViewID});
-
-                // transform.position = spawnpoint.position;
-                // playerController.moveToLargeClass();
-                // GameObject.Find("PlayerManager").GetComponent<PlayerManager>().goToLargeClass();
-                // playerManager.Die();
-                #if UNITY_WEBGL
-                    setLectureCate(data: scene.name);
-                    setLectureId(data: "101");
-                #endif
-                playerController = GetComponent<PlayerController>();
+                Target = LargeClassTarget;
+                playMove();
             }
             else if (className == "class door_2")
             {
-                #if UNITY_WEBGL
-                    setLectureCate(data: scene.name);
-                    setLectureId(data: "102");
-                #endif
-                // playerManager.Die();
-                Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(1);
-                Vector3 move =  spawnpoint.position;
-                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
+                Target = MidClassTarget;
+                playMove();
             }
             else if (className == "class door_3")
             {
-                #if UNITY_WEBGL
-                    setLectureCate(data: scene.name);
-                    setLectureId(data: "103");
-                #endif
-                // playerManager.Die();    
-                Transform spawnpoint =SpawnManager.Instance.GetSpawnpoint(0);
-                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnpoint.position,  spawnpoint.rotation, 0, new object[] {PV.ViewID});
-
+                Target = SmallClassTarget;
+                playMove();
             }
         }
     }
 
     public void playMove()
-    {   
-
+    {
+        print(Player);
+        print(Target);
         Player.transform.position = Target.transform.position;
     }
 }
