@@ -2,12 +2,6 @@
   <div id="unity" :class="{'mini-map':!showMap}">
     <Navbar />
     <iframe src="unity2/index.html" class="unity-box" ></iframe>
-    <div class="mini-map-box" v-if="!showMap">
-      <p>교실로<br>돌아가기</p>
-    </div>
-  </div>
-  <div class="go-live-box" @click="goLive">
-    <span>캠 수업<br>들어가기</span>
   </div>
 </template>
 
