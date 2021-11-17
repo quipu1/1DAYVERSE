@@ -38,7 +38,7 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     {   
         // MenuManager.Instance.OpenMenu("title");
         Debug.Log("로비에 입장");
-        // PhotonNetwork.NickName = "Player " + Random.Range(0,1000).ToString("0000");
+        PhotonNetwork.NickName = "Player " + Random.Range(0,1000).ToString("0000");
     }
 
     // Update is called once per frame
