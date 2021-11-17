@@ -23,7 +23,7 @@ public class CamFollow : MonoBehaviour
     void Update()
     {
         Rotate();
-        currentUsername = GetUsername();
+        currentUsername = "oxoxo";
         target = GameObject.Find(currentUsername);
 
         if (target != null)

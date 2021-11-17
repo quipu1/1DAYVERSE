@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             // EquipItem(0);
-            currentUsername = GetUsername();
+            currentUsername = "oxoxo";
             GameObject personalCam = Instantiate(mainCam);
             personalCam.name = currentUsername + "_Cam";
             personalCam.GetComponent<CamFollow>().enabled = true;
@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     }
     void Update()
     {
+        print(PV);
         if (!PV.IsMine)
             return;
         Move();
