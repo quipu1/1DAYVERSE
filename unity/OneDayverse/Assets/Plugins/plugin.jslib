@@ -21,6 +21,12 @@ mergeInto(LibraryManager.library, {
     window.localStorage.setItem("inLectureId", Pointer_stringify(data));
   },
 
+  goLive: function () {
+    window.alert("go live")
+   
+
+  },
+
 });
 
 
