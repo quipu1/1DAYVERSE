@@ -32,10 +32,10 @@ public class CateEnterCategoryScene : MonoBehaviour
                 {
                     // SceneManager.LoadScene("CateArt");
                     // PhotonNetwork.JoinOrCreateRoom("Exercise", RO, TypedLobby.Default);
-                    // PhotonNetwork.JoinRoom("Art");
+                    PhotonNetwork.JoinRoom("Art");
                     // PhotonNetwork.JoinOrCreateRoom("Art", RO, TypedLobby.Default);
                     // PhotonNetwork.LoadLevel(3);
-                    PhotonNetwork.JoinRoom("Art");
+                    // PhotonNetwork.JoinRoom("Art");
                 }
                 else if (hit.transform.gameObject.name == "Category3")
                 {
@@ -53,7 +53,7 @@ public class CateEnterCategoryScene : MonoBehaviour
                     PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
                     // PhotonNetwork.JoinRoom("Lounge");
 
-                    // PhotonNetwork.LoadLevel(6);
+                    PhotonNetwork.LoadLevel(6);
 
                 }
 
