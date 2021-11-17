@@ -2,19 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 
 public class Cate_Language_ToHall : MonoBehaviour
 {
-    public GameObject Player;
-    public Button CateButton;
 
-    public void Start()
+    [DllImport("__Internal")]
+    private static extern string GetUsername();
+
+    GameObject Player;
+    string currentUsername;
+    GameObject LobbyTarget;
+    public Button LoungeButton;
+
+    void Start()
     {
-        CateButton.onClick.AddListener(Move);
+        currentUsername = GetUsername();
+        // currentUsername = "oxoxo";
+        Player = GameObject.Find(currentUsername);
+        LobbyTarget = GameObject.Find("LobbySpawnpoint");
+        if (LoungeButton != null)
+        {
+            LoungeButton.onClick.AddListener(toLobby);
+        }
     }
 
-    public void Move()
+    private void toLobby()
     {
-        Player.transform.position = new Vector3(0, 0, 0);
+        Player.transform.position = LobbyTarget.transform.position;
+
     }
 }
