@@ -54,7 +54,7 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
     public void OnMouseDown()
     {
 
-        currentUsername = GetUsername();
+        currentUsername = "oxoxo";
         Player = GameObject.Find(currentUsername);
 
         className = transform.parent.name;
@@ -81,18 +81,34 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
             {
                 Panel.GetComponentsInChildren<Text>()[0].text = className;
                 Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
+
+                #if UNITY_WEBGL
+                    setLectureCate(data: scene.name);
+                    setLectureId(data: "101");
+                #endif
             }
             else if (className == "class door_2")
             {
                 Panel.GetComponentsInChildren<Text>()[0].text = className;
                 Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
+
+                #if UNITY_WEBGL
+                    setLectureCate(data: scene.name);
+                    setLectureId(data: "102");
+                #endif
             }
             else if (className == "class door_3")
             {
                 Panel.GetComponentsInChildren<Text>()[0].text = className;
                 Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
+
+                #if UNITY_WEBGL
+                    setLectureCate(data: scene.name);
+                    setLectureId(data: "103");
+                #endif
+
             }
-        
+
             checkButton.onClick.AddListener(UpdateCheckedClass);
 
             if (!isActive)
