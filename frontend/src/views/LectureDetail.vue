@@ -130,7 +130,7 @@ main{
 
 #classImage{
   /* width: 100%;/ */
-  height: 100%;
+  width: 90%;
 }
 .right{
   width: 50%;
