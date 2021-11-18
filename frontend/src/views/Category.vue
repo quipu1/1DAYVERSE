@@ -65,7 +65,7 @@ export default {
         })
         break
       case "lang":
-        axios.get(BASE_URL+"category/category/3")
+        axios.get(BASE_URL+"category/3")
         .then((res)=>{
           this.lectures = res.data;
           this.loading = false; 
