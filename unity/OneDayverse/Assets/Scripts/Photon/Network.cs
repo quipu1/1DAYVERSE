@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using System.Runtime.InteropServices;
 
@@ -18,7 +19,7 @@ public class Network : MonoBehaviour
     {
         currentUsername = GetUsername();
         // currentUsername = "oxoxo";
-        Player = GameObject.Find(currentUsername);
+        
         LobbyTarget = GameObject.Find("LobbySpawnpoint");
     }
     public void ToLobby()
@@ -28,8 +29,9 @@ public class Network : MonoBehaviour
     }
     public void ToCate()
     {
-        
-        PhotonNetwork.LoadLevel(1);
         PhotonNetwork.LeaveRoom();
+        Player = GameObject.Find(currentUsername);
+        Destroy(Player.transform.parent.gameObject);
+        SceneManager.LoadScene("Main");
     }
 }
