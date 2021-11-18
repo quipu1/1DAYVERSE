@@ -63,10 +63,12 @@ export default {
       dropdownBtn.style.backgroundColor="transparent"
     },
     goToUnity(){
-      if(localStorage.getItem("username") === null){
+      if (this.$store.getters['userStore/getUsername']  === null) {
         this.$router.push({name : "Login"})
       }
-      this.$router.push({name : "CamSetting" })
+      else {
+        this.$router.push({name : "CamSetting" })
+      }
     },
   }
 }
