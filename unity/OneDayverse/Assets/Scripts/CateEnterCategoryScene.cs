@@ -52,10 +52,10 @@ public class CateEnterCategoryScene : MonoBehaviour
                 {   
                     
                     // PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
-                    PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
-                    // PhotonNetwork.JoinRoom("Lounge");
+                    // PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
+                    PhotonNetwork.JoinRoom("Lounge");
 
-                    PhotonNetwork.LoadLevel(6);
+                    // PhotonNetwork.LoadLevel(6);
 
                 }
 
