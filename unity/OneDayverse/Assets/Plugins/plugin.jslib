@@ -22,9 +22,7 @@ mergeInto(LibraryManager.library, {
   },
 
   goLive: function () {
-    window.alert("go live")
-   
-
+    window.open("/live")
   },
 
 });
