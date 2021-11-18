@@ -101,6 +101,8 @@ const userStore = {
     LOGOUT({ commit }) {
       commit('RESET_STATE')
       localStorage.removeItem('username')
+      localStorage.removeItem('inLectureId')
+      localStorage.removeItem('inLectureName')
     },
     FETCH_PROFILE({ commit }, username) {
       const FETCH_PROFILE_URL = ACCOUNT_URL + `profile/${username}/`

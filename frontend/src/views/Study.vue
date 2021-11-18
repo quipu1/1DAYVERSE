@@ -1,12 +1,14 @@
 <template>
   <div id="unity" :class="{'mini-map':!showMap}">
     <Navbar />
+    <loading v-if="activeLoad" v-on:switchLoad="switchLoad" />
     <iframe src="unity2/index.html" class="unity-box" ></iframe>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import Loading from '@/components/Loading.vue';
 
 // const sendMessage = (object, method, param) => {
 //   window.gameInstance.SendMessage(object, method, param);
@@ -16,6 +18,7 @@ export default {
   name: "Study",
   components: {
     Navbar,
+    Loading,
   },
   computed: {
     showMap: function() {
@@ -28,6 +31,14 @@ export default {
   methods: {
     goLive() {
       window.open("/live")
+    },
+    switchLoad() {
+      this.activeLoad = false;
+    },
+  },
+  data() {
+    return {
+      activeLoad: true,
     }
   },
 };

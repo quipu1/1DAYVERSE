@@ -6,7 +6,7 @@
         <button @click="showMenu" class='dropdown-btn'>전체 카테고리 <i class="fas fa-caret-down" style="background-color:none; color:#EEAEF9;"></i></button>
         <div class='dropdown-list-container' style="display:none;">
           <a href="#" @click="goToHealthCategory">운동</a>
-          <a href="#" @click="goToHobbyCategory">취미</a>
+          <a href="#" @click="goToHobbyCategory">예술</a>
           <a href="#" @click="goToLanguageCategory">언어</a>
           <!-- <a href="#" @click="goToETCCategory">기타</a> -->
         </div>

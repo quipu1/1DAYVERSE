@@ -36,7 +36,7 @@
                 <h3>운동</h3>
               </div>
               <div class="category-card" id="hobbyCard" @click="selectCategory('hobbyCard')">
-                <h3>취미</h3>
+                <h3>예술</h3>
               </div>
               <div class="category-card" id="langCard" @click="selectCategory('langCard')">
                 <h3>언어</h3>

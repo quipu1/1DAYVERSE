@@ -1,7 +1,7 @@
 <template>
   <div class="lecture-container" @click="goToLectureDetail"> 
     <div class="image-container">
-      <img :src="require('@/assets/class1.jpeg')" class="image" alt="">
+      <img :src="`@/../../../backend${lecture.main_image}`" class="image" alt="">
     </div>
     <div class="flex">
       <b>{{lecture.name}}</b>
