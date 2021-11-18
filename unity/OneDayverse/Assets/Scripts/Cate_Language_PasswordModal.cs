@@ -82,32 +82,16 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
             {
                 Panel.GetComponentsInChildren<Text>()[0].text = className;
                 Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
-
-                #if UNITY_WEBGL
-                    setLectureCate(data: scene.name);
-                    setLectureId(data: "101");
-                #endif
             }
             else if (className == "class door_2")
             {
                 Panel.GetComponentsInChildren<Text>()[0].text = className;
                 Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
-
-                #if UNITY_WEBGL
-                    setLectureCate(data: scene.name);
-                    setLectureId(data: "102");
-                #endif
             }
             else if (className == "class door_3")
             {
                 Panel.GetComponentsInChildren<Text>()[0].text = className;
                 Panel.GetComponentsInChildren<Text>()[1].text = className + "tutor";
-
-                #if UNITY_WEBGL
-                    setLectureCate(data: scene.name);
-                    setLectureId(data: "103");
-                #endif
-
             }
 
             checkButton.onClick.AddListener(UpdateCheckedClass);
@@ -163,16 +147,28 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
         {
             if (className == "class door_1")
             {
+                #if UNITY_WEBGL
+                    setLectureCate(data: scene.name);
+                    setLectureId(data: "101");
+                #endif
                 Target = LargeClassTarget;
                 playMove();
             }
             else if (className == "class door_2")
             {
+                #if UNITY_WEBGL
+                    setLectureCate(data: scene.name);
+                    setLectureId(data: "102");
+                #endif
                 Target = MidClassTarget;
                 playMove();
             }
             else if (className == "class door_3")
             {
+                #if UNITY_WEBGL
+                    setLectureCate(data: scene.name);
+                    setLectureId(data: "103");
+                #endif
                 Target = SmallClassTarget;
                 playMove();
             }
