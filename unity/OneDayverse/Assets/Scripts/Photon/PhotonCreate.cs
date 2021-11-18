@@ -15,6 +15,8 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     [SerializeField] Transform playerListContent;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
+
+    GameObject loadingText;
     
     void Awake()
     {
@@ -23,13 +25,12 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {   
-        Debug.Log("서버에 접속 중");
         PhotonNetwork.ConnectUsingSettings();
+        loadingText = GameObject.Find("Loading");
     }
 
     public override void OnConnectedToMaster()
     {   
-        Debug.Log("서버에 접속 성공");
         PhotonNetwork.JoinLobby();
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -37,8 +38,8 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {   
         // MenuManager.Instance.OpenMenu("title");
-        Debug.Log("로비에 입장");
         PhotonNetwork.NickName = "Player " + Random.Range(0,1000).ToString("0000");
+        loadingText.SetActive(false);
     }
 
     // Update is called once per frame
