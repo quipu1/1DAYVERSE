@@ -14,7 +14,10 @@
       <div class="btn" @click="makeClass"><span v-show="isTeacher">강의 생성</span></div>
     </div>
    <div style="display:flex; align-items:center; width:50%; justify-content:space-around; padding:0 2.5%;">
-      <input id="inputTag" type="text" v-model="keyword" placeholder="강의 이름으로 검색"  @keyup.enter="search">
+      <div class="input-box">
+        <input id="inputTag" type="text" v-model="keyword" placeholder="강의 이름으로 검색"  @keyup.enter="search">
+        <i class="search-icon fas fa-search"></i>
+      </div>
       <div class="btn"> 
         <span v-if="isLogin" @click="goToMyPage">내 정보</span>
         <span v-else @click="goToSignupPage">회원가입</span>
@@ -226,17 +229,33 @@ nav{
   background-color: #DBBFFF;
 }
 #inputTag{
-  width: 50%;
-  font-size: 1.1rem;
-  background-color: #DBBFFF;
+  width: 70%;
+  font-size: 1.0rem;
+  background-color: none;
   border:none;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   text-align: center;
-  line-height: 40px;
+  line-height: 30px;
+  padding-right: 5px;
 }
 #inputTag:focus{
   border:none;
   outline: none;
+}
+.input-box {
+  width: 50%;
+  background-color: white;
+  border:none;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.search-icon {
+  color: lightgray;
 }
 .btn {
   width: 20%;

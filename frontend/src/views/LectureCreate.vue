@@ -18,7 +18,7 @@
             <h1 class="section-header">
               <div style="width:10%;"></div> 
               <span style="width:60%;" class="section-title">강의 이름 정하기 </span>
-              <button style="width:10%;" @click="onClickBtn('category')" class="next-btn">다음</button>
+              <button style="width:10%;" @click="onClickBtn('category')" class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </h1>
             <div class="section-container">
               <label>강의 이름</label>
@@ -29,17 +29,17 @@
             <h1 class="section-header">
               <div style="width:10%;"></div> 
               <span style="width:60%;" class="section-title">강의의 카테고리 정하기</span>
-              <button style="width:10%;" @click="onClickBtn('tutor')" class="next-btn">다음</button>
+              <button style="width:10%;" @click="onClickBtn('tutor')" class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </h1>
             <div class="section-container"> 
               <div class="category-card" id="excerciseCard" @click="selectCategory('excerciseCard')">
-                <h3>운동</h3>
+                <h3 class="half-hl">운동</h3>
               </div>
               <div class="category-card" id="hobbyCard" @click="selectCategory('hobbyCard')">
-                <h3>예술</h3>
+                <h3 class="half-hl">예술</h3>
               </div>
               <div class="category-card" id="langCard" @click="selectCategory('langCard')">
-                <h3>언어</h3>
+                <h3 class="half-hl">언어</h3>
               </div>          
             </div>
           </section>
@@ -47,7 +47,7 @@
             <h1 class="section-header">
               <div style="width:10%;" ></div> 
               <span style="width:60%;" class="section-title">강사 확인</span>
-              <button style="width:10%;" @click="onClickBtn('description')" class="next-btn">다음</button>
+              <button style="width:10%;" @click="onClickBtn('description')" class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </h1>
             <div class="section-container" id="tutorContent">
               <div class="profile-image">
@@ -62,7 +62,7 @@
             <h1 class="section-header">
               <div style="width:10%;"></div> 
               <span style="width:60%;" class="section-title">강의의 설명 입력 정하기 </span>
-              <button style="width:10%;" @click="onClickBtn('time')" class="next-btn">다음</button>
+              <button style="width:10%;" @click="onClickBtn('time')" class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </h1>
             <div class="section-container" id="lectureContent">
               <div class="content-row">
@@ -79,7 +79,7 @@
             <h1 class="section-header">
               <div style="width:10%;"></div> 
               <span style="width:60%;" class="section-title"> 강의의 시간 정하기 </span>
-              <button style="width:10%;" @click="onClickBtn('cost')" class="next-btn">다음</button>
+              <button style="width:10%;" @click="onClickBtn('cost')" class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </h1>
             <div class="section-container" id="timeSection">
               <div>
@@ -98,7 +98,7 @@
             <h1 class="section-header">
               <div style="width:10%;"></div> 
               <span style="width:60%;" class="section-title">강의의 금액 정하기</span>
-              <button style="width:10%;" @click="onClickBtn('size')" class="next-btn">다음</button>
+              <button style="width:10%;" @click="onClickBtn('size')" class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </h1>
             <div class="section-container">
               <label>강의 금액</label>
@@ -109,7 +109,7 @@
             <h1 class="section-header">
               <div style="width:10%;"></div> 
               <span style="width:60%;" class="section-title">강의의 클래스 이름 정하기</span> 
-              <button style="width:10%;" @click="onClickBtn('password')" class="next-btn">다음</button>
+              <button style="width:10%;" @click="onClickBtn('password')" class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </h1>
             <div class="section-container">
               <div class="class-card" id="smallCard" @click="selectSize('smallCard')">
@@ -348,7 +348,7 @@ export default {
   }
   .section-header{
     /* top: 20%; */
-    background-color: lightgray;
+    /* background-color: lightgray; */
     width: 90%;
     height: 15%;
     font:bolder;
@@ -365,29 +365,30 @@ export default {
   .section-container{
     display: flex;
     width: 80%;
-    height: 50%;
+    height: 60%;
     padding: 2%;
     justify-content: space-between;
     align-items: center;
-    background-color: lightgray;
+    background-color: white;
     border-radius: 15px;
     opacity: 75;
     color: black;
     margin-bottom: 5%;
   }
   .section-container > label {
-    width: 20%;
+    width: 25%;
     font-size: 1.25rem;
     text-align: center;
   }
   .section-container > input{
-    width: 70%;
+    width: 65%;
     font-size: 1.25rem;
     font: bolder;
     border: none;
-    border-radius: 15px;
+    /* border-radius: 15px; */
     margin: 0 5%;
     text-align: center;
+    border-bottom: 1px solid gray;
   }
   .section-container > input:focus{
     outline: none;
@@ -397,7 +398,7 @@ export default {
     width: 30%;
     border: 1px solid black;
     border-radius: 15px;
-    height: 100%;
+    height: 70%;
     /* aspect-ratio: 1; */
     margin: 0 1%;
     cursor:pointer;
@@ -410,13 +411,13 @@ export default {
     transition: transform .25s;
   }
   #excerciseCard{
-    background-color: orange;
+    background-color: #c9cbe0;
   }
   #hobbyCard{
-    background-color: royalblue;
+    background-color: #ecd4d4;
   }
   #langCard{
-    background-color: olive;
+    background-color: #ccdbe2;
   }
   #tutorContent{
     flex-direction: column;
@@ -432,13 +433,16 @@ export default {
     aspect-ratio: 1;
   }
   .profile-content{
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     width: 50%;
     height: 25%;
     font-size: 1.25rem;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .profile-content > span {
+    background: linear-gradient(to top, #d1c9ff 50%, transparent 50%);
   }
   #lectureContent{
     display: flex;
@@ -449,6 +453,7 @@ export default {
 
   .content-row{
     width: 100%;
+    height: 40%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -461,6 +466,9 @@ export default {
   }
   .content-row > textarea{
     height: 50%;
+    border: 1px solid silver;
+    border-radius: 5px;
+    margin-right: 3%;
   }
   #timeSection{
     display: flex;
@@ -472,7 +480,7 @@ export default {
     width: 30%;
     border: none;
     border-radius: 15px;
-    height: 100%;
+    height: 70%;
     /* aspect-ratio: 1; */
     margin: 0 1%;
     display: flex;
@@ -483,17 +491,17 @@ export default {
     transition: transform .25s;
   }
   #smallCard{
-    background-color: orange;
-
+    background-color: #d5e1df;
   }
   #mediumCard{
-    background-color: royalblue;
+    background-color: #a3b6c5;
   }
   #largeCard{
-    background-color: olive;
+    background-color: #e2b3a3;
   }
   .next-btn{
-    border: 1px solid #8D3DA5;
+    /* border: 1px solid #8D3DA5; */
+    border: none;
     border-radius: 15px;
     background-color: transparent;
     width: 20%;
@@ -505,11 +513,11 @@ export default {
     color:white;
   }
   #submitBtn{
-    border: 1px solid #202D91;
+    border: none;
     border-radius: 15px;
-    background-color: transparent;
+    background-color: #aa7ab8;
     width: 20%;
-    height: 40%;
+    height: 50%;
     cursor:pointer;
   }
   #submitBtn:hover{
