@@ -124,8 +124,11 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     }
 
     public void CreateExerciseRoom()
-    {
-        PhotonNetwork.CreateRoom("Exercise");
+    {   
+        RoomOptions ros = new RoomOptions();
+        ros.MaxPlayers = 15;
+
+        PhotonNetwork.CreateRoom("Exercise", ros);
     }
 
     public void StartExerciseRoom()
@@ -133,8 +136,9 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(2);
     }
     public void CreateArtRoom()
-    {
-        PhotonNetwork.CreateRoom("Art");
+    {        RoomOptions ros = new RoomOptions();
+        ros.MaxPlayers = 15;
+        PhotonNetwork.CreateRoom("Art", ros);
     }
 
     public void StartArtRoom()
@@ -143,7 +147,9 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     }
     public void CreateLanguageRoom()
     {
-        PhotonNetwork.CreateRoom("Language");
+        RoomOptions ros = new RoomOptions();
+        ros.MaxPlayers = 15;
+        PhotonNetwork.CreateRoom("Language", ros);
     }
 
     public void StartLanguageRoom()

@@ -14,6 +14,7 @@ public class CateEnterCategoryScene : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RoomOptions RO = new RoomOptions();
+            RO.MaxPlayers = 30;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -48,7 +49,8 @@ public class CateEnterCategoryScene : MonoBehaviour
 
                 }               
                 else if (hit.transform.gameObject.name=="Fountain")
-                {
+                {   
+                    
                     // PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
                     PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
                     // PhotonNetwork.JoinRoom("Lounge");
