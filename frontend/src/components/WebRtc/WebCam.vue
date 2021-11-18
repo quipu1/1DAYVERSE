@@ -64,17 +64,6 @@ export default {
 			OVScreen: {
 				OV: undefined,
 				session: undefined,
-				mainStreamManager: undefined,
-				setting: {
-					audioSource: undefined, 
-					videoSource: undefined, 
-					publishAudio: false,  	
-					publishVideo: false,  	
-					resolution: '640x480',  
-					frameRate: 30,			
-					insertMode: 'APPEND',	
-					mirror: false
-				},
 			},
 			user: {},
 			activeSetting: false,
@@ -166,14 +155,6 @@ export default {
 			// 화면 공유 getToken
 			this.getToken(this.OVScreen.roomName).then(token => {
 				this.OVScreen.session.connect(token, { clientData: this.user })
-					.then(() => {
-						let publisher = this.data.OV.initPublisher(undefined, this.OVScreen.setting);
-
-						this.OVScreen.mainStreamManager = publisher;
-						this.OVScreen.publisher = publisher;
-
-						this.OVScreen.session.publish(this.OVScreen.publisher);
-					})
 					.catch(error => {
 						console.log('There was an error connecting to the session[OVScreen]:', error.code, error.message);
 					});
@@ -196,7 +177,6 @@ export default {
 
 			this.OVScreen.session = undefined;
 			this.OVScreen.OV = undefined;
-			this.OVScreen.mainStreamManager = undefined;
 
 			window.removeEventListener('beforeunload', this.leaveSession);
 			// this.$router.replace('/study');
