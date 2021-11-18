@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     [DllImport("__Internal")]
     private static extern string GetUsername();
 
+    [DllImport("__Internal")] private static extern void goLive();
+
     float verticalLookRotation;
     bool grounded;
     Vector3 smoothMoveVelocity;
@@ -143,5 +145,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             return;
 
         Debug.Log("피해를 입다." + damage);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Desk"))
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                #if UNITY_WEBGL
+                    goLive();
+                #endif
+            }
+        }
     }
 }
