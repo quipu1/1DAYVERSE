@@ -123,7 +123,7 @@
 
 - ERD
 
-  ![Untitled](exec/README/Untitled%25201.png)
+  ![Untitled](exec/README/Untitled%201.png)
 
 ## **5. 레이아웃 및 디자인**
 
@@ -131,7 +131,7 @@
 
   - Unity
 
-  ![Untitled](exec/README/Untitled%25202.png)
+  ![Untitled](exec/README/Untitled%202.png)
 
   - Web
 
