@@ -235,7 +235,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -560,5 +560,29 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 825081836}
+    - target: {fileID: 5304928344998774787, guid: eaa28df828b8d374c8f5fc340b73cb92, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304928344998774787, guid: eaa28df828b8d374c8f5fc340b73cb92, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304928344998774787, guid: eaa28df828b8d374c8f5fc340b73cb92, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304928344998774787, guid: eaa28df828b8d374c8f5fc340b73cb92, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.2793999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304928345603513151, guid: eaa28df828b8d374c8f5fc340b73cb92, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304928345603513151, guid: eaa28df828b8d374c8f5fc340b73cb92, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaa28df828b8d374c8f5fc340b73cb92, type: 3}
