@@ -10,9 +10,6 @@
         <div class="profile">
           <img :src="`@/../../../backend/media/${this.profile_image}`" class="user-image" alt="">
           <div class="profile-info">
-            <button class="delete" @click="changeDelete">
-              <span>회원탈퇴</span>
-            </button>
             <div class="user-info">
               <span>{{ username }}</span>
               <svg @click="changeuserinfo('name')" xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -34,6 +31,9 @@
                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
               </svg>
             </div>
+            <button class="delete" @click="changeDelete">
+              <span>회원탈퇴</span>
+            </button>
           </div>
         </div>
         <div class="class-info">
@@ -142,28 +142,7 @@ export default {
       this.$router.push({name:"Profile", params: {username : info}})
     },
     changeDelete() {
-      const Swal = require('sweetalert2')
-      Swal.fire({
-        text: '정말로 삭제하시겠습니까?',
-        confirmButtonText: 'Delete',
-        showCancelButton: true,
-        confirmButtonColor: '#8D3DA5',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.$store.dispatch('userStore/DELETE_USER', this.username)
-          Swal.fire({
-              title: '삭제되셨습니다.',
-              showClass: {
-                popup: 'animate__animated animate__fadeInDown'
-              },
-              hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
-              }
-            }).then(() => {
-              this.$router.push({ name: 'Main'})
-            })
-        } 
-      })
+      this.$router.push('/bye');
     },
     changeuserinfo(info) {
       var explain = ""
