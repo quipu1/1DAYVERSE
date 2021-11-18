@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class BusControl : MonoBehaviour {
 
@@ -13,11 +14,25 @@ public class BusControl : MonoBehaviour {
     public Animator Door2;
     public Animator StopSign1;
     public Animator StopSign3;
+    GameObject ConnectPhoton;
 
     public float OpenCloseSpeed;
 
-    private bool isOpen = false;    
-    
+    private bool isOpen = false;
+
+    void Awake()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            ConnectPhoton = GameObject.Find("RoomManager");
+            if (ConnectPhoton)
+            {
+                Destroy(ConnectPhoton);
+            }
+            PhotonNetwork.Disconnect();
+        }
+    }
+
     public void Open(bool open = true) {
         string action = "";
         if (open)
