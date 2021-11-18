@@ -29,7 +29,7 @@
       </section>
       <section>
         <div class="content-text">
-          <span class="title">1dayverse는 <br/>자신만의 캐릭터를<br/> 만들 수 있습니다.</span>
+          <span class="title">1dayverse는 <br/>자신만의 캐릭터를<br/> 생성 할 수 있습니다.</span>
           <span class="explain">메타버스 환경 내에서</span>
           <span class="explain">자신만의 캐릭터를 생성하고</span>
           <span class="explain">자유롭게 이동하며</span>

@@ -10,11 +10,11 @@
           <div class="footer-section-contact">
             <div class="footer-header">Contact us</div>
             <div class="member">
-              <div>Park Jun Su<img :src="require('@/assets/github_logo.png')" alt=""></div>
-              <div>Ryu Ji Woo<img :src="require('@/assets/github_logo.png')" alt=""></div>
-              <div>Sung Ru Bi<img :src="require('@/assets/github_logo.png')" alt=""></div>
-              <div>Yoon So Young<img :src="require('@/assets/github_logo.png')" alt=""></div>
-              <div>Lee Hye Eun<img :src="require('@/assets/github_logo.png')" alt=""></div>
+              <div><a href="https://github.com/kdm111" target='_blank'>Park Jun Su<img :src="require('@/assets/github_logo.png')" alt=""></a></div>
+              <div><a href="https://github.com/Ryujiwoo" target='_blank'>Ryu Ji Woo<img :src="require('@/assets/github_logo.png')" alt=""></a></div>
+              <div><a href="https://github.com/quipu1" target='_blank'>Sung Ru Bi<img :src="require('@/assets/github_logo.png')" alt=""></a></div>
+              <div><a href="https://github.com/yoonsoyoung" target='_blank'>Yoon So Young<img :src="require('@/assets/github_logo.png')" alt=""></a></div>
+              <div><a href="https://github.com/snflo16" target='_blank'>Lee Hye Eun<img :src="require('@/assets/github_logo.png')" alt=""></a></div>
             </div>
           </div>
           <div class="footer-section-news">
@@ -71,6 +71,11 @@ export default {
 </script>
 
 <style scoped>
+a{
+  text-decoration: none;
+  color: #bdbdbd;
+  font-weight: lighter;
+}
 .box {
   background-color: hsl(286, 32%, 22%);
   color: white;
@@ -129,7 +134,7 @@ export default {
 .footer-header {
   font-weight: bold;
   font-size: 1rem;
-  margin: 1.5rem 0;
+  margin: 1.3rem 0 0.7rem 0;
   text-align: start;
 }
 .member > div {
@@ -139,7 +144,7 @@ export default {
   font-size: 0.8rem;
   margin: 0 0 0.5rem 0;
 }
-div > img
+a > img
 {
   height: 1rem;
   margin: 0 0 0 0.5rem;
@@ -172,7 +177,7 @@ div > img
   width: 32%;
   border-radius: 30px;
   height: 5.5vh;
-  background: rgb(43, 255, 0);
+  background: #aa7ab8;
   border: none;
   color: rgb(41, 41, 41);
   font-weight: lighter;
@@ -180,7 +185,7 @@ div > img
   cursor: pointer;
 }
 .news-button:hover {
-  background: rgb(58, 168, 36);
+  background: #8d3da5;
 }
 .singup-form {
   width: 100%;

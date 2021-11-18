@@ -11,7 +11,7 @@
       <div class="right">
         <div class="class-info">
           <span v-if="lecture.category===1">운동</span>
-          <span v-else-if="lecture.category===2">취미</span>
+          <span v-else-if="lecture.category===2">예술</span>
           <span v-else-if="lecture.category===3">언어</span>
           <span><b>{{lecture.title}}</b></span>
           <span>강사 : {{lecture.tutor}}</span>
