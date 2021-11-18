@@ -156,5 +156,17 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel(4);
     }
+
+    public void CreateLoungeRoom()
+    {
+        RoomOptions ros = new RoomOptions();
+        ros.MaxPlayers = 30;
+        PhotonNetwork.CreateRoom("Lounge", ros);
+    }
+
+    public void StartLoungeRoom()
+    {
+        PhotonNetwork.LoadLevel(6);
+    }
     
 }
