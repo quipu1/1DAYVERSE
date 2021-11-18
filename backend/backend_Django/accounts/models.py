@@ -10,7 +10,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=200)
-    character = models.ForeignKey(Character, on_delete=models.CASCADE, blank=True, null=True)
+    character = models.ForeignKey(Character, on_delete=models.CASCADE, default=1, blank=True, null=True)
     profile_image = models.ImageField(blank=True, null=True)
     birth_day = models.CharField(max_length=15)
     phone_number = models.CharField(max_length=20)
