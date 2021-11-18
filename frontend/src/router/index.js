@@ -4,6 +4,7 @@ import Main from '../views/Main.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Profile from '../views/Profile.vue'
+import Bye from '../components/MyinfoDelete.vue'
 import Category from '../views/Category.vue'
 import LectureDetail from '../views/LectureDetail.vue'
 import LectureCreate from '../views/LectureCreate.vue'
@@ -37,6 +38,11 @@ const routes = [
     path: '/:username',
     name: 'Profile',
     component: Profile,
+  },
+  {
+    path: '/bye',
+    name: 'Bye',
+    component: Bye,
   },
   {
     path: '/category/:group',
