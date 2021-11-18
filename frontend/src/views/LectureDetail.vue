@@ -10,21 +10,25 @@
       </div>
       <div class="right">
         <div class="class-info">
-          <span v-if="lecture.category===1">운동</span>
-          <span v-else-if="lecture.category===2">예술</span>
-          <span v-else-if="lecture.category===3">언어</span>
-          <span><b>{{lecture.title}}</b></span>
-          <span>강사 : {{lecture.tutor}}</span>
-          <span>상세 설명 : {{lecture.description}}</span>
-          <span>모집 인원 : {{lecture.lecture_cnt}} / {{lecture.room_size}}명</span>
-          <span>가격 : {{cost}}원</span>
+          <div v-if="lecture.category===1">[운동]</div>
+          <div v-else-if="lecture.category===2">[예술]</div>
+          <div v-else-if="lecture.category===3">[언어]</div>
+          <div style="font-size: 2.5rem"><b>{{lecture.title}}</b></div>
+          <div>강사 : {{lecture.tutor}}</div>
+          <div>모집 인원 : {{lecture.lecture_cnt}} / {{lecture.room_size}}명</div>
+          <div>가격 : {{cost}}원</div>
+          <div v-if="!err_message && teachable != 1">
+            <button @click="Pay" id="payBtn">
+              <img :src="PayImage" style="width: 5rem; margin-top: 1rem;" alt="">
+            </button>
+          </div>
+          <div v-else>{{ err_message }}</div>
         </div>
-        <button v-if="!err_message" @click="Pay" id="payBtn">
-          <img :src="PayImage" alt="">
-        </button>
-        <div v-else>{{ err_message }}</div>
       </div>
     </main>
+    <div style=" text-align: center; margin-top: 5rem;">[상세 설명]</div>
+    <hr style="width: 73%; max-width: 1000px"/>
+    <div class="lecture-explain">{{lecture.description}}</div>
   </div>  
 </template>
 
@@ -63,6 +67,9 @@ export default {
     .catch((err) => console.log(err))
   },
   computed : {
+    teachable() {
+      return this.$store.getters['userStore/getUserTeachable']
+    },
     err_message() {
       if (this.registerable == false) {
         return '이미 등록한 강좌힙니다.'
@@ -104,21 +111,18 @@ export default {
 }
 main{
   display: flex;
-  background-color: lightgray;
-  padding : 5% 5%;
-  height: 90vh;
+  width: 70%;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 5vh;
 }
 .left{
-  display: flex;
   width: 50%;
-  flex-direction: column;
-  align-items: center;
   /* justify-content: center; */
 }
 .image-container {
   /* width: 50%; */
   width: auto;
-  height: 40%;
   box-sizing: border-box;
   margin-bottom: 5%;
 
@@ -130,28 +134,30 @@ main{
 }
 .right{
   width: 50%;
-  display: flex;
-  flex-direction: column;
   /* justify-content: center; */
-  align-items: center;
 }
 .class-info{
-  display: flex;
   width: 100%;
   height: 40%;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
   font-size: 1.3rem;
   margin-bottom: 5%;
 }
+.class-info > div {
+  margin-bottom: 1rem;
+}
 #payBtn{
-  width: 100%;
-  /* height: 5%; */
   background-color: transparent;
-  display: flex;
-  justify-content: flex-start;
   border: none;
   cursor: pointer;
+}
+.lecture-explain {
+  text-align: start;
+  line-height: 1.7rem;
+  width: 70%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+div {
+  text-align: start;
 }
 </style>
