@@ -22,7 +22,7 @@
             </h1>
             <div class="section-container">
               <label>강의 이름</label>
-              <input type="text" class="input-form" placeholder="10글자 미만으로 정해주세요" maxlength="10" v-model="title">
+              <input type="text" class="input-form" placeholder="15글자 미만으로 정해주세요" maxlength="15" v-model="title">
             </div>
           </section>
           <section v-if="idx=='category'" class="section-content">
@@ -108,7 +108,7 @@
           <section v-if="idx=='size'" class="section-content">
             <h1 class="section-header">
               <div style="width:10%;"></div> 
-              <span style="width:60%;" class="section-title">강의의 클래스 이름 정하기</span> 
+              <span style="width:60%;" class="section-title">강의의 인원 정하기</span> 
               <button style="width:10%;" @click="onClickBtn('password')" class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </h1>
             <div class="section-container">
@@ -152,7 +152,6 @@ export default {
   data(){
     return {
       idx : 'title',
-
       title : "",
       category : "",
       tutor : "",

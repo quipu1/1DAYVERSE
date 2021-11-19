@@ -14,7 +14,7 @@
           <div v-else-if="lecture.category===2">[예술]</div>
           <div v-else-if="lecture.category===3">[언어]</div>
           <div style="font-size: 2.5rem"><b>{{lecture.title}}</b></div>
-          <div>강사 : {{lecture.tutor}}</div>
+          <div>강사 : {{tutorname}}</div>
           <div>모집 인원 : {{lecture.lecture_cnt}} / {{lecture.room_size}}명</div>
           <div>가격 : {{cost}}원</div>
           <div v-if="!err_message && teachable != 1">
@@ -28,7 +28,7 @@
     </main>
     <div style=" text-align: center; margin-top: 5rem;">[상세 설명]</div>
     <hr style="width: 73%; max-width: 1000px"/>
-    <div class="lecture-explain">{{lecture.description}}</div>
+    <div v-html="description" class="lecture-explain"></div>
   </div>  
 </template>
 
@@ -51,6 +51,7 @@ export default {
       cost : "",
       image : image,
       registerable: null,
+      tutorname: "",
     }
   },
   created(){
@@ -67,6 +68,7 @@ export default {
     .catch((err) => console.log(err))
   },
   computed : {
+    
     teachable() {
       return this.$store.getters['userStore/getUserTeachable']
     },
@@ -78,7 +80,13 @@ export default {
         return '이미 마감된 강좌힙니다.'
       }
       return null
-    }
+    },
+    description() {
+      if (this.lecture != "") {
+        return this.lecture.description.replace(/(?:\r\n|\r|\n)/g, '<br />')
+      }
+      return ""
+    },
   },
 
   methods : {
@@ -97,6 +105,10 @@ export default {
       axios.post("https://k5c202.p.ssafy.io/od/payments/ready/", Form)
       .then((res)=>{
         location.href = res.data
+        axios.get(`https://k5c202.p.ssafy.io/od/accounts/gettutor/${this.lecture.tutor}`)
+          .then((response) => {
+            this.tutorname = response
+          })
       })
     }
   }
@@ -151,7 +163,7 @@ main{
   cursor: pointer;
 }
 .lecture-explain {
-  text-align: start;
+  text-align: center;
   line-height: 1.7rem;
   width: 70%;
   max-width: 1000px;
@@ -160,4 +172,5 @@ main{
 div {
   text-align: start;
 }
+
 </style>
