@@ -7,7 +7,7 @@
     4. [Additional Settings](https://www.notion.so/98546b981b95407face09f4bebed1959)
     5. [Build & Deploy](https://www.notion.so/98546b981b95407face09f4bebed1959)
     6. [DB](https://www.notion.so/98546b981b95407face09f4bebed1959)
-    7. [시연 시나리오](https://www.notion.so/98546b981b95407face09f4bebed1959)
+    7. [시연 시나리오]()
 
 ## Built With
 
