@@ -107,15 +107,15 @@ public class Cate_Exercise_PasswordModal : MonoBehaviourPunCallbacks
     {
         if (className == "class door_1")
         {
-            answer = "123";
+            answer = "FREEYOGA";
         }
         else if (className == "class door_2")
         {
-            answer = "456";
+            answer = "9284";
         }
         else if (className == "class door_3")
         {
-            answer = "789";
+            answer = "2798";
         }
 
         if (PasswordInput.text != answer)

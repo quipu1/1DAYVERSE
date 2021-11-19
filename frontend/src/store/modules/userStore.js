@@ -83,11 +83,12 @@ const userStore = {
           })
       })
     },
-    async AUTH_USER({ commit }, userinfo) {
+    async AUTH_USER({ commit, dispatch }, userinfo) {
       return new Promise((resolve, reject) => {
         const AUTH_USER_URL =  ACCOUNT_URL + 'login/'
         axios.post(AUTH_USER_URL, userinfo)
           .then((res) => {
+            dispatch('FETCH_PROFILE', res.data.user.username)
             commit('FETCH_PROFILE', res.data.user)
             localStorage.setItem('username', res.data.user.username)
             resolve()
@@ -109,6 +110,7 @@ const userStore = {
       axios.get(FETCH_PROFILE_URL)
         .then((res) => {
           commit('FETCH_PROFILE', res.data.profile)
+          console.log(res.data)
           commit('FETCH_PROFILE_IMAGE', res.data.character)
           commit('FETCH_LECTURES', res.data.lectures)
         })

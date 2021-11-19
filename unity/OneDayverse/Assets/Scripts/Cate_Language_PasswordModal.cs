@@ -107,15 +107,15 @@ public class Cate_Language_PasswordModal : MonoBehaviourPunCallbacks
     {
         if (className == "class door_1")
         {
-            answer = "123";
+            answer = "JX1UB95G";
         }
         else if (className == "class door_2")
         {
-            answer = "456";
+            answer = "1109";
         }
         else if (className == "class door_3")
         {
-            answer = "789";
+            answer = "4627";
         }
 
         if (PasswordInput.text != answer)
