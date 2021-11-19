@@ -59,3 +59,9 @@ class CharacterlistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Character
         fields = '__all__'
+
+class TutorNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tutor
+        fields = '__all__'
