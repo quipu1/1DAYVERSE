@@ -62,8 +62,16 @@ export default {
     })
     const user_id = this.$store.getters["userStore/getUserId"]
     axios.get(`https://k5c202.p.ssafy.io/od/onedays/check/${user_id}/${this.lecture_id}`)
-    .then((res) => 
+    .then((res) => {
       this.registerable = res.data
+      console.log(this.lecture.tutor)
+      axios.get(`https://k5c202.p.ssafy.io/od/accounts/gettutor/${this.lecture.tutor}`)
+        .then((response) => {
+          console.log(response.data)
+          this.tutorname = response.data
+        })
+        .catch((error) => {console.log(error)})
+      }
     )
     .catch((err) => console.log(err))
   },
@@ -82,10 +90,8 @@ export default {
       return null
     },
     description() {
-      if (this.lecture != "") {
-        return this.lecture.description.replace(/(?:\r\n|\r|\n)/g, '<br />')
-      }
-      return ""
+      return this.lecture.description.replace(/(?:\r\n|\r|\n)/g, '<br />')
+
     },
   },
 
@@ -105,10 +111,6 @@ export default {
       axios.post("https://k5c202.p.ssafy.io/od/payments/ready/", Form)
       .then((res)=>{
         location.href = res.data
-        axios.get(`https://k5c202.p.ssafy.io/od/accounts/gettutor/${this.lecture.tutor}`)
-          .then((response) => {
-            this.tutorname = response
-          })
       })
     }
   }
