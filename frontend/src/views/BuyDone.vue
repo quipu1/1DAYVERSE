@@ -57,7 +57,7 @@ export default {
     Form.append("lecture",this.lecture_id)
     axios.post(`https://k5c202.p.ssafy.io/od/payments/enroll/`, Form)
     .catch((err)=>{
-      console.log(err)
+      console.log(err )
     })
   },
   mounted(){  
@@ -73,7 +73,7 @@ export default {
       this.$router.push({name : "Profile", params : {"username" : this.$store.getters["userStore/getUsername"]}})
     },
     goToUnity(){
-      alert('메타버스로 입장!')
+      alert('메타버스로 입장하기!')
     },
     goToMainPage(){
       this.$router.push({name : "Main"})
