@@ -17,8 +17,8 @@ public class Network : MonoBehaviour
 
     private void Start()
     {
-        // currentUsername = GetUsername();
-        currentUsername = "oxoxo";
+        currentUsername = GetUsername();
+        // currentUsername = "oxoxo";
         
         LobbyTarget = GameObject.Find("LobbySpawnpoint");
     }

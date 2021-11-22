@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-  name : "Class",
+  name : "Lecture",
   props : ["lecture"],
   data(){
     return  {
@@ -38,17 +38,18 @@ export default {
   box-sizing: border-box;
 }
 .image-container{
-  width: 100%;
+  width: 300px;
+  height: 200px;
 }
 .image{
   width: 100%;
+  height: 100%;
 }
 .flex{
   width: 100%;
   display: flex;
   margin: 2.5% 0;
   text-align: start;
-
 }
 
 </style>

@@ -65,21 +65,6 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        // MenuManager.Instance.OpenMenu("room");
-        // roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-
-        // Player[] players = PhotonNetwork.PlayerList;
-        // foreach (Transform child in playerListContent)
-        // {
-        //     Destroy(child.gameObject);
-        // }
-        // for (int i = 0; i < players.Length; i++)
-        // {   
-
-        //     Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
-
-        // } 
-        // startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)

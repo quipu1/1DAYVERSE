@@ -14,7 +14,7 @@
           <div v-else-if="lecture.category===2">[예술]</div>
           <div v-else-if="lecture.category===3">[언어]</div>
           <div style="font-size: 2.5rem"><b>{{lecture.title}}</b></div>
-          <div>강사 : {{tutorname}}</div>
+          <div>강사 : {{lecture.name}}</div>
           <div>모집 인원 : {{lecture.lecture_cnt}} / {{lecture.room_size}}명</div>
           <div>가격 : {{cost}}원</div>
           <div v-if="!err_message && teachable != 1">
@@ -51,7 +51,6 @@ export default {
       cost : "",
       image : image,
       registerable: null,
-      tutorname: "",
     }
   },
   created(){
@@ -65,12 +64,7 @@ export default {
     .then((res) => {
       this.registerable = res.data
       console.log(this.lecture.tutor)
-      axios.get(`https://k5c202.p.ssafy.io/od/accounts/gettutor/${this.lecture.tutor}`)
-        .then((response) => {
-          console.log(response.data)
-          this.tutorname = response.data
-        })
-        .catch((error) => {console.log(error)})
+      
       }
     )
     .catch((err) => console.log(err))
@@ -82,14 +76,17 @@ export default {
     },
     err_message() {
       if (this.registerable == false) {
-        return '이미 등록한 강좌힙니다.'
+        return '이미 등록한 강좌입니다.'
       }
       else if (Number(this.lecture.lecture_cnt) >= Number(this.lecture.room_size)) {
-        return '이미 마감된 강좌힙니다.'
+        return '이미 마감된 강좌입니다.'
       }
       return null
     },
     description() {
+      if(this.lecture.description===""){
+        return "";
+      }
       return this.lecture.description.replace(/(?:\r\n|\r|\n)/g, '<br />')
 
     },
