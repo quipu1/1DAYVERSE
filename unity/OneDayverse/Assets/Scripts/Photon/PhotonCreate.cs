@@ -47,7 +47,9 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
         Debug.Log("로비 접속");
 
         // MenuManager.Instance.OpenMenu("title");
-        PhotonNetwork.NickName = "ox1212";
+        // PhotonNetwork.NickName = "ox1212";
+        PhotonNetwork.NickName = "Player " + Random.Range(0,1000).ToString("0000");
+
         loadingText.SetActive(false);
     }
 
