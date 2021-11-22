@@ -24,7 +24,13 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     }
     // Start is called before the first frame update
     void Start()
-    {   
+    {      
+        if(PhotonNetwork.IsConnected)
+        {   
+            Debug.Log("연결 끊기");
+            PhotonNetwork.Disconnect();
+        }
+        Debug.Log("연결 시도");
         PhotonNetwork.ConnectUsingSettings();
         loadingText = GameObject.Find("Loading");
     }
@@ -33,12 +39,15 @@ public class PhotonCreate : MonoBehaviourPunCallbacks
     {   
         PhotonNetwork.JoinLobby();
         PhotonNetwork.AutomaticallySyncScene = true;
+        Debug.Log("연결 완료");
     }
 
     public override void OnJoinedLobby()
     {   
+        Debug.Log("로비 접속");
+
         // MenuManager.Instance.OpenMenu("title");
-        PhotonNetwork.NickName = "Player " + Random.Range(0,1000).ToString("0000");
+        PhotonNetwork.NickName = "ox1212";
         loadingText.SetActive(false);
     }
 
