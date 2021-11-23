@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using System.Runtime.InteropServices;
 
 public class MyPageSceneControl : MonoBehaviour
 {
@@ -10,7 +12,10 @@ public class MyPageSceneControl : MonoBehaviour
     public Button ShowCharacterBtn;
     public Button ShowPrevSceneBtn;
     public string prevSceneName;
+    string currentUsername;
 
+    [DllImport("__Internal")]
+    private static extern string GetUsername();
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +27,9 @@ public class MyPageSceneControl : MonoBehaviour
 
     public void ShowPrevSceneBtnClick()
     {
-        Debug.Log("preSceneName" + prevSceneName);
-        SceneManager.LoadScene($"{prevSceneName}");
+        currentUsername = GetUsername();
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("Main");
     }
 
     // Update is called once per frame
