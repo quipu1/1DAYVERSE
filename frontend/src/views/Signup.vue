@@ -197,7 +197,7 @@ import axios from "axios"
         form.append('email', this.email)
         form.append('password', this.password)
         form.append('passwordConfirmation', this.password)
-        form.append('character', '')
+        form.append('character', '1')
         form.append('profile_image', '') // 프로필 이미지
         form.append('birth_day', this.birth)
         form.append('phone_number', this.phone)
