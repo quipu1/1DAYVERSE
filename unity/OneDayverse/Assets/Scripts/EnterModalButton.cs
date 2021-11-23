@@ -40,4 +40,16 @@ public class EnterModalButton : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel(4);
     }
+
+    public void LeaveLoungeRoom()
+    {   
+        CateCanvas = GameObject.Find("CateCanvas");
+        Transform LoungeEnterModal = CateCanvas.transform.Find("LoungeEnterModal"); 
+        LoungeEnterModal.gameObject.SetActive(false);
+        PhotonNetwork.LeaveRoom();
+    }
+    public void StartLoungeRoom()
+    {
+        PhotonNetwork.LoadLevel(6);
+    }
 }

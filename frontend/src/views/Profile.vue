@@ -168,6 +168,7 @@ export default {
         var newuser = this.username
         if (info === "name") {
           newuser = new_info
+          localStorage.setItem('username', new_info)
           form.append('username', new_info)
           form.append('birth_day', this.birth)
           form.append('phone_number', this.phone)

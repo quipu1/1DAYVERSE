@@ -17,8 +17,8 @@ public class Cate_Language_ToHall : MonoBehaviour
 
     void Start()
     {
-        // currentUsername = GetUsername();
-        currentUsername = "oxoxo";
+        currentUsername = GetUsername();
+        // currentUsername = "oxoxo";
         Player = GameObject.Find(currentUsername);
         LobbyTarget = GameObject.Find("LobbySpawnpoint");
         if (LoungeButton != null)

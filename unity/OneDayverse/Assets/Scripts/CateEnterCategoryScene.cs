@@ -41,9 +41,11 @@ public class CateEnterCategoryScene : MonoBehaviour
                 }               
                 else if (hit.transform.gameObject.name=="Fountain")
                 {   
+                    Transform LanguageEnterModal = CateCanvas.transform.Find("LoungeEnterModal"); 
+                    LanguageEnterModal.gameObject.SetActive(true);
+                    PhotonNetwork.JoinOrCreateRoom("Lounge", RO, TypedLobby.Default);
                     
-                    PhotonNetwork.JoinRoom("Lounge");
-
+                    
                 }
 
 
