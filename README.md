@@ -74,7 +74,7 @@
     
     - 건물 하이라이팅
     
-    ![image](https://user-images.githubusercontent.com/32251962/142555818-3e9380ea-c313-4bc3-a450-49d1e5fe9dfd.png)
+      ![image](https://user-images.githubusercontent.com/32251962/142960443-33e72ce8-ad4a-4864-9456-4c982b36a01e.png)
 
 2. 캐릭터 선택
    
